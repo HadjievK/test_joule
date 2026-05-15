@@ -1,0 +1,1854 @@
+{
+  "_meta": {
+    "sap.ord/ordId": {
+      "ordId": "customer.mcpbuilder.sf:apiResource:employeeCompensation_MCP:v1"
+    },
+    "sap.mcpbuilder/translation": {
+      "ordId": "customer.mcpbuilder.sf:apiResource:employeeCompensation_MCP:v1"
+    },
+    "sap.ord/originalApiResourceOrdId": "sap.sf:apiResource:employeeCompensation:v1"
+  },
+  "$schema": "https://pages.github.tools.sap/CPA/mcp-protocol/spec-v1/mcp-server-card-spec.schema.json",
+  "remotes": [],
+  "capabilities": {
+    "tools": {},
+    "prompts": {}
+  },
+  "supportedProtocolVersions": [
+    "2025-11-25"
+  ],
+  "name": "sap.mcp/compensation_management",
+  "title": "compensation_management",
+  "version": "1.0.0",
+  "description": "MCP server for the compensation_management service.",
+  "tools": [
+    {
+      "name": "queryEmployeeCompensationEntries",
+      "title": "queryEmployeeCompensationEntries",
+      "description": "Retrieves a list of compensation records from salary, stock, bonus, and variable pay. It checks for permission to read compensation data.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "templateid"
+        ],
+        "properties": {
+          "templateid": {
+            "type": "integer",
+            "description": "Template ID",
+            "example": 100,
+            "format": "int64"
+          },
+          "skip": {
+            "type": "integer",
+            "description": "The number of events to skip before beginning to return events in the response",
+            "example": 200,
+            "format": "int32"
+          },
+          "top": {
+            "type": "integer",
+            "description": "The maximum number of events to return in the response",
+            "example": 25,
+            "format": "int32"
+          },
+          "filter": {
+            "type": "string",
+            "description": "The filter operation (eq and in) for compPlanId, formDataId, location, department, and division",
+            "example": "compPlanId eq 100 and department in ('Enterprises')"
+          },
+          "expand": {
+            "type": "string",
+            "description": "The expand operation for salary, bonus, stock, varpay, commentList, and ratingInfos",
+            "example": "$expand=salary($select=curSalary)"
+          },
+          "select": {
+            "type": "string",
+            "description": "The selection operation for standard and custom fields",
+            "example": "$select=curSalary,customFields/customField1"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "EmployeeCompensationPage",
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "description": "Count of entries",
+                    "example": 10,
+                    "format": "int64",
+                    "title": "count"
+                  },
+                  "value": {
+                    "type": "array",
+                    "description": "Value of entries",
+                    "title": "value",
+                    "items": {
+                      "type": "object",
+                      "title": "EmployeeCompensation",
+                      "properties": {
+                        "compEntryId": {
+                          "type": "integer",
+                          "description": "Compensation entry ID",
+                          "example": 2000,
+                          "format": "int64",
+                          "title": "compEntryId"
+                        },
+                        "compPlanId": {
+                          "type": "integer",
+                          "description": "Compensation plan ID",
+                          "example": 100,
+                          "format": "int64",
+                          "title": "compPlanId"
+                        },
+                        "formDataId": {
+                          "type": "integer",
+                          "description": "Compensation form data ID",
+                          "example": 200,
+                          "format": "int64",
+                          "title": "formDataId"
+                        },
+                        "compTemplateId": {
+                          "type": "integer",
+                          "description": "Compensation template ID",
+                          "example": 500,
+                          "format": "int64",
+                          "title": "compTemplateId"
+                        },
+                        "entryUserId": {
+                          "type": "string",
+                          "description": "Entry user ID",
+                          "example": "user1",
+                          "title": "entryUserId"
+                        },
+                        "entryUserGroupName": {
+                          "type": "string",
+                          "description": "Entry user group name",
+                          "example": "group1",
+                          "title": "entryUserGroupName"
+                        },
+                        "entryUserName": {
+                          "type": "string",
+                          "description": "Entry username",
+                          "example": "adminUser",
+                          "title": "entryUserName"
+                        },
+                        "entryUserFirstName": {
+                          "type": "string",
+                          "description": "Entry user firstname",
+                          "example": "John",
+                          "title": "entryUserFirstName"
+                        },
+                        "entryUserLastName": {
+                          "type": "string",
+                          "description": "Entry user lastname",
+                          "example": "Doe",
+                          "title": "entryUserLastName"
+                        },
+                        "entryUserMiddleName": {
+                          "type": "string",
+                          "description": "Entry user middle name",
+                          "example": "Mike",
+                          "title": "entryUserMiddleName"
+                        },
+                        "revieweeMgrUserId": {
+                          "type": "string",
+                          "description": "Manager user ID",
+                          "example": "jDoe1",
+                          "title": "revieweeMgrUserId"
+                        },
+                        "revieweeMgrUserName": {
+                          "type": "string",
+                          "description": "Manager username",
+                          "example": "jDoe100",
+                          "title": "revieweeMgrUserName"
+                        },
+                        "revieweeMgrUserFirstName": {
+                          "type": "string",
+                          "description": "Manager user firstname",
+                          "example": "John",
+                          "title": "revieweeMgrUserFirstName"
+                        },
+                        "revieweeMgrUserLastName": {
+                          "type": "string",
+                          "description": "Manager user lastname",
+                          "example": "Doe",
+                          "title": "revieweeMgrUserLastName"
+                        },
+                        "revieweeMgrUserMiddleName": {
+                          "type": "string",
+                          "description": "Manager user middle name",
+                          "example": "Mike",
+                          "title": "revieweeMgrUserMiddleName"
+                        },
+                        "department": {
+                          "type": "string",
+                          "description": "Department",
+                          "example": "Engineering",
+                          "title": "department"
+                        },
+                        "division": {
+                          "type": "string",
+                          "description": "Division",
+                          "example": "Human Resource",
+                          "title": "division"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "Location",
+                          "example": "USA",
+                          "title": "location"
+                        },
+                        "localCurrencyCode": {
+                          "type": "string",
+                          "description": "Entry local currency code",
+                          "example": "USD",
+                          "title": "localCurrencyCode"
+                        },
+                        "functionalCurrencyCode": {
+                          "type": "string",
+                          "description": "Template functional currency code",
+                          "example": "EUR",
+                          "title": "functionalCurrencyCode"
+                        },
+                        "isECUser": {
+                          "type": "boolean",
+                          "description": "Indicates if the entry is an Employee Central user",
+                          "example": true,
+                          "title": "isECUser"
+                        },
+                        "isTotalComp": {
+                          "type": "boolean",
+                          "description": "Indicates if the template is a total compensation plan",
+                          "example": true,
+                          "title": "isTotalComp"
+                        },
+                        "salary": {
+                          "type": "object",
+                          "description": "Salary details",
+                          "title": "salary",
+                          "properties": {
+                            "compEntryId": {
+                              "type": "integer",
+                              "description": "Compensation entry ID",
+                              "example": 1000,
+                              "format": "int64",
+                              "title": "compEntryId"
+                            },
+                            "startDate": {
+                              "type": "string",
+                              "description": "Date of current position",
+                              "format": "date-time",
+                              "title": "startDate"
+                            },
+                            "prorating": {
+                              "type": "number",
+                              "description": "Prorating",
+                              "example": 50,
+                              "format": "double",
+                              "title": "prorating"
+                            },
+                            "curSalary": {
+                              "type": "number",
+                              "description": "Current salary",
+                              "example": 10000,
+                              "format": "double",
+                              "title": "curSalary"
+                            },
+                            "curSalaryLocal": {
+                              "type": "number",
+                              "description": "Current salary in local currency",
+                              "example": 10000,
+                              "format": "double",
+                              "title": "curSalaryLocal"
+                            },
+                            "promo": {
+                              "type": "number",
+                              "description": "Promotion",
+                              "example": 500,
+                              "format": "double",
+                              "title": "promo"
+                            },
+                            "merit": {
+                              "type": "number",
+                              "description": "Merit",
+                              "example": 300,
+                              "format": "double",
+                              "title": "merit"
+                            },
+                            "meritTarget": {
+                              "type": "number",
+                              "description": "Merit target",
+                              "example": 200,
+                              "format": "double",
+                              "title": "meritTarget"
+                            },
+                            "extra": {
+                              "type": "number",
+                              "description": "Adjustment",
+                              "example": 100,
+                              "format": "double",
+                              "title": "extra"
+                            },
+                            "extra2": {
+                              "type": "number",
+                              "description": "Adjustment2",
+                              "example": 500,
+                              "format": "double",
+                              "title": "extra2"
+                            },
+                            "raiseProrating": {
+                              "type": "number",
+                              "description": "Total raise prorating",
+                              "example": 1000,
+                              "format": "double",
+                              "title": "raiseProrating"
+                            },
+                            "raise": {
+                              "type": "number",
+                              "description": "Total raise",
+                              "example": 500,
+                              "format": "double",
+                              "title": "raise"
+                            },
+                            "finalSalary": {
+                              "type": "number",
+                              "description": "Final salary",
+                              "example": 20000,
+                              "format": "double",
+                              "title": "finalSalary"
+                            },
+                            "finalSalaryLocal": {
+                              "type": "number",
+                              "description": "Final salary in local currency",
+                              "example": 20000,
+                              "format": "double",
+                              "title": "finalSalaryLocal"
+                            },
+                            "salaryRateLocalCurrency": {
+                              "type": "number",
+                              "description": "Salary rate in local currency",
+                              "example": 10000,
+                              "format": "double",
+                              "title": "salaryRateLocalCurrency"
+                            },
+                            "salaryRatePlanCurrency": {
+                              "type": "number",
+                              "description": "Salary rate in plan currency",
+                              "example": 10000,
+                              "format": "double",
+                              "title": "salaryRatePlanCurrency"
+                            },
+                            "salaryRateUnits": {
+                              "type": "number",
+                              "description": "Units per year",
+                              "example": 50,
+                              "format": "double",
+                              "title": "salaryRateUnits"
+                            },
+                            "salaryRateType": {
+                              "type": "string",
+                              "description": "Salary type",
+                              "example": "ANNUAL",
+                              "title": "salaryRateType"
+                            },
+                            "salaryRateFinal": {
+                              "type": "number",
+                              "description": "Final salary rate",
+                              "example": 5000,
+                              "format": "double",
+                              "title": "salaryRateFinal"
+                            },
+                            "jobLevel": {
+                              "type": "string",
+                              "description": "Job level",
+                              "example": "LEVEL_1",
+                              "title": "jobLevel"
+                            },
+                            "jobTitle": {
+                              "type": "string",
+                              "description": "Title",
+                              "example": "Manager",
+                              "title": "jobTitle"
+                            },
+                            "payGrade": {
+                              "type": "string",
+                              "description": "Current pay grade",
+                              "example": "PG-10",
+                              "title": "payGrade"
+                            },
+                            "finalPayGrade": {
+                              "type": "string",
+                              "description": "Final pay grade",
+                              "example": "PG-20",
+                              "title": "finalPayGrade"
+                            },
+                            "jobFamily": {
+                              "type": "string",
+                              "description": "Current job family",
+                              "example": "Accounting",
+                              "title": "jobFamily"
+                            },
+                            "jobRole": {
+                              "type": "string",
+                              "description": "Current job role",
+                              "example": "Engineer",
+                              "title": "jobRole"
+                            },
+                            "jobCode": {
+                              "type": "string",
+                              "description": "Current job code",
+                              "example": "ENG",
+                              "title": "jobCode"
+                            },
+                            "finalJobFamily": {
+                              "type": "string",
+                              "description": "Final job family",
+                              "example": "Accounting",
+                              "title": "finalJobFamily"
+                            },
+                            "finalJobRole": {
+                              "type": "string",
+                              "description": "Final job role",
+                              "example": "Engineer",
+                              "title": "finalJobRole"
+                            },
+                            "finalJobCode": {
+                              "type": "string",
+                              "description": "Final job code",
+                              "example": "ENG",
+                              "title": "finalJobCode"
+                            },
+                            "comparisonRatio": {
+                              "type": "number",
+                              "description": "Final compa ratio",
+                              "example": 50,
+                              "format": "double",
+                              "title": "comparisonRatio"
+                            },
+                            "rangePenetration": {
+                              "type": "number",
+                              "description": "Final position in range",
+                              "example": 125,
+                              "format": "double",
+                              "title": "rangePenetration"
+                            },
+                            "curComparisonRatio": {
+                              "type": "number",
+                              "description": "Current compa ratio",
+                              "example": 40,
+                              "format": "double",
+                              "title": "curComparisonRatio"
+                            },
+                            "curRangePenetration": {
+                              "type": "number",
+                              "description": "Current position in range",
+                              "example": 130,
+                              "format": "double",
+                              "title": "curRangePenetration"
+                            },
+                            "lumpSum": {
+                              "type": "number",
+                              "description": "Lump sum",
+                              "example": 200,
+                              "format": "double",
+                              "title": "lumpSum"
+                            },
+                            "lumpSumTarget": {
+                              "type": "number",
+                              "description": "Lump sum target",
+                              "example": 500,
+                              "format": "double",
+                              "title": "lumpSumTarget"
+                            },
+                            "lumpSum2": {
+                              "type": "number",
+                              "description": "Lump sum 2",
+                              "example": 1000,
+                              "format": "double",
+                              "title": "lumpSum2"
+                            },
+                            "lumpSum2Target": {
+                              "type": "number",
+                              "description": "Lump sum target 2",
+                              "example": 1000,
+                              "format": "double",
+                              "title": "lumpSum2Target"
+                            },
+                            "totalLumpSum": {
+                              "type": "number",
+                              "description": "Total lump sum",
+                              "example": 1000,
+                              "format": "double",
+                              "title": "totalLumpSum"
+                            },
+                            "totalIncrease": {
+                              "type": "number",
+                              "description": "Total increase",
+                              "example": 1000,
+                              "format": "double",
+                              "title": "totalIncrease"
+                            },
+                            "totalComp": {
+                              "type": "number",
+                              "description": "Total compensation",
+                              "example": 15000,
+                              "format": "double",
+                              "title": "totalComp"
+                            },
+                            "totalCompLocal": {
+                              "type": "number",
+                              "description": "Total compensation in local currency",
+                              "example": 15000,
+                              "format": "double",
+                              "title": "totalCompLocal"
+                            },
+                            "promoDate": {
+                              "type": "string",
+                              "description": "Promotion effective date",
+                              "format": "date-time",
+                              "title": "promoDate"
+                            },
+                            "meritDate": {
+                              "type": "string",
+                              "description": "Merit raise effective date",
+                              "format": "date-time",
+                              "title": "meritDate"
+                            },
+                            "extraDate": {
+                              "type": "string",
+                              "description": "Adjustment effective date",
+                              "format": "date-time",
+                              "title": "extraDate"
+                            },
+                            "extra2Date": {
+                              "type": "string",
+                              "description": "Adjustment2 effective date",
+                              "format": "date-time",
+                              "title": "extra2Date"
+                            },
+                            "lumpsumDate": {
+                              "type": "string",
+                              "description": "Lumpsum effective date",
+                              "format": "date-time",
+                              "title": "lumpsumDate"
+                            },
+                            "lumpsum2Date": {
+                              "type": "string",
+                              "description": "Lumpsum2 effective Date",
+                              "format": "date-time",
+                              "title": "lumpsum2Date"
+                            },
+                            "promoNet": {
+                              "type": "number",
+                              "description": "Promotion cash flow impact",
+                              "example": 100,
+                              "format": "double",
+                              "title": "promoNet"
+                            },
+                            "meritNet": {
+                              "type": "number",
+                              "description": "Merit raise cash flow impact",
+                              "example": 200,
+                              "format": "double",
+                              "title": "meritNet"
+                            },
+                            "extraNet": {
+                              "type": "number",
+                              "description": "Adjustment cash flow impact",
+                              "example": 200,
+                              "format": "double",
+                              "title": "extraNet"
+                            },
+                            "extra2Net": {
+                              "type": "number",
+                              "description": "Adjustment2 cash flow impact",
+                              "example": 200,
+                              "format": "double",
+                              "title": "extra2Net"
+                            },
+                            "proratingStartDate": {
+                              "type": "string",
+                              "description": "Salary prorating start date",
+                              "format": "date-time",
+                              "title": "proratingStartDate"
+                            },
+                            "proratingEndDate": {
+                              "type": "string",
+                              "description": "Salary prorating end date",
+                              "format": "date-time",
+                              "title": "proratingEndDate"
+                            },
+                            "raiseProratingStartDate": {
+                              "type": "string",
+                              "description": "Total raise prorating start date",
+                              "format": "date-time",
+                              "title": "raiseProratingStartDate"
+                            },
+                            "raiseProratingEndDate": {
+                              "type": "string",
+                              "description": "Total raise prorating end date",
+                              "format": "date-time",
+                              "title": "raiseProratingEndDate"
+                            },
+                            "isIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible",
+                              "example": false,
+                              "title": "isIneligible"
+                            },
+                            "isPromoIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible for promotion",
+                              "example": false,
+                              "title": "isPromoIneligible"
+                            },
+                            "isMeritIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible for merit raise",
+                              "example": false,
+                              "title": "isMeritIneligible"
+                            },
+                            "isExtraIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible for adjustment",
+                              "example": false,
+                              "title": "isExtraIneligible"
+                            },
+                            "isExtra2Ineligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible for adjustment2",
+                              "example": true,
+                              "title": "isExtra2Ineligible"
+                            },
+                            "isLumpsumIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible for lump sum",
+                              "example": true,
+                              "title": "isLumpsumIneligible"
+                            },
+                            "isLumpsum2Ineligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible for lump sum2",
+                              "example": true,
+                              "title": "isLumpsum2Ineligible"
+                            },
+                            "payGuideMin": {
+                              "type": "number",
+                              "description": "Current salary range minimum",
+                              "example": 10000,
+                              "format": "double",
+                              "title": "payGuideMin"
+                            },
+                            "payGuideMid": {
+                              "type": "number",
+                              "description": "Current salary range midpoint",
+                              "example": 15000,
+                              "format": "double",
+                              "title": "payGuideMid"
+                            },
+                            "payGuideMax": {
+                              "type": "number",
+                              "description": "Current salary range maximum",
+                              "example": 20000,
+                              "format": "double",
+                              "title": "payGuideMax"
+                            },
+                            "finalPayGuideMin": {
+                              "type": "number",
+                              "description": "Final salary range minimum",
+                              "example": 10000,
+                              "format": "double",
+                              "title": "finalPayGuideMin"
+                            },
+                            "finalPayGuideMid": {
+                              "type": "number",
+                              "description": "Final salary range midpoint",
+                              "example": 15000,
+                              "format": "double",
+                              "title": "finalPayGuideMid"
+                            },
+                            "finalPayGuideMax": {
+                              "type": "number",
+                              "description": "Final salary range maximum",
+                              "example": 20000,
+                              "format": "double",
+                              "title": "finalPayGuideMax"
+                            },
+                            "promoGuideline": {
+                              "type": "object",
+                              "description": "Promotion guideline",
+                              "title": "promoGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "meritGuideline": {
+                              "type": "object",
+                              "description": "Merit guideline",
+                              "title": "meritGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "extraGuideline": {
+                              "type": "object",
+                              "description": "Adjustment guideline",
+                              "title": "extraGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "extra2Guideline": {
+                              "type": "object",
+                              "description": "Adjustment2 guideline",
+                              "title": "extra2Guideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "lumpSumGuideline": {
+                              "type": "object",
+                              "description": "Lump sum guideline",
+                              "title": "lumpSumGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "lumpSum2Guideline": {
+                              "type": "object",
+                              "description": "Lump sum2 guideline",
+                              "title": "lumpSum2Guideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "salaryNotes": {
+                              "type": "string",
+                              "description": "Salary notes",
+                              "example": "This is a salary note.",
+                              "title": "salaryNotes"
+                            },
+                            "customFields": {
+                              "type": "object",
+                              "description": "Reportable custom fields in salary tab",
+                              "example": "customSalary",
+                              "title": "customFields",
+                              "additionalProperties": {
+                                "type": "object",
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "format": "int64"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "format": "date"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "compEntryId"
+                          ]
+                        },
+                        "stock": {
+                          "type": "object",
+                          "description": "Stock details",
+                          "title": "stock",
+                          "properties": {
+                            "compEntryId": {
+                              "type": "integer",
+                              "description": "Compensation entry ID",
+                              "example": 1000,
+                              "format": "int64",
+                              "title": "compEntryId"
+                            },
+                            "stock": {
+                              "type": "number",
+                              "description": "Stock",
+                              "example": 100,
+                              "format": "double",
+                              "title": "stock"
+                            },
+                            "grantDate": {
+                              "type": "string",
+                              "description": "Date of grant",
+                              "format": "date-time",
+                              "title": "grantDate"
+                            },
+                            "option": {
+                              "type": "number",
+                              "description": "Options",
+                              "example": 100,
+                              "format": "double",
+                              "title": "option"
+                            },
+                            "units": {
+                              "type": "number",
+                              "description": "Units",
+                              "example": 20,
+                              "format": "double",
+                              "title": "units"
+                            },
+                            "other1": {
+                              "type": "number",
+                              "description": "Other1",
+                              "example": 15,
+                              "format": "double",
+                              "title": "other1"
+                            },
+                            "other2": {
+                              "type": "number",
+                              "description": "Other2",
+                              "example": 20,
+                              "format": "double",
+                              "title": "other2"
+                            },
+                            "other3": {
+                              "type": "number",
+                              "description": "Other3",
+                              "example": 25,
+                              "format": "double",
+                              "title": "other3"
+                            },
+                            "isIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible",
+                              "example": false,
+                              "title": "isIneligible"
+                            },
+                            "optionGuideline": {
+                              "type": "object",
+                              "description": "Options guideline",
+                              "title": "optionGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "stockGuideline": {
+                              "type": "object",
+                              "description": "Stock guideline",
+                              "title": "stockGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "unitsGuideline": {
+                              "type": "object",
+                              "description": "Units guideline",
+                              "title": "unitsGuideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "other1Guideline": {
+                              "type": "object",
+                              "description": "Other1 guideline",
+                              "title": "other1Guideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "other2Guideline": {
+                              "type": "object",
+                              "description": "Other2 guideline",
+                              "title": "other2Guideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "other3Guideline": {
+                              "type": "object",
+                              "description": "Other3 guideline",
+                              "title": "other3Guideline",
+                              "properties": {
+                                "useAmt": {
+                                  "type": "boolean",
+                                  "description": "Indicates if the guideline uses amount",
+                                  "example": true,
+                                  "title": "useAmt"
+                                },
+                                "min": {
+                                  "type": "number",
+                                  "description": "Minimum",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "min"
+                                },
+                                "mid": {
+                                  "type": "number",
+                                  "description": "Midpoint",
+                                  "example": 200,
+                                  "format": "double",
+                                  "title": "mid"
+                                },
+                                "max": {
+                                  "type": "number",
+                                  "description": "Maximum",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "max"
+                                },
+                                "low": {
+                                  "type": "number",
+                                  "description": "Low",
+                                  "example": 100,
+                                  "format": "double",
+                                  "title": "low"
+                                },
+                                "high": {
+                                  "type": "number",
+                                  "description": "High",
+                                  "example": 300,
+                                  "format": "double",
+                                  "title": "high"
+                                },
+                                "formattedString": {
+                                  "type": "string",
+                                  "description": "Formatted guideline information",
+                                  "example": "$0-$54,321",
+                                  "title": "formattedString"
+                                }
+                              }
+                            },
+                            "stockNotes": {
+                              "type": "string",
+                              "description": "Stock notes",
+                              "example": "This is a stock note.",
+                              "title": "stockNotes"
+                            },
+                            "customFields": {
+                              "type": "object",
+                              "description": "Reportable custom fields in stock tab",
+                              "example": "customStock",
+                              "title": "customFields",
+                              "additionalProperties": {
+                                "type": "object",
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "format": "int64"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "format": "date"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "compEntryId"
+                          ]
+                        },
+                        "bonus": {
+                          "type": "object",
+                          "description": "Bonus details",
+                          "title": "bonus",
+                          "properties": {
+                            "compEntryId": {
+                              "type": "integer",
+                              "description": "Compensation entry ID",
+                              "example": 1000,
+                              "format": "int64",
+                              "title": "compEntryId"
+                            },
+                            "target": {
+                              "type": "number",
+                              "description": "Target",
+                              "example": 100,
+                              "format": "double",
+                              "title": "target"
+                            },
+                            "extraPercent": {
+                              "type": "number",
+                              "description": "User modifier percent",
+                              "example": 50,
+                              "format": "double",
+                              "title": "extraPercent"
+                            },
+                            "extra": {
+                              "type": "number",
+                              "description": "Adjustment",
+                              "example": 30,
+                              "format": "double",
+                              "title": "extra"
+                            },
+                            "total": {
+                              "type": "number",
+                              "description": "Total",
+                              "example": 50,
+                              "format": "double",
+                              "title": "total"
+                            },
+                            "isIneligible": {
+                              "type": "boolean",
+                              "description": "Indicates if the entry is ineligible",
+                              "example": false,
+                              "title": "isIneligible"
+                            },
+                            "bonusNotes": {
+                              "type": "string",
+                              "description": "Bonus notes",
+                              "example": "This is a bonus note.",
+                              "title": "bonusNotes"
+                            },
+                            "customFields": {
+                              "type": "object",
+                              "description": "Reportable custom fields in bonus tab",
+                              "example": "customBonusAmount",
+                              "title": "customFields",
+                              "additionalProperties": {
+                                "type": "object",
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "format": "int64"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "format": "date"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "compEntryId"
+                          ]
+                        },
+                        "varpay": {
+                          "type": "object",
+                          "description": "Variable pay details",
+                          "title": "varpay",
+                          "properties": {
+                            "compEntryId": {
+                              "type": "integer",
+                              "description": "Compensation entry ID",
+                              "example": 1000,
+                              "format": "int64",
+                              "title": "compEntryId"
+                            },
+                            "performancePer": {
+                              "type": "number",
+                              "description": "Ind percent",
+                              "example": 50,
+                              "format": "double",
+                              "title": "performancePer"
+                            },
+                            "teamPerformancePer": {
+                              "type": "number",
+                              "description": "Team percent",
+                              "example": 50,
+                              "format": "double",
+                              "title": "teamPerformancePer"
+                            },
+                            "varpayTeamRating": {
+                              "type": "number",
+                              "description": "Team rating",
+                              "example": 3,
+                              "format": "double",
+                              "title": "varpayTeamRating"
+                            },
+                            "varpayIndividualRating": {
+                              "type": "number",
+                              "description": "Ind rating",
+                              "example": 4,
+                              "format": "double",
+                              "title": "varpayIndividualRating"
+                            },
+                            "overwriteAmt": {
+                              "type": "number",
+                              "description": "Override",
+                              "example": 4000,
+                              "format": "double",
+                              "title": "overwriteAmt"
+                            },
+                            "overwriteDesc": {
+                              "type": "string",
+                              "description": "Override description",
+                              "example": "This is an override description.",
+                              "title": "overwriteDesc"
+                            },
+                            "overwriteLastModified": {
+                              "type": "string",
+                              "description": "Last modified date of override",
+                              "format": "date-time",
+                              "title": "overwriteLastModified"
+                            },
+                            "notes": {
+                              "type": "string",
+                              "description": "Variable pay notes",
+                              "example": "This is a note.",
+                              "title": "notes"
+                            },
+                            "teamPayoutAmt": {
+                              "type": "number",
+                              "description": "Team amt",
+                              "example": 5000,
+                              "format": "double",
+                              "title": "teamPayoutAmt"
+                            },
+                            "finalForecastPayoutAmt": {
+                              "type": "number",
+                              "description": "Forecast amt",
+                              "example": 5000,
+                              "format": "double",
+                              "title": "finalForecastPayoutAmt"
+                            },
+                            "finalForecast2PayoutAmt": {
+                              "type": "number",
+                              "description": "Total",
+                              "example": 5000,
+                              "format": "double",
+                              "title": "finalForecast2PayoutAmt"
+                            },
+                            "finalPayoutAmt": {
+                              "type": "number",
+                              "description": "Final payout",
+                              "example": 5000,
+                              "format": "double",
+                              "title": "finalPayoutAmt"
+                            },
+                            "customFields": {
+                              "type": "object",
+                              "description": "Reportable custom fields in variable pay tab",
+                              "example": "customPayout",
+                              "title": "customFields",
+                              "additionalProperties": {
+                                "type": "object",
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "format": "int64"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "format": "date"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "compEntryId"
+                          ]
+                        },
+                        "ratingInfos": {
+                          "type": "array",
+                          "description": "Rating information",
+                          "title": "ratingInfos",
+                          "items": {
+                            "type": "object",
+                            "title": "RatingInformation",
+                            "properties": {
+                              "compEntryId": {
+                                "type": "integer",
+                                "description": "Compensation entry ID",
+                                "example": 2000,
+                                "format": "int64",
+                                "title": "compEntryId"
+                              },
+                              "ratingSource": {
+                                "type": "string",
+                                "description": "Rating source",
+                                "enum": [
+                                  "PM",
+                                  "EmployeeProfile"
+                                ],
+                                "example": "PM",
+                                "title": "ratingSource"
+                              },
+                              "ratingType": {
+                                "type": "string",
+                                "description": "Rating type",
+                                "example": "bonus",
+                                "title": "ratingType"
+                              },
+                              "rating": {
+                                "type": "number",
+                                "description": "Rating",
+                                "example": 1,
+                                "format": "double",
+                                "title": "rating"
+                              },
+                              "ratingDesc": {
+                                "type": "string",
+                                "description": "Rating description",
+                                "example": "Meet Expectation",
+                                "title": "ratingDesc"
+                              },
+                              "compRating": {
+                                "type": "number",
+                                "description": "Comp rating",
+                                "example": 2,
+                                "format": "double",
+                                "title": "compRating"
+                              },
+                              "pmFormTemplateId": {
+                                "type": "integer",
+                                "description": "Performance form template ID",
+                                "example": 100,
+                                "format": "int64",
+                                "title": "pmFormTemplateId"
+                              },
+                              "pmFormDataId": {
+                                "type": "integer",
+                                "description": "Performance form data ID",
+                                "example": 200,
+                                "format": "int64",
+                                "title": "pmFormDataId"
+                              },
+                              "feedbackId": {
+                                "type": "integer",
+                                "description": "Feedback ID",
+                                "example": 300,
+                                "format": "int64",
+                                "title": "feedbackId"
+                              }
+                            }
+                          }
+                        },
+                        "commentList": {
+                          "type": "array",
+                          "description": "Force comments",
+                          "title": "commentList",
+                          "items": {
+                            "type": "object",
+                            "title": "ForceComment",
+                            "properties": {
+                              "compCommentId": {
+                                "type": "integer",
+                                "description": "Force comment ID",
+                                "example": 100,
+                                "format": "int64",
+                                "title": "compCommentId"
+                              },
+                              "compEntryId": {
+                                "type": "integer",
+                                "description": "Compensation entry ID",
+                                "example": 2000,
+                                "format": "int64",
+                                "title": "compEntryId"
+                              },
+                              "compCommentType": {
+                                "type": "integer",
+                                "description": "Force comment type",
+                                "example": 1,
+                                "format": "int32",
+                                "title": "compCommentType"
+                              },
+                              "compCommentField": {
+                                "type": "string",
+                                "description": "Force comment field",
+                                "example": "meritComment",
+                                "title": "compCommentField"
+                              },
+                              "compCommentComment": {
+                                "type": "string",
+                                "description": "Force comment content",
+                                "example": "This is a comment.",
+                                "title": "compCommentComment"
+                              },
+                              "createdDate": {
+                                "type": "string",
+                                "description": "Created date of force comment",
+                                "format": "date-time",
+                                "title": "createdDate"
+                              },
+                              "createdBy": {
+                                "type": "string",
+                                "description": "Author of force comment",
+                                "example": "admin",
+                                "title": "createdBy"
+                              },
+                              "lastModified": {
+                                "type": "string",
+                                "description": "Last modified date of force comment",
+                                "format": "date-time",
+                                "title": "lastModified"
+                              },
+                              "lastModifiedBy": {
+                                "type": "string",
+                                "description": "Author of the last modification on force comment",
+                                "example": "admin",
+                                "title": "lastModifiedBy"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "compEntryId",
+                        "compPlanId",
+                        "formDataId"
+                      ]
+                    }
+                  }
+                },
+                "description": "It indicates that the request is successful. (HTTP 200)"
+              },
+              {
+                "type": "string",
+                "title": "Bad Request",
+                "description": "It indicates that the server cannot process the request due to something that is perceived to be a client error. For example, templateId is not valid. (HTTP 400)"
+              },
+              {
+                "type": "string",
+                "title": "Forbidden",
+                "description": "It indicates that the server cannot process the request as the user does not have the required permission to access the resource. (HTTP 403)"
+              },
+              {
+                "type": "string",
+                "title": "Not Found",
+                "description": "It indicates that the server has not found anything matching the request URI or the requested resource doesn't exist. (HTTP 404)"
+              },
+              {
+                "type": "string",
+                "title": "Server Unavailable",
+                "description": "It indicates that the server is not responding. (HTTP 503)"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

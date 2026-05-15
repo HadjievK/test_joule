@@ -1,0 +1,3972 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Statutory Reporting Task",
+    "version": "1.0.1",
+    "description": "The service contains entities that represent the actions you can complete with this API. Each entity contained in this service is named after an action of Document and Reporting Compliance Task.\r\n- Task â Manage an Ad hoc task for the specified report.\r\n- Phase â Manage phases for the specified report.\r\n- Activity â Manage the activities for the specified report.\r\n- Run â Manage runs for the specified report.\r\n- RunParameter â Check the Run parameters used for the specified report."
+  },
+  "externalDocs": {
+    "description": "Business Documentation",
+    "url": "https://help.sap.com/http.svc/ahp2/SAP_S4HANA_CLOUD_PE/2025.001/EN/50/1c37a3212d406a96f446139ac86e4b/frameset.htm"
+  },
+  "x-sap-api-type": "ODATAV4",
+  "x-sap-shortText": "Generate statutory reports for Brazil using this synchronous inbound service",
+  "x-sap-software-min-version": "2025",
+  "x-sap-ext-overview": [
+    {
+      "name": "Authentication Methods",
+      "values": [
+        {
+          "text": "x509",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "name": "Service Group Name",
+      "values": [
+        {
+          "text": "API_STATUTORYREPORTINGTASK",
+          "format": "plain"
+        }
+      ]
+    },
+    {
+      "name": "Business Object",
+      "values": [
+        {
+          "text": "Statutory Reporting Task",
+          "format": "plain"
+        }
+      ]
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://{host}:{port}/sap/opu/odata4/sap/api_statutoryreportingtask/srvd_a2x/sap/statutoryreportingtask/0001",
+      "variables": {
+        "host": {
+          "default": ""
+        },
+        "port": {
+          "default": ""
+        }
+      }
+    }
+  ],
+  "x-sap-extensible": {
+    "supported": "no"
+  },
+  "tags": [
+    {
+      "name": "Statutory Reporting Activity"
+    },
+    {
+      "name": "Statutory Reporting Phase"
+    },
+    {
+      "name": "Statutory Reporting Run"
+    },
+    {
+      "name": "Statutory Reporting Run Parameters"
+    },
+    {
+      "name": "Statutory Reporting Task"
+    }
+  ],
+  "paths": {
+    "/Activity": {
+      "get": {
+        "summary": "Get entities from Activity",
+        "tags": [
+          "Statutory Reporting Activity"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptActivityUUID",
+                  "StatryRptActivityUUID desc",
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptActivityId",
+                  "StatryRptActivityId desc",
+                  "StatryRptActivityType",
+                  "StatryRptActivityType desc",
+                  "StatryRptActivityPhase",
+                  "StatryRptActivityPhase desc",
+                  "StatryRptActivityStatus",
+                  "StatryRptActivityStatus desc",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskDueDate desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptActivityId",
+                  "StatryRptActivityType",
+                  "StatryRptActivityPhase",
+                  "StatryRptActivityStatus",
+                  "StatryRptTaskDueDate",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Activity_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Activity/{StatryRptActivityUUID}": {
+      "parameters": [
+        {
+          "name": "StatryRptActivityUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entity from Activity by key",
+        "tags": [
+          "Statutory Reporting Activity"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptActivityId",
+                  "StatryRptActivityType",
+                  "StatryRptActivityPhase",
+                  "StatryRptActivityStatus",
+                  "StatryRptTaskDueDate",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Activity/{StatryRptActivityUUID}/SAP__self.SkipStatryRptActivity": {
+      "post": {
+        "summary": "Invoke action SkipStatryRptActivity",
+        "tags": [
+          "Statutory Reporting Activity"
+        ],
+        "parameters": [
+          {
+            "name": "StatryRptActivityUUID",
+            "in": "path",
+            "required": true,
+            "description": "NodeID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "01234567-89ab-cdef-0123-456789abcdef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Activity/{StatryRptActivityUUID}/_Phase": {
+      "parameters": [
+        {
+          "name": "StatryRptActivityUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Phase",
+        "tags": [
+          "Statutory Reporting Activity",
+          "Statutory Reporting Phase"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptCatPhase",
+                  "StatryRptDueDate",
+                  "StatryRptPhaseStatus",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Activity/{StatryRptActivityUUID}/_Run": {
+      "parameters": [
+        {
+          "name": "StatryRptActivityUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entities from related _Run",
+        "tags": [
+          "Statutory Reporting Activity",
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunUUID",
+                  "StatryRptRunUUID desc",
+                  "StatryRptActivityUUID",
+                  "StatryRptActivityUUID desc",
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptRunID",
+                  "StatryRptRunID desc",
+                  "StatryRptRunStatus",
+                  "StatryRptRunStatus desc",
+                  "StatryRptRunType",
+                  "StatryRptRunType desc",
+                  "StatryRptSubmittedDateTime",
+                  "StatryRptSubmittedDateTime desc",
+                  "StatryRptCatPhase",
+                  "StatryRptCatPhase desc",
+                  "StatryRptDef",
+                  "StatryRptDef desc",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodStartDate desc",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskPeriodEndDate desc",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskDueDate desc",
+                  "ReportingYear",
+                  "ReportingYear desc",
+                  "ApplicationJobName",
+                  "ApplicationJobName desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunID",
+                  "StatryRptRunStatus",
+                  "StatryRptRunType",
+                  "StatryRptSubmittedDateTime",
+                  "StatryRptCatPhase",
+                  "StatryRptDef",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskDueDate",
+                  "ReportingYear",
+                  "ApplicationJobName",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_RunParameter",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Run_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to related _Run",
+        "tags": [
+          "Statutory Reporting Activity",
+          "Statutory Reporting Run"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Activity/{StatryRptActivityUUID}/_Task": {
+      "parameters": [
+        {
+          "name": "StatryRptActivityUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Task",
+        "tags": [
+          "Statutory Reporting Activity",
+          "Statutory Reporting Task"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "Country",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "ReportingYear",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Phase": {
+      "get": {
+        "summary": "Get entities from Phase",
+        "tags": [
+          "Statutory Reporting Phase"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptCatPhase",
+                  "StatryRptCatPhase desc",
+                  "StatryRptDueDate",
+                  "StatryRptDueDate desc",
+                  "StatryRptPhaseStatus",
+                  "StatryRptPhaseStatus desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptCatPhase",
+                  "StatryRptDueDate",
+                  "StatryRptPhaseStatus",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Phase_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to Phase",
+        "tags": [
+          "Statutory Reporting Phase"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Phase/{StatryRptPhaseUUID}": {
+      "parameters": [
+        {
+          "name": "StatryRptPhaseUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entity from Phase by key",
+        "tags": [
+          "Statutory Reporting Phase"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptCatPhase",
+                  "StatryRptDueDate",
+                  "StatryRptPhaseStatus",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Phase/{StatryRptPhaseUUID}/SAP__self.SkipStatryRptPhase": {
+      "post": {
+        "summary": "Invoke action SkipStatryRptPhase",
+        "tags": [
+          "Statutory Reporting Phase"
+        ],
+        "parameters": [
+          {
+            "name": "StatryRptPhaseUUID",
+            "in": "path",
+            "required": true,
+            "description": "NodeID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "01234567-89ab-cdef-0123-456789abcdef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Phase/{StatryRptPhaseUUID}/_Activity": {
+      "parameters": [
+        {
+          "name": "StatryRptPhaseUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entities from related _Activity",
+        "tags": [
+          "Statutory Reporting Phase",
+          "Statutory Reporting Activity"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptActivityUUID",
+                  "StatryRptActivityUUID desc",
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptActivityId",
+                  "StatryRptActivityId desc",
+                  "StatryRptActivityType",
+                  "StatryRptActivityType desc",
+                  "StatryRptActivityPhase",
+                  "StatryRptActivityPhase desc",
+                  "StatryRptActivityStatus",
+                  "StatryRptActivityStatus desc",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskDueDate desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptActivityId",
+                  "StatryRptActivityType",
+                  "StatryRptActivityPhase",
+                  "StatryRptActivityStatus",
+                  "StatryRptTaskDueDate",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Activity_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Phase/{StatryRptPhaseUUID}/_Task": {
+      "parameters": [
+        {
+          "name": "StatryRptPhaseUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Task",
+        "tags": [
+          "Statutory Reporting Phase",
+          "Statutory Reporting Task"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "Country",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "ReportingYear",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run": {
+      "get": {
+        "summary": "Get entities from Run",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunUUID",
+                  "StatryRptRunUUID desc",
+                  "StatryRptActivityUUID",
+                  "StatryRptActivityUUID desc",
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptRunID",
+                  "StatryRptRunID desc",
+                  "StatryRptRunStatus",
+                  "StatryRptRunStatus desc",
+                  "StatryRptRunType",
+                  "StatryRptRunType desc",
+                  "StatryRptSubmittedDateTime",
+                  "StatryRptSubmittedDateTime desc",
+                  "StatryRptCatPhase",
+                  "StatryRptCatPhase desc",
+                  "StatryRptDef",
+                  "StatryRptDef desc",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodStartDate desc",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskPeriodEndDate desc",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskDueDate desc",
+                  "ReportingYear",
+                  "ReportingYear desc",
+                  "ApplicationJobName",
+                  "ApplicationJobName desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunID",
+                  "StatryRptRunStatus",
+                  "StatryRptRunType",
+                  "StatryRptSubmittedDateTime",
+                  "StatryRptCatPhase",
+                  "StatryRptDef",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskDueDate",
+                  "ReportingYear",
+                  "ApplicationJobName",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_RunParameter",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Run_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to Run",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}": {
+      "parameters": [
+        {
+          "name": "StatryRptRunUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entity from Run by key",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunID",
+                  "StatryRptRunStatus",
+                  "StatryRptRunType",
+                  "StatryRptSubmittedDateTime",
+                  "StatryRptCatPhase",
+                  "StatryRptDef",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskDueDate",
+                  "ReportingYear",
+                  "ApplicationJobName",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_RunParameter",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/SAP__self.SubmitStatryRptToGovernment": {
+      "post": {
+        "summary": "Invoke action SubmitStatryRptToGovernment",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "name": "StatryRptRunUUID",
+            "in": "path",
+            "required": true,
+            "description": "NodeID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "01234567-89ab-cdef-0123-456789abcdef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/SAP__self.SetStatryRptStatusToDeclined": {
+      "post": {
+        "summary": "Invoke action SetStatryRptStatusToDeclined",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "name": "StatryRptRunUUID",
+            "in": "path",
+            "required": true,
+            "description": "NodeID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "01234567-89ab-cdef-0123-456789abcdef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/SAP__self.SetStatryRptStatusToAccepted": {
+      "post": {
+        "summary": "Invoke action SetStatryRptStatusToAccepted",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "name": "StatryRptRunUUID",
+            "in": "path",
+            "required": true,
+            "description": "NodeID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "01234567-89ab-cdef-0123-456789abcdef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/SAP__self.SetStatryRptStatusToSubmitted": {
+      "post": {
+        "summary": "Invoke action SetStatryRptStatusToSubmitted",
+        "tags": [
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "name": "StatryRptRunUUID",
+            "in": "path",
+            "required": true,
+            "description": "NodeID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "01234567-89ab-cdef-0123-456789abcdef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/_Activity": {
+      "parameters": [
+        {
+          "name": "StatryRptRunUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Activity",
+        "tags": [
+          "Statutory Reporting Run",
+          "Statutory Reporting Activity"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptActivityId",
+                  "StatryRptActivityType",
+                  "StatryRptActivityPhase",
+                  "StatryRptActivityStatus",
+                  "StatryRptTaskDueDate",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/_RunParameter": {
+      "parameters": [
+        {
+          "name": "StatryRptRunUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entities from related _RunParameter",
+        "tags": [
+          "Statutory Reporting Run",
+          "Statutory Reporting Run Parameters"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunParamUUID",
+                  "StatryRptRunParamUUID desc",
+                  "StatryRptRunUUID",
+                  "StatryRptRunUUID desc",
+                  "StatryRptActivityUUID",
+                  "StatryRptActivityUUID desc",
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptRunParamID",
+                  "StatryRptRunParamID desc",
+                  "StatryRptRunParamRngeSign",
+                  "StatryRptRunParamRngeSign desc",
+                  "StatryRptRunParamRngeOption",
+                  "StatryRptRunParamRngeOption desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunParamUUID",
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunParamID",
+                  "StatryRptRunParamRngeSign",
+                  "StatryRptRunParamRngeOption",
+                  "StatryRptRunParamRngeLowValue",
+                  "StatryRptRunParamRngeHighValue"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of RunParameter_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to related _RunParameter",
+        "tags": [
+          "Statutory Reporting Run",
+          "Statutory Reporting Run Parameters"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Run/{StatryRptRunUUID}/_Task": {
+      "parameters": [
+        {
+          "name": "StatryRptRunUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Task",
+        "tags": [
+          "Statutory Reporting Run",
+          "Statutory Reporting Task"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "Country",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "ReportingYear",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/RunParameter": {
+      "get": {
+        "summary": "Get entities from RunParameter",
+        "tags": [
+          "Statutory Reporting Run Parameters"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunParamUUID",
+                  "StatryRptRunParamUUID desc",
+                  "StatryRptRunUUID",
+                  "StatryRptRunUUID desc",
+                  "StatryRptActivityUUID",
+                  "StatryRptActivityUUID desc",
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptRunParamID",
+                  "StatryRptRunParamID desc",
+                  "StatryRptRunParamRngeSign",
+                  "StatryRptRunParamRngeSign desc",
+                  "StatryRptRunParamRngeOption",
+                  "StatryRptRunParamRngeOption desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunParamUUID",
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunParamID",
+                  "StatryRptRunParamRngeSign",
+                  "StatryRptRunParamRngeOption",
+                  "StatryRptRunParamRngeLowValue",
+                  "StatryRptRunParamRngeHighValue"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of RunParameter_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/RunParameter/{StatryRptRunParamUUID}": {
+      "parameters": [
+        {
+          "name": "StatryRptRunParamUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entity from RunParameter by key",
+        "tags": [
+          "Statutory Reporting Run Parameters"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunParamUUID",
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunParamID",
+                  "StatryRptRunParamRngeSign",
+                  "StatryRptRunParamRngeOption",
+                  "StatryRptRunParamRngeLowValue",
+                  "StatryRptRunParamRngeHighValue"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Run",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/RunParameter/{StatryRptRunParamUUID}/_Run": {
+      "parameters": [
+        {
+          "name": "StatryRptRunParamUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Run",
+        "tags": [
+          "Statutory Reporting Run Parameters",
+          "Statutory Reporting Run"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptRunUUID",
+                  "StatryRptActivityUUID",
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptRunID",
+                  "StatryRptRunStatus",
+                  "StatryRptRunType",
+                  "StatryRptSubmittedDateTime",
+                  "StatryRptCatPhase",
+                  "StatryRptDef",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskDueDate",
+                  "ReportingYear",
+                  "ApplicationJobName",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_RunParameter",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/RunParameter/{StatryRptRunParamUUID}/_Task": {
+      "parameters": [
+        {
+          "name": "StatryRptRunParamUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get related _Task",
+        "tags": [
+          "Statutory Reporting Run Parameters",
+          "Statutory Reporting Task"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "Country",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "ReportingYear",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Task": {
+      "get": {
+        "summary": "Get entities from Task",
+        "tags": [
+          "Statutory Reporting Task"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "Country",
+                  "Country desc",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskStatus desc",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskDueDate desc",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodStartDate desc",
+                  "StatryRptTaskPeriodEndDate",
+                  "StatryRptTaskPeriodEndDate desc",
+                  "ReportingYear",
+                  "ReportingYear desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "Country",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "ReportingYear",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Task_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to Task",
+        "tags": [
+          "Statutory Reporting Task"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Task/{StatryRptTaskUUID}": {
+      "parameters": [
+        {
+          "name": "StatryRptTaskUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entity from Task by key",
+        "tags": [
+          "Statutory Reporting Task"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "Country",
+                  "StatryRptTaskStatus",
+                  "StatryRptTaskDueDate",
+                  "StatryRptTaskPeriodStartDate",
+                  "StatryRptTaskPeriodEndDate",
+                  "ReportingYear",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Phase"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete entity from Task",
+        "tags": [
+          "Statutory Reporting Task"
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Task/{StatryRptTaskUUID}/_Phase": {
+      "parameters": [
+        {
+          "name": "StatryRptTaskUUID",
+          "in": "path",
+          "required": true,
+          "description": "NodeID",
+          "schema": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get entities from related _Phase",
+        "tags": [
+          "Statutory Reporting Task",
+          "Statutory Reporting Phase"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptPhaseUUID",
+                  "StatryRptPhaseUUID desc",
+                  "StatryRptTaskUUID",
+                  "StatryRptTaskUUID desc",
+                  "StatryRptgEntity",
+                  "StatryRptgEntity desc",
+                  "StatryRptCategory",
+                  "StatryRptCategory desc",
+                  "StatryRptCatPhase",
+                  "StatryRptCatPhase desc",
+                  "StatryRptDueDate",
+                  "StatryRptDueDate desc",
+                  "StatryRptPhaseStatus",
+                  "StatryRptPhaseStatus desc",
+                  "SAP__Messages",
+                  "SAP__Messages desc"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "StatryRptPhaseUUID",
+                  "StatryRptTaskUUID",
+                  "StatryRptgEntity",
+                  "StatryRptCategory",
+                  "StatryRptCatPhase",
+                  "StatryRptDueDate",
+                  "StatryRptPhaseStatus",
+                  "SAP__Messages"
+                ]
+              }
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "_Activity",
+                  "_Task"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of Phase_Type",
+                  "type": "object",
+                  "properties": {
+                    "@odata.count": {
+                      "$ref": "#/components/schemas/count"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to related _Phase",
+        "tags": [
+          "Statutory Reporting Task",
+          "Statutory Reporting Phase"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/$batch": {
+      "post": {
+        "summary": "Send a group of requests",
+        "description": "Group multiple requests into a single request payload, see [Batch Requests](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_BatchRequests).\n\n*Please note that \"Try it out\" is not supported for this request.*",
+        "tags": [
+          "Batch Requests"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Batch request",
+          "content": {
+            "multipart/mixed;boundary=request-separator": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "--request-separator\nContent-Type: application/http\nContent-Transfer-Encoding: binary\n\nGET Activity HTTP/1.1\nAccept: application/json\n\n\n--request-separator--"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch response",
+            "content": {
+              "multipart/mixed": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "--response-separator\nContent-Type: application/http\n\nHTTP/1.1 200 OK\nContent-Type: application/json\n\n{...}\n--response-separator--"
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type": {
+        "type": "object",
+        "properties": {
+          "StatryRptTaskUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "Country": {
+            "type": "string",
+            "maxLength": 3,
+            "title": "Country/Region Key"
+          },
+          "StatryRptTaskStatus": {
+            "type": "string",
+            "maxLength": 3,
+            "title": "Report Status",
+            "description": "Overall Report Status"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "StatryRptTaskPeriodStartDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Start Date",
+            "description": "Reporting Period Start Date"
+          },
+          "StatryRptTaskPeriodEndDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "End Date",
+            "description": "Reporting Period End Date"
+          },
+          "ReportingYear": {
+            "type": "string",
+            "maxLength": 4,
+            "title": "Reporting Year"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message"
+            }
+          },
+          "_Phase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+            }
+          }
+        },
+        "title": "Statutory Reporting Task"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-create": {
+        "type": "object",
+        "properties": {
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "Country": {
+            "type": "string",
+            "maxLength": 3,
+            "title": "Country/Region Key"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "StatryRptTaskPeriodStartDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Start Date",
+            "description": "Reporting Period Start Date"
+          },
+          "StatryRptTaskPeriodEndDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "End Date",
+            "description": "Reporting Period End Date"
+          },
+          "ReportingYear": {
+            "type": "string",
+            "maxLength": 4,
+            "title": "Reporting Year"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-create"
+            }
+          },
+          "_Phase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type-create"
+            }
+          }
+        },
+        "title": "Statutory Reporting Task (for create)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-update": {
+        "type": "object",
+        "properties": {
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "Country": {
+            "type": "string",
+            "maxLength": 3,
+            "title": "Country/Region Key"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "StatryRptTaskPeriodStartDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Start Date",
+            "description": "Reporting Period Start Date"
+          },
+          "StatryRptTaskPeriodEndDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "End Date",
+            "description": "Reporting Period End Date"
+          },
+          "ReportingYear": {
+            "type": "string",
+            "maxLength": 4,
+            "title": "Reporting Year"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-update"
+            }
+          }
+        },
+        "title": "Statutory Reporting Task (for update)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type": {
+        "type": "object",
+        "properties": {
+          "StatryRptRunUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptActivityUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptTaskUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "StatryRptRunID": {
+            "type": "string",
+            "maxLength": 8,
+            "title": "Report Run ID"
+          },
+          "StatryRptRunStatus": {
+            "type": "string",
+            "maxLength": 3,
+            "title": "Report Run Status"
+          },
+          "StatryRptRunType": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Report Run Type"
+          },
+          "StatryRptSubmittedDateTime": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time",
+            "example": "2017-04-13T15:51:04Z",
+            "title": "Submitted On",
+            "description": "Timestamp for Submission"
+          },
+          "StatryRptCatPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptDef": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report Definition"
+          },
+          "StatryRptTaskPeriodStartDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Start Date",
+            "description": "Reporting Period Start Date"
+          },
+          "StatryRptTaskPeriodEndDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "End Date",
+            "description": "Reporting Period End Date"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "ReportingYear": {
+            "type": "string",
+            "maxLength": 4,
+            "title": "Reporting Year"
+          },
+          "ApplicationJobName": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Job Name",
+            "description": "Background Job Name"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message"
+            }
+          },
+          "_Activity": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+          },
+          "_RunParameter": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type"
+            }
+          },
+          "_Task": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+              }
+            ]
+          }
+        },
+        "title": "Statutory Reporting Run"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type-create": {
+        "type": "object",
+        "properties": {
+          "StatryRptActivityUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-create"
+            }
+          },
+          "_Activity": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type-create"
+          },
+          "_RunParameter": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type-create"
+            }
+          },
+          "_Task": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-create"
+              }
+            ]
+          }
+        },
+        "title": "Statutory Reporting Run (for create)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type-update": {
+        "type": "object",
+        "properties": {
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-update"
+            }
+          }
+        },
+        "title": "Statutory Reporting Run (for update)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type": {
+        "type": "object",
+        "properties": {
+          "StatryRptActivityUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptTaskUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "StatryRptActivityId": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Activity ID"
+          },
+          "StatryRptActivityType": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Type"
+          },
+          "StatryRptActivityPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptActivityStatus": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Status"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message"
+            }
+          },
+          "_Phase": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type"
+          },
+          "_Run": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+            }
+          },
+          "_Task": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+              }
+            ]
+          }
+        },
+        "title": "Statutory Reporting Activity"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type-create": {
+        "type": "object",
+        "properties": {
+          "StatryRptActivityId": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Activity ID"
+          },
+          "StatryRptActivityType": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Type"
+          },
+          "StatryRptActivityPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptActivityStatus": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Status"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-create"
+            }
+          },
+          "_Phase": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type-create"
+          },
+          "_Run": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type-create"
+            }
+          },
+          "_Task": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-create"
+              }
+            ]
+          }
+        },
+        "title": "Statutory Reporting Activity (for create)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type-update": {
+        "type": "object",
+        "properties": {
+          "StatryRptActivityId": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Activity ID"
+          },
+          "StatryRptActivityType": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Type"
+          },
+          "StatryRptActivityPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptActivityStatus": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Status"
+          },
+          "StatryRptTaskDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-update"
+            }
+          }
+        },
+        "title": "Statutory Reporting Activity (for update)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type": {
+        "type": "object",
+        "properties": {
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptTaskUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "StatryRptCatPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "StatryRptPhaseStatus": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Activity Status"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message"
+            }
+          },
+          "_Activity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type"
+            }
+          },
+          "_Task": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+          }
+        },
+        "title": "Statutory Reporting Phase"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type-create": {
+        "type": "object",
+        "properties": {
+          "StatryRptTaskUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptCatPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-create"
+            }
+          },
+          "_Activity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Activity_Type-create"
+            }
+          },
+          "_Task": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-create"
+          }
+        },
+        "title": "Statutory Reporting Phase (for create)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Phase_Type-update": {
+        "type": "object",
+        "properties": {
+          "StatryRptCatPhase": {
+            "type": "string",
+            "maxLength": 5,
+            "title": "Phase",
+            "description": "Report Category Phase"
+          },
+          "StatryRptDueDate": {
+            "type": "string",
+            "nullable": true,
+            "format": "date",
+            "example": "2017-04-13",
+            "title": "Due Date"
+          },
+          "SAP__Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-update"
+            }
+          }
+        },
+        "title": "Statutory Reporting Phase (for update)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type": {
+        "type": "object",
+        "properties": {
+          "StatryRptRunParamUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptRunUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptActivityUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptTaskUUID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptgEntity": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Reporting Entity"
+          },
+          "StatryRptCategory": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report ID",
+            "description": "Report Category ID"
+          },
+          "StatryRptRunParamID": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report param id",
+            "description": "Report parameter identificator"
+          },
+          "StatryRptRunParamRngeSign": {
+            "type": "string",
+            "maxLength": 1,
+            "title": "INCL/EXCL",
+            "description": "ABAP: ID: I/E (include/exclude values)"
+          },
+          "StatryRptRunParamRngeOption": {
+            "type": "string",
+            "maxLength": 2,
+            "title": "Option",
+            "description": "ABAP: Selection option (EQ/BT/CP/...)"
+          },
+          "StatryRptRunParamRngeLowValue": {
+            "type": "string",
+            "maxLength": 1333,
+            "title": "Value",
+            "description": "Value container"
+          },
+          "StatryRptRunParamRngeHighValue": {
+            "type": "string",
+            "maxLength": 1333,
+            "title": "Value",
+            "description": "Value container"
+          },
+          "_Run": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type"
+          },
+          "_Task": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type"
+              }
+            ]
+          }
+        },
+        "title": "Statutory Reporting Run Parameters"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type-create": {
+        "type": "object",
+        "properties": {
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptRunParamID": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report param id",
+            "description": "Report parameter identificator"
+          },
+          "StatryRptRunParamRngeSign": {
+            "type": "string",
+            "maxLength": 1,
+            "title": "INCL/EXCL",
+            "description": "ABAP: ID: I/E (include/exclude values)"
+          },
+          "StatryRptRunParamRngeOption": {
+            "type": "string",
+            "maxLength": 2,
+            "title": "Option",
+            "description": "ABAP: Selection option (EQ/BT/CP/...)"
+          },
+          "StatryRptRunParamRngeLowValue": {
+            "type": "string",
+            "maxLength": 1333,
+            "title": "Value",
+            "description": "Value container"
+          },
+          "StatryRptRunParamRngeHighValue": {
+            "type": "string",
+            "maxLength": 1333,
+            "title": "Value",
+            "description": "Value container"
+          },
+          "_Run": {
+            "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Run_Type-create"
+          },
+          "_Task": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.Task_Type-create"
+              }
+            ]
+          }
+        },
+        "title": "Statutory Reporting Run Parameters (for create)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.RunParameter_Type-update": {
+        "type": "object",
+        "properties": {
+          "StatryRptPhaseUUID": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "example": "01234567-89ab-cdef-0123-456789abcdef",
+            "title": "NodeID"
+          },
+          "StatryRptRunParamID": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Report param id",
+            "description": "Report parameter identificator"
+          },
+          "StatryRptRunParamRngeSign": {
+            "type": "string",
+            "maxLength": 1,
+            "title": "INCL/EXCL",
+            "description": "ABAP: ID: I/E (include/exclude values)"
+          },
+          "StatryRptRunParamRngeOption": {
+            "type": "string",
+            "maxLength": 2,
+            "title": "Option",
+            "description": "ABAP: Selection option (EQ/BT/CP/...)"
+          },
+          "StatryRptRunParamRngeLowValue": {
+            "type": "string",
+            "maxLength": 1333,
+            "title": "Value",
+            "description": "Value container"
+          },
+          "StatryRptRunParamRngeHighValue": {
+            "type": "string",
+            "maxLength": 1333,
+            "title": "Value",
+            "description": "Value container"
+          }
+        },
+        "title": "Statutory Reporting Run Parameters (for update)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "nullable": true
+          },
+          "additionalTargets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "transition": {
+            "type": "boolean"
+          },
+          "numericSeverity": {
+            "type": "integer",
+            "format": "uint8"
+          },
+          "longtextUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "title": "SAP__Message"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-create": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "nullable": true
+          },
+          "additionalTargets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "transition": {
+            "type": "boolean"
+          },
+          "numericSeverity": {
+            "type": "integer",
+            "format": "uint8"
+          },
+          "longtextUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "title": "SAP__Message (for create)"
+      },
+      "com.sap.gateway.srvd_a2x.api_statutoryreportingtask.v0001.SAP__Message-update": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "nullable": true
+          },
+          "additionalTargets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "transition": {
+            "type": "boolean"
+          },
+          "numericSeverity": {
+            "type": "integer",
+            "format": "uint8"
+          },
+          "longtextUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "title": "SAP__Message (for update)"
+      },
+      "count": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "description": "The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option."
+      },
+      "error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "target": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "innererror": {
+                "type": "object",
+                "description": "The structure of this object is service-specific"
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "top": {
+        "name": "$top",
+        "in": "query",
+        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "example": 50
+      },
+      "skip": {
+        "name": "$skip",
+        "in": "query",
+        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "count": {
+        "name": "$count",
+        "in": "query",
+        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "search": {
+        "name": "$search",
+        "in": "query",
+        "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OAuth2Auth": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "scopes": {},
+            "refreshUrl": "https://{host}:{port}",
+            "authorizationUrl": "https://{host}:{port}",
+            "tokenUrl": "https://{host}:{port}"
+          }
+        }
+      },
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2Auth": []
+    },
+    {
+      "BasicAuth": []
+    }
+  ]
+}

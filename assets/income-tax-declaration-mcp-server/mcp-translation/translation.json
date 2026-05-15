@@ -1,0 +1,102 @@
+{
+    "mcpTranslationVersion": "0.1",
+    "target": {
+        "ordId": "sap.sf:apiResource:ECIncomeTaxDeclaration:v1",
+        "type": "openapi-v3"
+    },
+    "serverInfo": {
+        "name": "sap.mcp/income_tax_declaration",
+        "title": "income_tax_declaration",
+        "version": "1.0.0",
+        "description": "MCP server for the income_tax_declaration service."
+    },
+    "tools": [
+        {
+            "name": "listIncomeTaxDeclarations",
+            "title": "listIncomeTaxDeclarations",
+            "description": "Retrieve income tax declarations for employees including exemptions and investments",
+            "openApiType": {
+                "path": "/IncomeTaxDeclaration",
+                "method": "get",
+                "operationId": "listIncomeTaxDeclarations",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "getIncomeTaxDeclaration",
+            "title": "getIncomeTaxDeclaration",
+            "description": "Retrieve a specific income tax declaration by external code",
+            "openApiType": {
+                "path": "/IncomeTaxDeclaration('{externalCode}')",
+                "method": "get",
+                "operationId": "getIncomeTaxDeclaration",
+                "parameters": [
+                    {
+                        "name": "externalCode",
+                        "description": "",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "listDeclarationTypes",
+            "title": "listDeclarationTypes",
+            "description": "Retrieve all available income tax declaration types",
+            "openApiType": {
+                "path": "/DeclarationType",
+                "method": "get",
+                "operationId": "listDeclarationTypes",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    }
+                ],
+                "requestBody": {}
+            }
+        }
+    ]
+}

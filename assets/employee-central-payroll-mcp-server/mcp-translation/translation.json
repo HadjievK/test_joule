@@ -1,0 +1,114 @@
+{
+    "mcpTranslationVersion": "0.1",
+    "target": {
+        "ordId": "sap.sf:apiResource:ECEmployeeCentralPayroll:v1",
+        "type": "openapi-v3"
+    },
+    "serverInfo": {
+        "name": "sap.mcp/employee_central_payroll",
+        "title": "employee_central_payroll",
+        "version": "1.0.0",
+        "description": "MCP server for the employee_central_payroll service."
+    },
+    "tools": [
+        {
+            "name": "listPayrollRunResults",
+            "title": "listPayrollRunResults",
+            "description": "Retrieve a list of employee payroll run results with filtering by employee, period, and status",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResults",
+                "method": "get",
+                "operationId": "listPayrollRunResults",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Maximum number of records to return (max 100)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Number of records to skip",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "OData filter expression",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Comma-separated list of fields to return",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order by expression",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "getPayrollRunResult",
+            "title": "getPayrollRunResult",
+            "description": "Retrieve a specific employee payroll run result by external code",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResults('{externalCode}')",
+                "method": "get",
+                "operationId": "getPayrollRunResult",
+                "parameters": [
+                    {
+                        "name": "externalCode",
+                        "description": "External code of the payroll run result",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "listPayrollRunResultItems",
+            "title": "listPayrollRunResultItems",
+            "description": "Retrieve payroll run result line items (wage types, deductions, etc.)",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResultsItems",
+                "method": "get",
+                "operationId": "listPayrollRunResultItems",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "select"
+                    }
+                ],
+                "requestBody": {}
+            }
+        }
+    ]
+}

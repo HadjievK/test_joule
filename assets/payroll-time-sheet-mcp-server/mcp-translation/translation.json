@@ -1,0 +1,102 @@
+{
+    "mcpTranslationVersion": "0.1",
+    "target": {
+        "ordId": "sap.sf:apiResource:ECPayrollTimeSheets:v1",
+        "type": "openapi-v3"
+    },
+    "serverInfo": {
+        "name": "sap.mcp/payroll_time_sheet",
+        "title": "payroll_time_sheet",
+        "version": "1.0.0",
+        "description": "MCP server for the payroll_time_sheet service."
+    },
+    "tools": [
+        {
+            "name": "listTimeSheetsPayroll",
+            "title": "listTimeSheetsPayroll",
+            "description": "Retrieve employee time sheet records for payroll processing",
+            "openApiType": {
+                "path": "/EmployeeTimeSheet",
+                "method": "get",
+                "operationId": "listTimeSheetsPayroll",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter by employee, date range, status",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "getTimeSheetPayroll",
+            "title": "getTimeSheetPayroll",
+            "description": "Retrieve a specific employee time sheet by external code",
+            "openApiType": {
+                "path": "/EmployeeTimeSheet('{externalCode}')",
+                "method": "get",
+                "operationId": "getTimeSheetPayroll",
+                "parameters": [
+                    {
+                        "name": "externalCode",
+                        "description": "",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "listTimeSheetLogs",
+            "title": "listTimeSheetLogs",
+            "description": "Retrieve time sheet data collection logs for auditing and verification",
+            "openApiType": {
+                "path": "/TimeSheetDataCollectionLog",
+                "method": "get",
+                "operationId": "listTimeSheetLogs",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    }
+                ],
+                "requestBody": {}
+            }
+        }
+    ]
+}

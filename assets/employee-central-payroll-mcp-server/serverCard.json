@@ -1,0 +1,247 @@
+{
+  "_meta": {
+    "sap.ord/ordId": {
+      "ordId": "customer.mcpbuilder.sf:apiResource:ECEmployeeCentralPayroll_MCP:v1"
+    },
+    "sap.mcpbuilder/translation": {
+      "ordId": "customer.mcpbuilder.sf:apiResource:ECEmployeeCentralPayroll_MCP:v1"
+    },
+    "sap.ord/originalApiResourceOrdId": "sap.sf:apiResource:ECEmployeeCentralPayroll:v1"
+  },
+  "$schema": "https://pages.github.tools.sap/CPA/mcp-protocol/spec-v1/mcp-server-card-spec.schema.json",
+  "remotes": [],
+  "capabilities": {
+    "tools": {},
+    "prompts": {}
+  },
+  "supportedProtocolVersions": [
+    "2025-11-25"
+  ],
+  "name": "sap.mcp/employee_central_payroll",
+  "title": "employee_central_payroll",
+  "version": "1.0.0",
+  "description": "MCP server for the employee_central_payroll service.",
+  "tools": [
+    {
+      "name": "listPayrollRunResults",
+      "title": "listPayrollRunResults",
+      "description": "Retrieve a list of employee payroll run results with filtering by employee, period, and status",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "top": {
+            "type": "integer",
+            "description": "Maximum number of records to return (max 100)"
+          },
+          "skip": {
+            "type": "integer",
+            "description": "Number of records to skip"
+          },
+          "filter": {
+            "type": "string",
+            "description": "OData filter expression"
+          },
+          "select": {
+            "type": "string",
+            "description": "Comma-separated list of fields to return"
+          },
+          "orderby": {
+            "type": "string",
+            "description": "Order by expression"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "properties": {
+                      "results": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "externalCode": {
+                              "type": "string",
+                              "description": "Unique identifier"
+                            },
+                            "employeeId": {
+                              "type": "string",
+                              "description": "Employee ID"
+                            },
+                            "payrollArea": {
+                              "type": "string",
+                              "description": "Payroll area/country grouping"
+                            },
+                            "payPeriod": {
+                              "type": "string",
+                              "description": "Pay period identifier"
+                            },
+                            "runType": {
+                              "type": "string",
+                              "description": "Type of payroll run (regular, off-cycle, etc.)"
+                            },
+                            "status": {
+                              "type": "string",
+                              "description": "Status of the payroll run result"
+                            },
+                            "grossPay": {
+                              "type": "number",
+                              "description": "Gross pay amount"
+                            },
+                            "netPay": {
+                              "type": "number",
+                              "description": "Net pay amount"
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "Currency code"
+                            },
+                            "createdDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "lastModifiedDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "description": "List of payroll run results (HTTP 200)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "getPayrollRunResult",
+      "title": "getPayrollRunResult",
+      "description": "Retrieve a specific employee payroll run result by external code",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "externalcode"
+        ],
+        "properties": {
+          "externalcode": {
+            "type": "string",
+            "description": "External code of the payroll run result"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "properties": {
+                      "externalCode": {
+                        "type": "string",
+                        "description": "Unique identifier"
+                      },
+                      "employeeId": {
+                        "type": "string",
+                        "description": "Employee ID"
+                      },
+                      "payrollArea": {
+                        "type": "string",
+                        "description": "Payroll area/country grouping"
+                      },
+                      "payPeriod": {
+                        "type": "string",
+                        "description": "Pay period identifier"
+                      },
+                      "runType": {
+                        "type": "string",
+                        "description": "Type of payroll run (regular, off-cycle, etc.)"
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "Status of the payroll run result"
+                      },
+                      "grossPay": {
+                        "type": "number",
+                        "description": "Gross pay amount"
+                      },
+                      "netPay": {
+                        "type": "number",
+                        "description": "Net pay amount"
+                      },
+                      "currency": {
+                        "type": "string",
+                        "description": "Currency code"
+                      },
+                      "createdDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "lastModifiedDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                "description": "Payroll run result (HTTP 200)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "listPayrollRunResultItems",
+      "title": "listPayrollRunResultItems",
+      "description": "Retrieve payroll run result line items (wage types, deductions, etc.)",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "top": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "filter": {
+            "type": "string"
+          },
+          "select": {
+            "type": "string"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "description": "List of payroll run result items (HTTP 200)"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

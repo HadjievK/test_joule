@@ -1,0 +1,9 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: statutory-reporting-task-mcp-server
+  version: 1.0.0
+  translation: mcp-translation/translation.json
+
+type: mcp-translation

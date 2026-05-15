@@ -1,0 +1,24 @@
+requirements:
+  agent_response_requirements:
+    - 'Agent presents consolidated payroll data from both SuccessFactors and S/4HANA systems in a single structured response, referencing the pay period and employee count.'
+    - 'Agent always includes a confirmation prompt with a summary of inputs before executing any write operation (payroll run initiation, corrections, or statutory updates).'
+    - 'Agent clearly highlights discrepancies with employee ID, discrepancy type, and magnitude; and explains the recommended corrective action before applying it.'
+    - 'Agent reports overdue statutory or tax obligations with the deadline, obligation name, and applicable regulation reference when compliance issues are found.'
+    - 'Agent provides a structured payroll summary report that aggregates gross pay, net pay, deductions, and earmarked funds across both source systems.'
+    - 'When a tool returns an error or empty results, the agent must inform the user clearly, specify which system failed, and must NOT present fabricated data.'
+
+  tool_requirements:
+    - 'Agent must call listEmployeePayrollRunResults before calling createEmployeePayrollRunResult to validate existing run state.'
+    - 'Agent must call both listEmployeeTimeSheets and listEmployeePayrollRunResults when asked to detect discrepancies, to enable cross-system comparison.'
+    - 'Agent must call GET_Activity and listItDeclarationTimeBound when performing a statutory compliance check, covering both S/4HANA and SuccessFactors obligations.'
+    - 'Agent must call at least listEmpCompensation or listEmpPayCompRecurring when fulfilling a compensation information query from a finance controller.'
+    - 'Agent must call GET_PayrollEarmarkedFundsDoc when generating a cross-system payroll report to include S/4HANA fund allocation data.'
+    - 'Agent must enforce $top ≤ 100 on all list operations and must never omit the $top parameter on unbounded list tool calls.'
+
+  rule_compliance_requirements:
+    - 'WHEN the user requests a payroll run, the agent MUST present a summary of the payroll inputs and request explicit user confirmation before calling createEmployeePayrollRunResult.'
+    - 'WHEN a discrepancy is identified, the agent MUST list all discrepancies before proposing any correction, and MUST request user confirmation before calling updateEmployeePayrollRunResult or updateExternalTimeRecord.'
+    - 'WHEN the user asks for compensation data, the agent MUST NOT expose individual salary details unless the user has stated they are the payroll administrator or finance controller in the conversation.'
+    - 'WHEN any write operation fails, the agent MUST NOT retry automatically and MUST inform the user of the failure with the error details.'
+    - 'WHEN overdue statutory obligations are found via GET_Activity, the agent MUST highlight them prominently and MUST NOT call POST_Activity_StatryRptActivityUUID_SAPselfSkipStatryRptActivity without explicit user instruction.'
+    - 'WHEN generating a payroll report, the agent MUST aggregate data from both systems (SuccessFactors via listEmployeePayrollRunResults and S/4HANA via GET_PayrollEarmarkedFundsDoc) and MUST clearly indicate if either system returned no data.'

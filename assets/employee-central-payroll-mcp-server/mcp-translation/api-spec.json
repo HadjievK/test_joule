@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Employee Central Payroll",
+    "version": "1.0.0",
+    "description": "API for accessing SAP SuccessFactors Employee Central Payroll results and run data"
+  },
+  "servers": [{"url": "/odata/v2"}],
+  "paths": {
+    "/EmployeePayrollRunResults": {
+      "get": {
+        "operationId": "listPayrollRunResults",
+        "summary": "List employee payroll run results",
+        "description": "Retrieve a list of employee payroll run results with filtering by employee, period, and status",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}, "description": "Maximum number of records to return (max 100)"},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}, "description": "Number of records to skip"},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}, "description": "OData filter expression"},
+          {"name": "$select", "in": "query", "schema": {"type": "string"}, "description": "Comma-separated list of fields to return"},
+          {"name": "$orderby", "in": "query", "schema": {"type": "string"}, "description": "Order by expression"}
+        ],
+        "responses": {
+          "200": {"description": "List of payroll run results", "content": {"application/json": {"schema": {"type": "object", "properties": {"d": {"type": "object", "properties": {"results": {"type": "array", "items": {"$ref": "#/components/schemas/PayrollRunResult"}}}}}}}}}
+        }
+      }
+    },
+    "/EmployeePayrollRunResults('{externalCode}')": {
+      "get": {
+        "operationId": "getPayrollRunResult",
+        "summary": "Get a specific payroll run result",
+        "description": "Retrieve a specific employee payroll run result by external code",
+        "parameters": [
+          {"name": "externalCode", "in": "path", "required": true, "schema": {"type": "string"}, "description": "External code of the payroll run result"}
+        ],
+        "responses": {
+          "200": {"description": "Payroll run result", "content": {"application/json": {"schema": {"type": "object", "properties": {"d": {"$ref": "#/components/schemas/PayrollRunResult"}}}}}}
+        }
+      }
+    },
+    "/EmployeePayrollRunResultsItems": {
+      "get": {
+        "operationId": "listPayrollRunResultItems",
+        "summary": "List payroll run result line items",
+        "description": "Retrieve payroll run result line items (wage types, deductions, etc.)",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}},
+          {"name": "$select", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "List of payroll run result items", "content": {"application/json": {"schema": {"type": "object"}}}}
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PayrollRunResult": {
+        "type": "object",
+        "properties": {
+          "externalCode": {"type": "string", "description": "Unique identifier"},
+          "employeeId": {"type": "string", "description": "Employee ID"},
+          "payrollArea": {"type": "string", "description": "Payroll area/country grouping"},
+          "payPeriod": {"type": "string", "description": "Pay period identifier"},
+          "runType": {"type": "string", "description": "Type of payroll run (regular, off-cycle, etc.)"},
+          "status": {"type": "string", "description": "Status of the payroll run result"},
+          "grossPay": {"type": "number", "description": "Gross pay amount"},
+          "netPay": {"type": "number", "description": "Net pay amount"},
+          "currency": {"type": "string", "description": "Currency code"},
+          "createdDate": {"type": "string", "format": "date-time"},
+          "lastModifiedDate": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  }
+}

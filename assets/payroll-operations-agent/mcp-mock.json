@@ -1,0 +1,633 @@
+{
+  "servers": {
+    "employee_central_payroll": {
+      "tools": {
+        "listPayrollRunResults": {
+          "description": "List employee payroll run results from SAP SuccessFactors Employee Central Payroll",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum number of records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter expression"},
+              "$select": {"type": "string", "description": "Fields to return"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "externalCode": "PR-2024-01-EMP001",
+                  "employeeId": "EMP001",
+                  "payrollArea": "US",
+                  "payPeriod": "2024-01",
+                  "runType": "regular",
+                  "status": "completed",
+                  "grossPay": 8500.00,
+                  "netPay": 6200.00,
+                  "currency": "USD"
+                },
+                {
+                  "externalCode": "PR-2024-01-EMP002",
+                  "employeeId": "EMP002",
+                  "payrollArea": "US",
+                  "payPeriod": "2024-01",
+                  "runType": "regular",
+                  "status": "completed",
+                  "grossPay": 7200.00,
+                  "netPay": 5100.00,
+                  "currency": "USD"
+                },
+                {
+                  "externalCode": "PR-2024-01-EMP003",
+                  "employeeId": "EMP003",
+                  "payrollArea": "DE",
+                  "payPeriod": "2024-01",
+                  "runType": "regular",
+                  "status": "pending",
+                  "grossPay": 5800.00,
+                  "netPay": 3900.00,
+                  "currency": "EUR"
+                }
+              ]
+            }
+          }
+        },
+        "getPayrollRunResult": {
+          "description": "Get a specific employee payroll run result by external code",
+          "input_schema": {
+            "type": "object",
+            "required": ["externalCode"],
+            "properties": {
+              "externalCode": {"type": "string", "description": "External code of the payroll run result"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "externalCode": "PR-2024-01-EMP001",
+              "employeeId": "EMP001",
+              "payrollArea": "US",
+              "payPeriod": "2024-01",
+              "runType": "regular",
+              "status": "completed",
+              "grossPay": 8500.00,
+              "netPay": 6200.00,
+              "currency": "USD"
+            }
+          }
+        },
+        "listPayrollRunResultItems": {
+          "description": "List payroll run result line items (wage types, deductions)",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum number of records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter expression"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "wageType": "1000",
+                  "description": "Basic Salary",
+                  "amount": 8500.00,
+                  "currency": "USD"
+                },
+                {
+                  "wageType": "2000",
+                  "description": "Federal Tax",
+                  "amount": -1800.00,
+                  "currency": "USD"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "payroll_time_sheet": {
+      "tools": {
+        "listTimeSheetsPayroll": {
+          "description": "List employee time sheets for payroll processing from SAP SuccessFactors",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum number of records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter expression"},
+              "$select": {"type": "string", "description": "Fields to return"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "externalCode": "TS-2024-01-EMP001",
+                  "userId": "EMP001",
+                  "recordDate": "2024-01-15",
+                  "hoursWorked": 160.0,
+                  "overtimeHours": 8.0,
+                  "status": "approved",
+                  "approvalStatus": "approved",
+                  "payrollArea": "US"
+                },
+                {
+                  "externalCode": "TS-2024-01-EMP002",
+                  "userId": "EMP002",
+                  "recordDate": "2024-01-15",
+                  "hoursWorked": 152.0,
+                  "overtimeHours": 0.0,
+                  "status": "approved",
+                  "approvalStatus": "approved",
+                  "payrollArea": "US"
+                },
+                {
+                  "externalCode": "TS-2024-01-EMP003",
+                  "userId": "EMP003",
+                  "recordDate": "2024-01-15",
+                  "hoursWorked": 172.0,
+                  "overtimeHours": 12.0,
+                  "status": "pending",
+                  "approvalStatus": "pending",
+                  "payrollArea": "DE"
+                }
+              ]
+            }
+          }
+        },
+        "getTimeSheetPayroll": {
+          "description": "Get a specific employee time sheet by external code",
+          "input_schema": {
+            "type": "object",
+            "required": ["externalCode"],
+            "properties": {
+              "externalCode": {"type": "string", "description": "Time sheet external code"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "externalCode": "TS-2024-01-EMP001",
+              "userId": "EMP001",
+              "recordDate": "2024-01-15",
+              "hoursWorked": 160.0,
+              "overtimeHours": 8.0,
+              "status": "approved"
+            }
+          }
+        },
+        "listTimeSheetLogs": {
+          "description": "List time sheet data collection logs for auditing",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "logId": "LOG-001",
+                  "userId": "EMP001",
+                  "action": "APPROVE",
+                  "timestamp": "2024-01-16T10:00:00Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "compensation_information": {
+      "tools": {
+        "listCompensationInformation": {
+          "description": "List employee compensation information including base salary and pay grade",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum number of records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter expression"},
+              "$select": {"type": "string", "description": "Fields to return"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "EMP001",
+                  "startDate": "2024-01-01",
+                  "payGrade": "G7",
+                  "salary": 8500.00,
+                  "currency": "USD",
+                  "payFrequency": "monthly"
+                },
+                {
+                  "userId": "EMP002",
+                  "startDate": "2024-01-01",
+                  "payGrade": "G6",
+                  "salary": 7200.00,
+                  "currency": "USD",
+                  "payFrequency": "monthly"
+                }
+              ]
+            }
+          }
+        },
+        "getCompensationInformation": {
+          "description": "Get compensation information for a specific employee on a given date",
+          "input_schema": {
+            "type": "object",
+            "required": ["userId", "startDate"],
+            "properties": {
+              "userId": {"type": "string", "description": "Employee user ID"},
+              "startDate": {"type": "string", "description": "Effective date"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "userId": "EMP001",
+              "startDate": "2024-01-01",
+              "payGrade": "G7",
+              "salary": 8500.00,
+              "currency": "USD"
+            }
+          }
+        },
+        "listRecurringDeductions": {
+          "description": "List recurring deduction items for payroll processing",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "EMP001",
+                  "deductionType": "401K",
+                  "amount": 500.00,
+                  "currency": "USD"
+                }
+              ]
+            }
+          }
+        },
+        "listOneTimeDeductions": {
+          "description": "List one-time deduction items for current payroll period",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": []
+            }
+          }
+        }
+      }
+    },
+    "compensation_management": {
+      "tools": {
+        "listEmployeeCompensations": {
+          "description": "List employee compensation records from SAP SuccessFactors Compensation Management",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "skip": {"type": "integer", "description": "Records to skip"},
+              "filter": {"type": "string", "description": "Filter expression"}
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "userId": "EMP001",
+                "firstName": "John",
+                "lastName": "Smith",
+                "baseSalary": 8500.00,
+                "currency": "USD",
+                "salaryGrade": "G7",
+                "lastReviewDate": "2023-12-01"
+              },
+              {
+                "userId": "EMP002",
+                "firstName": "Jane",
+                "lastName": "Doe",
+                "baseSalary": 7200.00,
+                "currency": "USD",
+                "salaryGrade": "G6",
+                "lastReviewDate": "2023-12-01"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "income_tax_declaration": {
+      "tools": {
+        "listIncomeTaxDeclarations": {
+          "description": "List income tax declarations for employees including exemptions",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"},
+              "$select": {"type": "string", "description": "Fields to return"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "externalCode": "ITD-2024-EMP001",
+                  "userId": "EMP001",
+                  "fiscalYear": "2024",
+                  "declarationType": "provisional",
+                  "status": "submitted",
+                  "totalExemption": 150000.00,
+                  "currency": "INR",
+                  "approvalStatus": "approved"
+                }
+              ]
+            }
+          }
+        },
+        "getIncomeTaxDeclaration": {
+          "description": "Get a specific income tax declaration by external code",
+          "input_schema": {
+            "type": "object",
+            "required": ["externalCode"],
+            "properties": {
+              "externalCode": {"type": "string", "description": "Declaration external code"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "externalCode": "ITD-2024-EMP001",
+              "userId": "EMP001",
+              "fiscalYear": "2024",
+              "declarationType": "provisional",
+              "totalExemption": 150000.00
+            }
+          }
+        },
+        "listDeclarationTypes": {
+          "description": "List all available income tax declaration types",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"}
+            }
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {"externalCode": "provisional", "label": "Provisional Declaration"},
+                {"externalCode": "final", "label": "Final Declaration"}
+              ]
+            }
+          }
+        }
+      }
+    },
+    "payroll_earmarked_funds": {
+      "tools": {
+        "GET_PayrollEarmarkedFundsDoc": {
+          "description": "List payroll earmarked funds documents from SAP S/4HANA",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"},
+              "$select": {"type": "string", "description": "Fields to return"}
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "EarmarkedFundsDocument": "0100000001",
+                "CompanyCode": "1010",
+                "DocumentDate": "2024-01-31",
+                "FiscalYear": "2024",
+                "Amount": 125000.00,
+                "Currency": "USD",
+                "Status": "released"
+              },
+              {
+                "EarmarkedFundsDocument": "0100000002",
+                "CompanyCode": "1010",
+                "DocumentDate": "2024-02-28",
+                "FiscalYear": "2024",
+                "Amount": 118500.00,
+                "Currency": "USD",
+                "Status": "pending"
+              }
+            ]
+          }
+        },
+        "GET_PayrollEarmarkedFundsDoc_byKey": {
+          "description": "Get a specific payroll earmarked funds document by key",
+          "input_schema": {
+            "type": "object",
+            "required": ["EarmarkedFundsDocument"],
+            "properties": {
+              "EarmarkedFundsDocument": {"type": "string", "description": "Document number"}
+            }
+          },
+          "mock_response": {
+            "value": {
+              "EarmarkedFundsDocument": "0100000001",
+              "CompanyCode": "1010",
+              "DocumentDate": "2024-01-31",
+              "FiscalYear": "2024",
+              "Amount": 125000.00,
+              "Currency": "USD",
+              "Status": "released"
+            }
+          }
+        },
+        "GET_EarmarkedFundsDocItem": {
+          "description": "List earmarked funds document items for a specific document",
+          "input_schema": {
+            "type": "object",
+            "required": ["EarmarkedFundsDocument"],
+            "properties": {
+              "EarmarkedFundsDocument": {"type": "string", "description": "Document number"},
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"}
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "EarmarkedFundsDocument": "0100000001",
+                "EarmarkedFundsDocumentItem": "001",
+                "WageType": "1000",
+                "Amount": 85000.00,
+                "Currency": "USD"
+              }
+            ]
+          }
+        },
+        "POST_EarmarkedFundsDocItem": {
+          "description": "Create a new earmarked funds document item",
+          "input_schema": {
+            "type": "object",
+            "required": ["EarmarkedFundsDocument", "WageType", "Amount"],
+            "properties": {
+              "EarmarkedFundsDocument": {"type": "string"},
+              "WageType": {"type": "string"},
+              "Amount": {"type": "number"},
+              "Currency": {"type": "string"}
+            }
+          },
+          "mock_response": {
+            "value": {
+              "EarmarkedFundsDocument": "0100000001",
+              "EarmarkedFundsDocumentItem": "002",
+              "WageType": "2000",
+              "Amount": 40000.00,
+              "Currency": "USD"
+            }
+          }
+        },
+        "GET_EarmarkedFundsDocItemByDoc": {
+          "description": "Get earmarked funds document items filtered by document",
+          "input_schema": {
+            "type": "object",
+            "required": ["EarmarkedFundsDocument", "EarmarkedFundsDocumentItem"],
+            "properties": {
+              "EarmarkedFundsDocument": {"type": "string"},
+              "EarmarkedFundsDocumentItem": {"type": "string"},
+              "$top": {"type": "integer"}
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "EarmarkedFundsDocument": "0100000001",
+                "EarmarkedFundsDocumentItem": "001",
+                "WageType": "1000",
+                "Amount": 85000.00
+              }
+            ]
+          }
+        },
+        "PATCH_EarmarkedFundsDocItem": {
+          "description": "Update a payroll earmarked funds document item",
+          "input_schema": {
+            "type": "object",
+            "required": ["EarmarkedFundsDocument", "EarmarkedFundsDocumentItem"],
+            "properties": {
+              "EarmarkedFundsDocument": {"type": "string"},
+              "EarmarkedFundsDocumentItem": {"type": "string"},
+              "Amount": {"type": "number"},
+              "Currency": {"type": "string"}
+            }
+          },
+          "mock_response": {
+            "value": {
+              "EarmarkedFundsDocument": "0100000001",
+              "EarmarkedFundsDocumentItem": "001",
+              "Amount": 90000.00
+            }
+          }
+        },
+        "GET_EarmarkedFundsDocItemParent": {
+          "description": "Get the parent earmarked funds document for a document item",
+          "input_schema": {
+            "type": "object",
+            "required": ["EarmarkedFundsDocument", "EarmarkedFundsDocumentItem"],
+            "properties": {
+              "EarmarkedFundsDocument": {"type": "string"},
+              "EarmarkedFundsDocumentItem": {"type": "string"}
+            }
+          },
+          "mock_response": {
+            "value": {
+              "EarmarkedFundsDocument": "0100000001",
+              "CompanyCode": "1010",
+              "Amount": 125000.00
+            }
+          }
+        }
+      }
+    },
+    "statutory_reporting_task": {
+      "tools": {
+        "GET_Activity": {
+          "description": "List statutory reporting activities from SAP S/4HANA",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "$top": {"type": "integer", "description": "Maximum records (max 100)"},
+              "$filter": {"type": "string", "description": "OData filter"},
+              "$select": {"type": "string", "description": "Fields to return"}
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "StatryRptActivityUUID": "uuid-001",
+                "ActivityType": "PAYROLL_REPORT",
+                "Status": "open",
+                "DueDate": "2024-01-31",
+                "CompanyCode": "1010",
+                "FiscalYear": "2024"
+              },
+              {
+                "StatryRptActivityUUID": "uuid-002",
+                "ActivityType": "TAX_FILING",
+                "Status": "overdue",
+                "DueDate": "2024-01-15",
+                "CompanyCode": "1010",
+                "FiscalYear": "2024"
+              }
+            ]
+          }
+        },
+        "GET_Activity_byKey": {
+          "description": "Get a specific statutory reporting activity by UUID",
+          "input_schema": {
+            "type": "object",
+            "required": ["StatryRptActivityUUID"],
+            "properties": {
+              "StatryRptActivityUUID": {"type": "string", "description": "Activity UUID"}
+            }
+          },
+          "mock_response": {
+            "value": {
+              "StatryRptActivityUUID": "uuid-001",
+              "ActivityType": "PAYROLL_REPORT",
+              "Status": "open",
+              "DueDate": "2024-01-31"
+            }
+          }
+        },
+        "POST_Activity_SkipStatryRptActivity": {
+          "description": "Skip a statutory reporting activity",
+          "input_schema": {
+            "type": "object",
+            "required": ["StatryRptActivityUUID"],
+            "properties": {
+              "StatryRptActivityUUID": {"type": "string", "description": "Activity UUID"},
+              "SkipReason": {"type": "string", "description": "Reason for skipping"}
+            }
+          },
+          "mock_response": {
+            "value": {
+              "StatryRptActivityUUID": "uuid-001",
+              "Status": "skipped"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+    "mcpTranslationVersion": "0.1",
+    "target": {
+        "ordId": "sap.sf:apiResource:ECCompensationInformation:v1",
+        "type": "openapi-v3"
+    },
+    "serverInfo": {
+        "name": "sap.mcp/compensation_information",
+        "title": "compensation_information",
+        "version": "1.0.0",
+        "description": "MCP server for the compensation_information service."
+    },
+    "tools": [
+        {
+            "name": "listCompensationInformation",
+            "title": "listCompensationInformation",
+            "description": "Retrieve employee compensation information including base salary, pay grade, and currency",
+            "openApiType": {
+                "path": "/CompensationInformation",
+                "method": "get",
+                "operationId": "listCompensationInformation",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "getCompensationInformation",
+            "title": "getCompensationInformation",
+            "description": "Retrieve compensation information for a specific employee on a given effective date",
+            "openApiType": {
+                "path": "/CompensationInformation(userId='{userId}',startDate=datetime'{startDate}')",
+                "method": "get",
+                "operationId": "getCompensationInformation",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "description": "",
+                        "in": "path",
+                        "newParameterName": "userid"
+                    },
+                    {
+                        "name": "startDate",
+                        "description": "",
+                        "in": "path",
+                        "newParameterName": "startdate"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "listRecurringDeductions",
+            "title": "listRecurringDeductions",
+            "description": "Retrieve recurring deduction items for payroll processing",
+            "openApiType": {
+                "path": "/RecurringDeductionItem",
+                "method": "get",
+                "operationId": "listRecurringDeductions",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "listOneTimeDeductions",
+            "title": "listOneTimeDeductions",
+            "description": "Retrieve one-time deduction items for current payroll period",
+            "openApiType": {
+                "path": "/OneTimeDeduction",
+                "method": "get",
+                "operationId": "listOneTimeDeductions",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    }
+                ],
+                "requestBody": {}
+            }
+        }
+    ]
+}

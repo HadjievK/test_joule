@@ -1,0 +1,74 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Payroll Time Sheet",
+    "version": "1.0.0",
+    "description": "API for accessing SAP SuccessFactors Payroll Time Sheet records"
+  },
+  "servers": [{"url": "/odata/v2"}],
+  "paths": {
+    "/EmployeeTimeSheet": {
+      "get": {
+        "operationId": "listTimeSheetsPayroll",
+        "summary": "List employee time sheets for payroll",
+        "description": "Retrieve employee time sheet records for payroll processing",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}, "description": "Filter by employee, date range, status"},
+          {"name": "$select", "in": "query", "schema": {"type": "string"}},
+          {"name": "$orderby", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "List of time sheets", "content": {"application/json": {"schema": {"type": "object", "properties": {"d": {"type": "object", "properties": {"results": {"type": "array", "items": {"$ref": "#/components/schemas/EmployeeTimeSheet"}}}}}}}}}
+        }
+      }
+    },
+    "/EmployeeTimeSheet('{externalCode}')": {
+      "get": {
+        "operationId": "getTimeSheetPayroll",
+        "summary": "Get a specific employee time sheet",
+        "description": "Retrieve a specific employee time sheet by external code",
+        "parameters": [
+          {"name": "externalCode", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Employee time sheet", "content": {"application/json": {"schema": {"type": "object"}}}}
+        }
+      }
+    },
+    "/TimeSheetDataCollectionLog": {
+      "get": {
+        "operationId": "listTimeSheetLogs",
+        "summary": "List time sheet data collection logs",
+        "description": "Retrieve time sheet data collection logs for auditing and verification",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Time sheet collection logs", "content": {"application/json": {"schema": {"type": "object"}}}}
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmployeeTimeSheet": {
+        "type": "object",
+        "properties": {
+          "externalCode": {"type": "string"},
+          "userId": {"type": "string", "description": "Employee user ID"},
+          "recordDate": {"type": "string", "format": "date"},
+          "hoursWorked": {"type": "number"},
+          "overtimeHours": {"type": "number"},
+          "status": {"type": "string"},
+          "approvalStatus": {"type": "string"},
+          "costCenter": {"type": "string"},
+          "payrollArea": {"type": "string"},
+          "lastModifiedDate": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  }
+}

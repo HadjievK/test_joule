@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Compensation Information",
+    "version": "1.0.0",
+    "description": "API for accessing SAP SuccessFactors Compensation Information including salary, deductions, and allowances"
+  },
+  "servers": [{"url": "/odata/v2"}],
+  "paths": {
+    "/CompensationInformation": {
+      "get": {
+        "operationId": "listCompensationInformation",
+        "summary": "List compensation information records",
+        "description": "Retrieve employee compensation information including base salary, pay grade, and currency",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}},
+          {"name": "$select", "in": "query", "schema": {"type": "string"}},
+          {"name": "$orderby", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "List of compensation records", "content": {"application/json": {"schema": {"type": "object", "properties": {"d": {"type": "object", "properties": {"results": {"type": "array", "items": {"$ref": "#/components/schemas/CompensationInformation"}}}}}}}}}
+        }
+      }
+    },
+    "/CompensationInformation(userId='{userId}',startDate=datetime'{startDate}')": {
+      "get": {
+        "operationId": "getCompensationInformation",
+        "summary": "Get compensation information for an employee",
+        "description": "Retrieve compensation information for a specific employee on a given effective date",
+        "parameters": [
+          {"name": "userId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "startDate", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Compensation information", "content": {"application/json": {"schema": {"type": "object"}}}}
+        }
+      }
+    },
+    "/RecurringDeductionItem": {
+      "get": {
+        "operationId": "listRecurringDeductions",
+        "summary": "List recurring deduction items",
+        "description": "Retrieve recurring deduction items for payroll processing",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Recurring deduction items", "content": {"application/json": {"schema": {"type": "object"}}}}
+        }
+      }
+    },
+    "/OneTimeDeduction": {
+      "get": {
+        "operationId": "listOneTimeDeductions",
+        "summary": "List one-time deduction items",
+        "description": "Retrieve one-time deduction items for current payroll period",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "One-time deduction items", "content": {"application/json": {"schema": {"type": "object"}}}}
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CompensationInformation": {
+        "type": "object",
+        "properties": {
+          "userId": {"type": "string"},
+          "startDate": {"type": "string", "format": "date"},
+          "payGrade": {"type": "string"},
+          "payRange": {"type": "string"},
+          "salary": {"type": "number"},
+          "currency": {"type": "string"},
+          "payFrequency": {"type": "string"},
+          "compRatio": {"type": "number"},
+          "lastModifiedDate": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  }
+}

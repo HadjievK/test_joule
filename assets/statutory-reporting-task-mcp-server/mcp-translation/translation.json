@@ -1,0 +1,1155 @@
+{
+    "mcpTranslationVersion": "0.1",
+    "target": {
+        "ordId": "sap.s4:apiResource:CE_STATUTORYREPORTINGTASK_0001:v1",
+        "type": "openapi-v3"
+    },
+    "serverInfo": {
+        "name": "sap.mcp/statutory_reporting_task",
+        "title": "statutory_reporting_task",
+        "version": "1.0.0",
+        "description": "MCP server for the statutory_reporting_task service."
+    },
+    "tools": [
+        {
+            "name": "GET_Activity",
+            "title": "GET_Activity",
+            "description": "Get entities from Activity",
+            "openApiType": {
+                "path": "/Activity",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Activity_StatryRptActivityUUID",
+            "title": "GET_Activity_StatryRptActivityUUID",
+            "description": "Get entity from Activity by key",
+            "openApiType": {
+                "path": "/Activity/{StatryRptActivityUUID}",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptActivityUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptactivityuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Activity_StatryRptActivityUUID_SAPselfSkipStatryRptActivity",
+            "title": "POST_Activity_StatryRptActivityUUID_SAPselfSkipStatryRptActivity",
+            "description": "Invoke action SkipStatryRptActivity",
+            "openApiType": {
+                "path": "/Activity/{StatryRptActivityUUID}/SAP__self.SkipStatryRptActivity",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "StatryRptActivityUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptactivityuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Activity_StatryRptActivityUUID_Phase",
+            "title": "GET_Activity_StatryRptActivityUUID_Phase",
+            "description": "Get related _Phase",
+            "openApiType": {
+                "path": "/Activity/{StatryRptActivityUUID}/_Phase",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptActivityUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptactivityuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Activity_StatryRptActivityUUID_Run",
+            "title": "GET_Activity_StatryRptActivityUUID_Run",
+            "description": "Get entities from related _Run",
+            "openApiType": {
+                "path": "/Activity/{StatryRptActivityUUID}/_Run",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptActivityUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptactivityuuid"
+                    },
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Activity_StatryRptActivityUUID_Run",
+            "title": "POST_Activity_StatryRptActivityUUID_Run",
+            "description": "Add new entity to related _Run",
+            "openApiType": {
+                "path": "/Activity/{StatryRptActivityUUID}/_Run",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    },
+                    {
+                        "name": "StatryRptActivityUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptactivityuuid"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_Activity_StatryRptActivityUUID_Task",
+            "title": "GET_Activity_StatryRptActivityUUID_Task",
+            "description": "Get related _Task",
+            "openApiType": {
+                "path": "/Activity/{StatryRptActivityUUID}/_Task",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptActivityUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptactivityuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Phase",
+            "title": "GET_Phase",
+            "description": "Get entities from Phase",
+            "openApiType": {
+                "path": "/Phase",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Phase",
+            "title": "POST_Phase",
+            "description": "Add new entity to Phase",
+            "openApiType": {
+                "path": "/Phase",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_Phase_StatryRptPhaseUUID",
+            "title": "GET_Phase_StatryRptPhaseUUID",
+            "description": "Get entity from Phase by key",
+            "openApiType": {
+                "path": "/Phase/{StatryRptPhaseUUID}",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptPhaseUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptphaseuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Phase_StatryRptPhaseUUID_SAPselfSkipStatryRptPhase",
+            "title": "POST_Phase_StatryRptPhaseUUID_SAPselfSkipStatryRptPhase",
+            "description": "Invoke action SkipStatryRptPhase",
+            "openApiType": {
+                "path": "/Phase/{StatryRptPhaseUUID}/SAP__self.SkipStatryRptPhase",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "StatryRptPhaseUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptphaseuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Phase_StatryRptPhaseUUID_Activity",
+            "title": "GET_Phase_StatryRptPhaseUUID_Activity",
+            "description": "Get entities from related _Activity",
+            "openApiType": {
+                "path": "/Phase/{StatryRptPhaseUUID}/_Activity",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptPhaseUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptphaseuuid"
+                    },
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Phase_StatryRptPhaseUUID_Task",
+            "title": "GET_Phase_StatryRptPhaseUUID_Task",
+            "description": "Get related _Task",
+            "openApiType": {
+                "path": "/Phase/{StatryRptPhaseUUID}/_Task",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptPhaseUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptphaseuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Run",
+            "title": "GET_Run",
+            "description": "Get entities from Run",
+            "openApiType": {
+                "path": "/Run",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Run",
+            "title": "POST_Run",
+            "description": "Add new entity to Run",
+            "openApiType": {
+                "path": "/Run",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_Run_StatryRptRunUUID",
+            "title": "GET_Run_StatryRptRunUUID",
+            "description": "Get entity from Run by key",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Run_StatryRptRunUUID_SAPselfSubmitStatryRptToGovernment",
+            "title": "POST_Run_StatryRptRunUUID_SAPselfSubmitStatryRptToGovernment",
+            "description": "Invoke action SubmitStatryRptToGovernment",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/SAP__self.SubmitStatryRptToGovernment",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Run_StatryRptRunUUID_SAPselfSetStatryRptStatusToDeclined",
+            "title": "POST_Run_StatryRptRunUUID_SAPselfSetStatryRptStatusToDeclined",
+            "description": "Invoke action SetStatryRptStatusToDeclined",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/SAP__self.SetStatryRptStatusToDeclined",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Run_StatryRptRunUUID_SAPselfSetStatryRptStatusToAccepted",
+            "title": "POST_Run_StatryRptRunUUID_SAPselfSetStatryRptStatusToAccepted",
+            "description": "Invoke action SetStatryRptStatusToAccepted",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/SAP__self.SetStatryRptStatusToAccepted",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Run_StatryRptRunUUID_SAPselfSetStatryRptStatusToSubmitted",
+            "title": "POST_Run_StatryRptRunUUID_SAPselfSetStatryRptStatusToSubmitted",
+            "description": "Invoke action SetStatryRptStatusToSubmitted",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/SAP__self.SetStatryRptStatusToSubmitted",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Run_StatryRptRunUUID_Activity",
+            "title": "GET_Run_StatryRptRunUUID_Activity",
+            "description": "Get related _Activity",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/_Activity",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Run_StatryRptRunUUID_RunParameter",
+            "title": "GET_Run_StatryRptRunUUID_RunParameter",
+            "description": "Get entities from related _RunParameter",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/_RunParameter",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    },
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Run_StatryRptRunUUID_RunParameter",
+            "title": "POST_Run_StatryRptRunUUID_RunParameter",
+            "description": "Add new entity to related _RunParameter",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/_RunParameter",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    },
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_Run_StatryRptRunUUID_Task",
+            "title": "GET_Run_StatryRptRunUUID_Task",
+            "description": "Get related _Task",
+            "openApiType": {
+                "path": "/Run/{StatryRptRunUUID}/_Task",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_RunParameter",
+            "title": "GET_RunParameter",
+            "description": "Get entities from RunParameter",
+            "openApiType": {
+                "path": "/RunParameter",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_RunParameter_StatryRptRunParamUUID",
+            "title": "GET_RunParameter_StatryRptRunParamUUID",
+            "description": "Get entity from RunParameter by key",
+            "openApiType": {
+                "path": "/RunParameter/{StatryRptRunParamUUID}",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunParamUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunparamuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_RunParameter_StatryRptRunParamUUID_Run",
+            "title": "GET_RunParameter_StatryRptRunParamUUID_Run",
+            "description": "Get related _Run",
+            "openApiType": {
+                "path": "/RunParameter/{StatryRptRunParamUUID}/_Run",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunParamUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunparamuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_RunParameter_StatryRptRunParamUUID_Task",
+            "title": "GET_RunParameter_StatryRptRunParamUUID_Task",
+            "description": "Get related _Task",
+            "openApiType": {
+                "path": "/RunParameter/{StatryRptRunParamUUID}/_Task",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptRunParamUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrptrunparamuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Task",
+            "title": "GET_Task",
+            "description": "Get entities from Task",
+            "openApiType": {
+                "path": "/Task",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Task",
+            "title": "POST_Task",
+            "description": "Add new entity to Task",
+            "openApiType": {
+                "path": "/Task",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_Task_StatryRptTaskUUID",
+            "title": "GET_Task_StatryRptTaskUUID",
+            "description": "Get entity from Task by key",
+            "openApiType": {
+                "path": "/Task/{StatryRptTaskUUID}",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptTaskUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrpttaskuuid"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "DELETE_Task_StatryRptTaskUUID",
+            "title": "DELETE_Task_StatryRptTaskUUID",
+            "description": "Delete entity from Task",
+            "openApiType": {
+                "path": "/Task/{StatryRptTaskUUID}",
+                "method": "delete",
+                "parameters": [
+                    {
+                        "name": "StatryRptTaskUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrpttaskuuid"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "GET_Task_StatryRptTaskUUID_Phase",
+            "title": "GET_Task_StatryRptTaskUUID_Phase",
+            "description": "Get entities from related _Phase",
+            "openApiType": {
+                "path": "/Task/{StatryRptTaskUUID}/_Phase",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "StatryRptTaskUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrpttaskuuid"
+                    },
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_Task_StatryRptTaskUUID_Phase",
+            "title": "POST_Task_StatryRptTaskUUID_Phase",
+            "description": "Add new entity to related _Phase",
+            "openApiType": {
+                "path": "/Task/{StatryRptTaskUUID}/_Phase",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    },
+                    {
+                        "name": "StatryRptTaskUUID",
+                        "description": "NodeID",
+                        "in": "path",
+                        "newParameterName": "statryrpttaskuuid"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "POST__batch",
+            "title": "POST__batch",
+            "description": "Group multiple requests into a single request payload, see [Batch Requests](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_BatchRequests).\n\n*Please note that \"Try it out\" is not supported for this request.*",
+            "openApiType": {
+                "path": "/$batch",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "Batch request"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "multipart/mixed;boundary=request-separator"
+                }
+            }
+        }
+    ]
+}

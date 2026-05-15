@@ -1,0 +1,99 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Compensation Information", "version": "1.0.0" },
+  "paths": {
+    "/EmpCompensation": {
+      "get": {
+        "operationId": "listEmpCompensation",
+        "summary": "List employee compensation records",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } },
+          { "name": "$expand", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee compensation",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "results": { "type": "array", "items": {
+                    "type": "object",
+                    "properties": {
+                      "userId": { "type": "string" },
+                      "seqNumber": { "type": "integer" },
+                      "startDate": { "type": "string" },
+                      "payGrade": { "type": "string" },
+                      "payscaleLevel": { "type": "string" },
+                      "annualSalary": { "type": "number" },
+                      "currency": { "type": "string" }
+                    }
+                  }}
+                }}
+              }
+            }}}
+          }
+        }
+      }
+    },
+    "/EmpPayCompRecurring": {
+      "get": {
+        "operationId": "listEmpPayCompRecurring",
+        "summary": "List recurring pay components for employees",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurring pay components",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "results": { "type": "array", "items": {
+                    "type": "object",
+                    "properties": {
+                      "userId": { "type": "string" },
+                      "payComponent": { "type": "string" },
+                      "amount": { "type": "number" },
+                      "currency": { "type": "string" },
+                      "startDate": { "type": "string" }
+                    }
+                  }}
+                }}
+              }
+            }}}
+          }
+        }
+      }
+    },
+    "/OneTimeDeduction": {
+      "get": {
+        "operationId": "listOneTimeDeductions",
+        "summary": "List one-time deductions",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "One-time deductions", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+    "/RecurringDeductionItem": {
+      "get": {
+        "operationId": "listRecurringDeductionItems",
+        "summary": "List recurring deduction items",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Recurring deduction items", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    }
+  }
+}

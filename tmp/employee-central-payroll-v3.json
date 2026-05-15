@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Employee Central Payroll", "version": "1.0.0" },
+  "paths": {
+    "/EmployeePayrollRunResults": {
+      "get": {
+        "operationId": "listEmployeePayrollRunResults",
+        "summary": "List payroll run results",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } },
+          { "name": "$select", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of payroll run results",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "results": { "type": "array", "items": {
+                    "type": "object",
+                    "properties": {
+                      "externalCode": { "type": "string" },
+                      "mdfSystemEffectiveStartDate": { "type": "string" },
+                      "payrollStatus": { "type": "string" },
+                      "payPeriodStartDate": { "type": "string" },
+                      "payPeriodEndDate": { "type": "string" },
+                      "grossPay": { "type": "number" },
+                      "netPay": { "type": "number" },
+                      "currency": { "type": "string" }
+                    }
+                  }}
+                }}
+              }
+            }}}
+          }
+        }
+      },
+      "post": {
+        "operationId": "createEmployeePayrollRunResult",
+        "summary": "Create / trigger a payroll run",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": {
+            "type": "object",
+            "properties": {
+              "externalCode": { "type": "string" },
+              "payPeriodStartDate": { "type": "string" },
+              "payPeriodEndDate": { "type": "string" }
+            }
+          }}}
+        },
+        "responses": {
+          "201": {
+            "description": "Payroll run created",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "externalCode": { "type": "string" },
+                  "payrollStatus": { "type": "string" }
+                }}
+              }
+            }}}
+          }
+        }
+      }
+    },
+    "/EmployeePayrollRunResults(externalCode='{externalCode}',mdfSystemEffectiveStartDate={mdfSystemEffectiveStartDate})": {
+      "get": {
+        "operationId": "getEmployeePayrollRunResult",
+        "summary": "Get a specific payroll run result",
+        "parameters": [
+          { "name": "externalCode", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "mdfSystemEffectiveStartDate", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Payroll run result", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      },
+      "put": {
+        "operationId": "updateEmployeePayrollRunResult",
+        "summary": "Update a payroll run result (correction)",
+        "parameters": [
+          { "name": "externalCode", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "mdfSystemEffectiveStartDate", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object" } } }
+        },
+        "responses": {
+          "200": { "description": "Updated", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+    "/EmployeePayrollRunResultsItems": {
+      "get": {
+        "operationId": "listEmployeePayrollRunResultsItems",
+        "summary": "List payroll run result line items",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of payroll run result items",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "results": { "type": "array", "items": {
+                    "type": "object",
+                    "properties": {
+                      "externalCode": { "type": "string" },
+                      "payComponent": { "type": "string" },
+                      "amount": { "type": "number" },
+                      "currency": { "type": "string" }
+                    }
+                  }}
+                }}
+              }
+            }}}
+          }
+        }
+      }
+    }
+  }
+}

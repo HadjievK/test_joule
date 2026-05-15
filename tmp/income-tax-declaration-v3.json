@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Income Tax Declaration", "version": "1.0.0" },
+  "paths": {
+    "/ItDeclarationTimeBound": {
+      "get": {
+        "operationId": "listItDeclarationTimeBound",
+        "summary": "List income tax declarations with time-bound details",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Income tax declarations",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "results": { "type": "array", "items": {
+                    "type": "object",
+                    "properties": {
+                      "externalCode": { "type": "string" },
+                      "userId": { "type": "string" },
+                      "fiscalYear": { "type": "string" },
+                      "declarationStatus": { "type": "string" },
+                      "submissionDate": { "type": "string" },
+                      "dueDate": { "type": "string" }
+                    }
+                  }}
+                }}
+              }
+            }}}
+          }
+        }
+      }
+    },
+    "/DeclarationType": {
+      "get": {
+        "operationId": "listDeclarationTypes",
+        "summary": "List income tax declaration types",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Declaration types",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "properties": {
+                "d": { "type": "object", "properties": {
+                  "results": { "type": "array", "items": {
+                    "type": "object",
+                    "properties": {
+                      "externalCode": { "type": "string" },
+                      "name": { "type": "string" },
+                      "country": { "type": "string" }
+                    }
+                  }}
+                }}
+              }
+            }}}
+          }
+        }
+      }
+    }
+  }
+}

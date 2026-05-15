@@ -1,9 +1,0 @@
-apiVersion: asset.sap/v1
-kind: Asset
-
-metadata:
-  name: payroll-earmarked-funds-mcp-server
-  version: 1.0.0
-  translation: mcp-translation/translation.json
-
-type: mcp-translation

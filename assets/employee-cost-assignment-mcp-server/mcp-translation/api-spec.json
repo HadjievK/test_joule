@@ -1,0 +1,609 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Employee Cost Assignment",
+    "description": "You can use this API to define the organizational assignment and additional cost assignment of the cost center, fund, grant, functional area, budget period, and funds center for an employee. This API is implemented based on OData version 2 specification.\n\n You can find your company's API server in [List of API Servers in SAP SuccessFactors.](https://help.sap.com/viewer/d599f15995d348a1b45ba5603e2aba9b/LATEST/en-US/af2b8d5437494b12be88fe374eba75b6.html)"
+  },
+  "paths": {
+    "/EmpCostAssignment": {
+      "get": {
+        "summary": "Get all Employee Cost Assignments",
+        "description": "You can use the following request to get all employee cost assignments. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+        "tags": [
+          "EmpCostAssignment"
+        ],
+        "parameters": [
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "Show only the first n items, see [OData Paging - Top](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374630)",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "Skip the first n items, see [OData Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374631)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "description": "Filter items by property values, see [OData Filtering](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374625)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "required": false,
+            "description": "Include count of items, see [OData Count](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374632)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "required": false,
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved EmpCostAssignments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Wrapper",
+                  "properties": {
+                    "d": {
+                      "type": "object",
+                      "title": "Collection of EmpCostAssignment",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SFOData.EmpCostAssignment"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authorization information is missing or invalid."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new Employee Cost Assignment",
+        "description": "You can use the following request to create a new employee cost assignment. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+        "tags": [
+          "EmpCostAssignment"
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SFOData.EmpCostAssignment-create"
+              }
+            }
+          },
+          "description": "Attributes of new EmpCostAssignment."
+        },
+        "responses": {
+          "201": {
+            "description": "EmpCostAssignment successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Created EmpCostAssignment",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/SFOData.EmpCostAssignment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - wrong name or body is not provided in the expected JSON format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authorization information is missing or invalid."
+          },
+          "403": {
+            "description": "Access forbidden - you did not have the required permissions to access the resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - the requested operation led to an error during execution.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EmpCostAssignment(effectiveStartDate=datetime'{effectiveStartDate}',worker='{worker}')": {
+      "get": {
+        "summary": "Get Employee Cost Assignment by key",
+        "description": "You can use the following request to get employee cost assignment by effective start date and worker. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+        "tags": [
+          "EmpCostAssignment"
+        ],
+        "parameters": [
+          {
+            "name": "effectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: effectiveStartDate, format: <YYYY-MM-DD>T<HH:MM:SS>  <br>\nExample: ```2021-01-01T00:00:00```",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "worker",
+            "in": "path",
+            "required": true,
+            "description": "key: worker, format: worker <br>\nExample: ```string```",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved EmpCostAssignment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "EmpCostAssignment",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/SFOData.EmpCostAssignment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authorization information is missing or invalid."
+          },
+          "404": {
+            "description": "Not found - EmpCostAssignment is not found with the given key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upsert?purgeType=record": {
+      "post": {
+        "summary": "Update Employee Cost Assignment",
+        "description": "You can use the following request to update an existing employee cost assignment.",
+        "tags": [
+          "EmpCostAssignment"
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SFOData.EmpCostAssignment-update"
+              }
+            }
+          },
+          "description": "Attributes of updated EmpCostAssignment."
+        },
+        "responses": {
+          "200": {
+            "description": "OK - EmpCostAssignment upserted."
+          },
+          "400": {
+            "description": "Bad request - wrong name or body is not provided in the expected JSON format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authorization information is missing or invalid."
+          },
+          "403": {
+            "description": "Access forbidden - you did not have the required permissions to access the resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found - EmpCostAssignment is not found with the given key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - the requested operation led to an error during execution.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata.error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://hostname/"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "odata.error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/odata.error.main"
+          }
+        }
+      },
+      "odata.error.main": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/odata.error.detail"
+            }
+          },
+          "innererror": {
+            "type": "object",
+            "description": "The structure of this object is service-specific"
+          }
+        }
+      },
+      "odata.error.detail": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      },
+      "EmpCostAssignmentitemInECA": {
+        "type": "object",
+        "title": "EmpCostAssignmentItem in EmpCostAssignment",
+        "required": [
+          "defaultAssignment",
+          "costCenter",
+          "percentage"
+        ],
+        "properties": {
+          "defaultAssignment": {
+            "type": "boolean",
+            "nullable": true,
+            "example": true
+          },
+          "costCenter": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          },
+          "percentage": {
+            "type": "number",
+            "example": 10
+          },
+          "budgetPeriod": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          },
+          "functionalArea": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          },
+          "fund": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          },
+          "fundCenter": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          },
+          "grant": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          },
+          "workBreakdownStructure": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 128
+          }
+        }
+      },
+      "MetaDataForUpsertofECA": {
+        "type": "object",
+        "title": "Metadata for EmpCostAssignment (for update)",
+        "required": [
+          "uri",
+          "type"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string",
+            "example": "/EmpCostAssignment(effectiveStartDate=datetime'2023-02-28T00:00:00',worker='213'), /EmpCostAssignmentItem"
+          },
+          "type": {
+            "type": "string",
+            "example": "SFOData.EmpCostAssignment",
+            "maxLength": 100
+          }
+        }
+      },
+      "SFOData.EmpCostAssignment": {
+        "type": "object",
+        "title": "EmpCostAssignment",
+        "required": [
+          "effectiveStartDate",
+          "worker"
+        ],
+        "properties": {
+          "companyCode": {
+            "type": "string",
+            "nullable": true,
+            "example": "string",
+            "maxLength": 4
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true,
+            "example": "string",
+            "readOnly": true,
+            "maxLength": 100
+          },
+          "createdDateTime": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true,
+            "example": "/Date(1677263400000)/"
+          },
+          "doNotSyncFromPositionCostAssignment": {
+            "type": "boolean",
+            "nullable": true,
+            "example": false
+          },
+          "effectiveEndDate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true,
+            "example": "/Date(1677263400000)/"
+          },
+          "effectiveStartDate": {
+            "type": "string",
+            "example": "/Date(1677263400000)/"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "nullable": true,
+            "example": "string",
+            "readOnly": true,
+            "maxLength": 100
+          },
+          "lastModifiedDateTime": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true,
+            "example": "/Date(1677263400000)/"
+          },
+          "mdfSystemRecordStatus": {
+            "type": "string",
+            "enum": [
+              "C",
+              "D",
+              "F",
+              "N",
+              "P",
+              "PH"
+            ],
+            "description": "Status codes:\n C - Correction\n D - Soft deleted record \n F - Full Purge Import in Progress \n N - Normal record \n P - Pending record \n PH - Pending history record",
+            "example": "N",
+            "readOnly": true,
+            "maxLength": 255
+          },
+          "mdfSystemStatus": {
+            "type": "string",
+            "enum": [
+              "A",
+              "I"
+            ],
+            "description": "Status codes: \n A - Active \n I - InActive",
+            "example": "A",
+            "maxLength": 128
+          },
+          "skipValidationDerivation": {
+            "type": "boolean",
+            "nullable": true,
+            "example": false
+          },
+          "worker": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 100
+          }
+        }
+      },
+      "SFOData.EmpCostAssignment-create": {
+        "type": "object",
+        "title": "EmpCostAssignment (for create)",
+        "required": [
+          "effectiveStartDate",
+          "worker"
+        ],
+        "properties": {
+          "doNotSyncFromPositionCostAssignment": {
+            "type": "boolean",
+            "nullable": true,
+            "example": true
+          },
+          "effectiveStartDate": {
+            "type": "string",
+            "example": "/Date(1492098664000)/"
+          },
+          "worker": {
+            "type": "string",
+            "example": "string",
+            "maxLength": 100
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmpCostAssignmentitemInECA"
+            }
+          }
+        }
+      },
+      "SFOData.EmpCostAssignment-update": {
+        "type": "object",
+        "title": "EmpCostAssignment (for update)",
+        "required": [
+          "effectiveStartDate",
+          "worker"
+        ],
+        "properties": {
+          "__metadata": {
+            "type": "object",
+            "$ref": "#/components/schemas/MetaDataForUpsertofECA"
+          },
+          "doNotSyncFromPositionCostAssignment": {
+            "type": "boolean",
+            "nullable": true,
+            "example": false
+          },
+          "mdfSystemStatus": {
+            "type": "string",
+            "enum": [
+              "A",
+              "I"
+            ],
+            "example": "I",
+            "maxLength": 128
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmpCostAssignmentitemInECA"
+            }
+          }
+        }
+      }
+    }
+  }
+}

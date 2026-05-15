@@ -1,0 +1,134 @@
+{
+  "x-odata-version": "2.0",
+  "swagger": "2.0",
+  "info": {
+    "title": "Cancel a Run",
+    "description": "Removes all the staged data, closes the run and updates the logs.<br>â¢\tCancels the run if it is waiting for the next payload.<br>â¢\tThe user retrieving data must be the same who has started the run.<br>â¢\tThere will be no import to the S/4HANA backend.<br>â¢\tThe staged data (if any) will be removed.",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "x-sap-api-type": "ODATA",
+  "tags": [
+    {
+      "name": "Cancel a run"
+    }
+  ],
+  "securityDefinitions": {
+    "Oauth2_ClientCredentials": {
+      "type": "oauth2",
+      "description": "To use this API, you need to obtain the OAuth client credentials (client ID and secret) using the SAP Business Technology Platform cockpit. After that, pass these client credentials to the SAP Business Technology",
+      "tokenUrl": "https://{subaccount}.{landscapehost}/oauth/token",
+      "flow": "application",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "Oauth2_ClientCredentials": []
+    }
+  ],
+  "x-servers": [
+    {
+      "url": "https://{url}.{landscapehost}/odata/v2/API_CnsldtnGrpJrnlEntr_Imprt",
+      "description": "SAP Group Reporting Data Collection",
+      "templates": {
+        "appname": {
+          "description": "SAP Group Reporting Data Collection"
+        },
+        "url": {
+          "description": "SAP Group Reporting Data Collection Url"
+        },
+        "landscapehost": {
+          "description": "SAP Group Reporting Data Collection landscape host"
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "Group Journal Entries â Import API",
+    "url": "https://help.sap.com/docs/SAP_Group_Reporting_Data_Collection/e29950571a2b4065b1dacaf881c67413/571c7d271c2d4bbd8121bacac116e8e8.html?q=Push&version=1.0"
+  },
+  "x-sap-shortText": "Close the run, remove all the staged data related to the job and update the logs.",
+  "paths": {
+    "/CancelCnsldtnGrpJrnlEntrJob": {
+      "post": {
+        "operationId": "CancelCnsldtnGrpJrnlEntrJob",
+        "summary": "Cancels a mapping run",
+        "description": "Cancels a mapping run with reference to a run ID, from the SAP Group Reporting Data Collection Mapping application",
+        "parameters": [
+          {
+            "name": "$runId",
+            "type": "string",
+            "required": true,
+            "in": "query",
+            "description": "Identifier of the run. You must add the parameter value to a query string, at the end of the base URL."
+          }
+        ],
+        "tags": [
+          "Mapping job Service"
+        ],
+        "responses": {
+          "200": {
+            "description": "The request is successful.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/run"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You are not authorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed Error Description"
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "description": "Run Identifier"
+        }
+      },
+      "required": [
+        "runId"
+      ]
+    }
+  }
+}

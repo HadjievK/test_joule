@@ -3,7 +3,9 @@ kind: Asset
 
 metadata:
   name: income-tax-declaration-mcp-server
-  version: 1.0.0
+  version: "1.0.0"
+  description: "MCP server for SAP SuccessFactors Income Tax Declaration API"
+  ordId: "customer.payroll:apiResource:IncomeTaxDeclaration_MCP:v1"
   translation: mcp-translation/translation.json
 
 type: mcp-translation

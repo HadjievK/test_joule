@@ -16,6 +16,7 @@ from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
 
 from agent_executor import AgentExecutor
+from hana_cache import cache_stats
 from opentelemetry.instrumentation.starlette import StarletteInstrumentor
 
 logging.basicConfig(level=logging.INFO)
@@ -30,25 +31,18 @@ PORT = int(os.environ.get("PORT", "5000"))
 @click.option("--port", default=PORT)
 def main(host: str, port: int):
     skill = AgentSkill(
-        id="payroll-operations",
-        name="Payroll Operations",
-        description="End-to-end payroll operations across SAP SuccessFactors and SAP S/4HANA",
-        tags=["payroll", "successfactors", "s4hana", "finance", "compliance"],
+        id="payroll-operations-agent",
+        name="payroll-operations-agent",
+        description="AI agent that controls all payroll operations across SAP SuccessFactors Employee Central Payroll and SAP HANA Cloud â including payroll data retrieval, run initiation, discrepancy detection and resolution, compliance validation, and report generation.",
+        tags=["payroll", "operations", "agent"],
         examples=[
-            "Show me payroll records for the last pay period",
-            "Check compliance status for this quarter",
-            "Identify discrepancies between time sheets and payroll",
-            "Generate a payroll summary report",
+            "Show me the payroll run status for the current period across both systems",
+            "Validate time sheets for all employees and flag any missing entries",
         ],
     )
     agent_card = AgentCard(
-        name="Payroll Operations Agent",
-        description=(
-            "AI agent assisting payroll administrators and finance controllers "
-            "with end-to-end payroll operations across SAP SuccessFactors and SAP S/4HANA. "
-            "Supports payroll data retrieval, run initiation (with confirmation), "
-            "discrepancy detection and resolution, compliance checks, and report generation."
-        ),
+        name="payroll-operations-agent",
+        description="AI agent that controls all payroll operations across SAP SuccessFactors Employee Central Payroll and SAP HANA Cloud â including payroll data retrieval, run initiation, discrepancy detection and resolution, compliance validation, and report generation.",
         url=os.environ.get("AGENT_PUBLIC_URL", f"http://{host}:{port}/"),
         version="1.0.0",
         default_input_modes=["text", "text/plain"],
@@ -64,9 +58,21 @@ def main(host: str, port: int):
         ),
     )
     app = server.build()
+
+    # Expose HANA cache stats at /cache/stats for operational monitoring
+    from starlette.requests import Request
+    from starlette.responses import JSONResponse
+    from starlette.routing import Route
+
+    async def hana_cache_stats_endpoint(request: Request) -> JSONResponse:
+        return JSONResponse(cache_stats())
+
+    from starlette.routing import Router
+    app.routes.append(Route("/cache/stats", hana_cache_stats_endpoint, methods=["GET"]))
+
     StarletteInstrumentor().instrument_app(app)
 
-    logger.info(f"Starting Payroll Operations A2A server at http://{host}:{port}")
+    logger.info(f"Starting A2A server at http://{host}:{port}")
     uvicorn.run(app, host=host, port=port)
 
 

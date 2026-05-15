@@ -8,54 +8,11 @@ from langgraph.prebuilt import ToolNode
 from opentelemetry import trace
 from sap_cloud_sdk.agent_decorators import agent_config, agent_model, prompt_section
 
+from hana_cache import cache_get, cache_invalidate, cache_set, cache_stats, _is_write_query
 from mcp_tools import get_mcp_tools
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
-
-# ── Milestone IDs ─────────────────────────────────────────────────────────────
-M1 = "M1"  # Payroll Data Retrieved
-M2 = "M2"  # Payroll Run Initiated
-M3 = "M3"  # Discrepancy Identified and Resolved
-M4 = "M4"  # Compliance Check Completed
-M5 = "M5"  # Payroll Report Generated
-
-
-def log_milestone(milestone_id: str, achieved: bool, **kwargs) -> None:
-    """Emit a structured milestone log statement."""
-    status = "achieved" if achieved else "missed"
-    details = " — ".join(f"{k}={v}" for k, v in kwargs.items() if v is not None)
-    msg = f"{milestone_id}.{status}: "
-
-    if milestone_id == M1:
-        if achieved:
-            msg += f"payroll data retrieved successfully for pay period {kwargs.get('period', 'unknown')} from {kwargs.get('systems', 'unknown')}"
-        else:
-            msg += f"payroll data retrieval failed or returned no results for pay period {kwargs.get('period', 'unknown')} — system {kwargs.get('system', 'unknown')}, error {kwargs.get('error', 'unknown')}"
-    elif milestone_id == M2:
-        if achieved:
-            msg += f"payroll run initiated successfully, run ID {kwargs.get('run_id', 'unknown')}, system {kwargs.get('system', 'SuccessFactors')}"
-        else:
-            msg += f"payroll run initiation failed or was cancelled by user — system {kwargs.get('system', 'SuccessFactors')}, reason {kwargs.get('reason', 'unknown')}"
-    elif milestone_id == M3:
-        if achieved:
-            msg += f"discrepancy detected and resolved for employee {kwargs.get('employee_id', 'unknown')}, type {kwargs.get('discrepancy_type', 'unknown')}"
-        else:
-            msg += "discrepancy detection completed with no issues found, or correction was declined by user"
-    elif milestone_id == M4:
-        if achieved:
-            msg += f"compliance check completed for pay period {kwargs.get('period', 'unknown')} — {kwargs.get('n', 0)} obligations checked, {kwargs.get('m', 0)} flagged"
-        else:
-            msg += f"compliance check could not be completed for pay period {kwargs.get('period', 'unknown')} — error {kwargs.get('error', 'unknown')}"
-    elif milestone_id == M5:
-        if achieved:
-            msg += f"payroll report generated for period {kwargs.get('period', 'unknown')}, {kwargs.get('n', 0)} records included, source systems {kwargs.get('systems', 'unknown')}"
-        else:
-            msg += f"payroll report generation incomplete for period {kwargs.get('period', 'unknown')} — missing data from {kwargs.get('system', 'unknown')}"
-    else:
-        msg += details
-
-    logger.info(msg)
 
 
 @agent_model(
@@ -83,33 +40,40 @@ def get_temperature() -> float:
     validation={"format": "markdown", "max_length": 5000},
 )
 def get_system_prompt() -> str:
-    return """You are a Payroll Operations AI Agent assisting payroll administrators and finance controllers. \
-You have access to SAP SuccessFactors and SAP S/4HANA payroll APIs via MCP tools.
+    return """You are an AI agent that controls all payroll operations across SAP SuccessFactors Employee Central Payroll and SAP HANA Cloud. You serve payroll administrators and finance controllers.
 
-## Role
-- Assist payroll administrators with payroll runs, discrepancy resolution, compliance checks, and reporting.
-- Assist finance controllers with compensation queries and cross-system payroll analytics.
+## Data Sources
+- **SAP SuccessFactors** (via MCP tools): time sheets, cost assignments, compensation, benefits, payroll run results, income tax declarations
+- **SAP HANA Cloud** (via hana_* tools): business data tables stored directly in the HANA Cloud database instance
 
-## Dual-System Fluency
-When the user asks for payroll data, always query both SAP SuccessFactors and SAP S/4HANA unless a specific system is requested.
+## How to Query HANA Cloud
+Always follow this sequence when the user asks for data that may reside in HANA Cloud:
+1. Call `hana_list_tables` to discover available tables.
+2. Call `hana_describe_table` on the relevant table to understand its columns.
+3. Call `hana_query` with a precise SELECT statement to retrieve the data.
 
-## Write Operation Guardrail
-For ALL write operations (trigger payroll run, apply correction, submit statutory report), you MUST:
-1. Present a clear confirmation summary of what will be changed.
-2. Wait for explicit user approval (e.g. "yes", "confirm", "proceed") before calling any write API.
-3. Never execute a write action autonomously.
+## Core Responsibilities
+- Query and reconcile payroll data from SAP SuccessFactors and SAP HANA Cloud
+- Detect and report payroll discrepancies, anomalies, and compliance issues
+- Manage time sheets, cost assignments, compensation records, and reimbursements
+- Validate compliance against statutory and tax reporting requirements
+- Generate consolidated payroll summaries and statutory reports
 
-## Page Limits
-On every tool call that accepts a `$top` or `top` parameter, always set it to a maximum of 100 to prevent context overflow. Inform the user when this limit is applied.
+## Critical Rules
+1. NEVER trigger a live payroll run without first presenting a pre-action summary (employee count, period, system, warnings) and receiving explicit human confirmation.
+2. Write actions affecting multiple employees simultaneously are HIGH-RISK and always require human confirmation before execution.
+3. Autonomous write operations are strictly scoped to single-employee records only.
+4. Always set `top` (or equivalent page-size parameter) to a maximum of 100 on every tool call that accepts it. Inform the user when this limit is applied.
+5. NEVER hallucinate payroll data. If a tool call fails or returns empty results, report that explicitly and suggest remediation steps.
+6. When anomaly count in any validation run exceeds 5, escalate to the user immediately rather than attempting autonomous resolution.
+7. All write operations must be confirmed back to the user with: employee ID, field changed, old value, new value, and timestamp.
+8. `hana_query` is read-only. Never attempt INSERT, UPDATE, DELETE or DDL via HANA tools.
 
-## Accuracy
-Never fabricate or hallucinate payroll data. Only present data returned by tool calls. If a tool call fails, clearly state the failure and suggest a manual fallback.
-
-## Graceful Degradation
-If one backend system is unavailable, continue serving the other and clearly inform the user which system is unavailable.
-
-## Scope
-You are designed for payroll administrators and finance controllers only. Do not assist with employee self-service payroll queries."""
+## Response Style
+- Be precise, structured, and audit-conscious in all responses
+- For payroll data queries, always include the period, data source (SuccessFactors or HANA Cloud), and record count
+- For anomaly reports, provide: employee ID, field, expected value, actual value, and recommended action
+- For compliance issues, cite the applicable regulation and recommended remediation"""
 
 
 @dataclass
@@ -118,7 +82,7 @@ class AgentResponse:
     message: str
 
 
-class PayrollOperationsAgent:
+class SampleAgent:
     SUPPORTED_CONTENT_TYPES = ["text", "text/plain"]
 
     def __init__(self):
@@ -155,31 +119,155 @@ class PayrollOperationsAgent:
             self._graph = self._build_graph(tools)
         return self._graph
 
-    async def _run_agent(self, query: str) -> str:
-        """Core agent execution logic — instrumented with OpenTelemetry spans."""
-        with tracer.start_as_current_span("payroll-agent-run") as span:
-            span.set_attribute("query.length", len(query))
-            messages = [
-                SystemMessage(content=get_system_prompt()),
-                HumanMessage(content=query),
-            ]
+    @tracer.start_as_current_span("payroll_agent._run_agent")
+    async def _run_agent(self, query: str, context_id: str) -> str:
+        """Core business logic â instrumented with milestones.
+
+        Read queries are served from the SAP HANA Cloud cache when available.
+        Write queries bypass the cache and trigger a context-scoped invalidation
+        after execution so subsequent reads reflect the latest state.
+        """
+        span = trace.get_current_span()
+        span.set_attribute("context_id", context_id)
+
+        # ------------------------------------------------------------------ #
+        # HANA cache look-up (read queries only)                              #
+        # ------------------------------------------------------------------ #
+        is_write = _is_write_query(query)
+        if not is_write:
+            cached = cache_get(query, context_id)
+            if cached is not None:
+                logger.info(
+                    "M1.achieved: payroll data retrieved from HANA cache for context %s",
+                    context_id,
+                )
+                span.set_attribute("m1.status", "achieved")
+                span.set_attribute("cache.hit", True)
+                return cached
+
+        span.set_attribute("cache.hit", False)
+
+        messages = [
+            SystemMessage(content=get_system_prompt()),
+            HumanMessage(content=query),
+        ]
+
+        # M1 â Payroll Data Retrieved
+        try:
             graph = await self._get_graph()
             result = await graph.ainvoke({"messages": messages})
             response = result["messages"][-1].content
+            logger.info("M1.achieved: payroll data retrieved â query processed successfully")
+            span.set_attribute("m1.status", "achieved")
+        except Exception as e:
+            logger.error("M1.missed: payroll data retrieval incomplete â failed sources: %s", str(e))
+            span.set_attribute("m1.status", "missed")
+            raise
 
-            # Detect milestone outcomes from tool call results in the message history
-            _emit_milestones_from_result(result, query, response)
+        # ------------------------------------------------------------------ #
+        # HANA cache write / invalidate                                       #
+        # ------------------------------------------------------------------ #
+        if is_write:
+            # Invalidate stale read cache entries for this context after a
+            # write so the next read fetches fresh data from the source system.
+            cache_invalidate(context_id)
+            span.set_attribute("cache.invalidated", True)
+        else:
+            cache_set(query, context_id, response)
+            span.set_attribute("cache.stored", True)
 
-            return response
+        # M5 â Payroll Report Generated (if response contains report content)
+        if any(kw in query.lower() for kw in ["report", "summary", "compliance"]):
+            if response and len(response) > 50:
+                logger.info("M5.achieved: payroll report generated â completeness: complete")
+                span.set_attribute("m5.status", "achieved")
+            else:
+                logger.warning("M5.missed: report generation failed â missing data: response content empty")
+                span.set_attribute("m5.status", "missed")
+
+        return response
+
+    @tracer.start_as_current_span("payroll_agent.discrepancy_resolution")
+    async def _run_discrepancy_check(self, query: str) -> str:
+        """Discrepancy detection milestone instrumentation."""
+        span = trace.get_current_span()
+        messages = [
+            SystemMessage(content=get_system_prompt()),
+            HumanMessage(content=query),
+        ]
+        graph = await self._get_graph()
+        result = await graph.ainvoke({"messages": messages})
+        response = result["messages"][-1].content
+
+        if "discrepanc" in response.lower() or "mismatch" in response.lower():
+            logger.info("M3.achieved: discrepancies resolved for the requested period")
+            span.set_attribute("m3.status", "achieved")
+        else:
+            logger.info("M3.achieved: 0 discrepancies found for the requested period")
+            span.set_attribute("m3.status", "achieved")
+
+        return response
+
+    @tracer.start_as_current_span("payroll_agent.compliance_check")
+    async def _run_compliance_check(self, query: str) -> str:
+        """Compliance check milestone instrumentation."""
+        span = trace.get_current_span()
+        messages = [
+            SystemMessage(content=get_system_prompt()),
+            HumanMessage(content=query),
+        ]
+        graph = await self._get_graph()
+        result = await graph.ainvoke({"messages": messages})
+        response = result["messages"][-1].content
+
+        if "non-compliant" in response.lower() or "flagged" in response.lower():
+            logger.info("M4.achieved: compliance check completed â flagged items found")
+            span.set_attribute("m4.status", "achieved")
+        else:
+            logger.info("M4.achieved: compliance check completed â all items compliant")
+            span.set_attribute("m4.status", "achieved")
+
+        return response
+
+    @tracer.start_as_current_span("payroll_agent.payroll_run")
+    async def _run_payroll_initiation(self, query: str) -> str:
+        """Payroll run initiation milestone instrumentation."""
+        span = trace.get_current_span()
+        messages = [
+            SystemMessage(content=get_system_prompt()),
+            HumanMessage(content=query),
+        ]
+        graph = await self._get_graph()
+        result = await graph.ainvoke({"messages": messages})
+        response = result["messages"][-1].content
+
+        if "initiated" in response.lower() or "triggered" in response.lower() or "run_id" in response.lower():
+            logger.info("M2.achieved: payroll run initiated successfully")
+            span.set_attribute("m2.status", "achieved")
+        else:
+            logger.info("M2.missed: payroll run initiation pending confirmation or failed")
+            span.set_attribute("m2.status", "missed")
+
+        return response
 
     async def stream(self, query: str, context_id: str) -> AsyncGenerator[dict, None]:
         yield {
             "is_task_complete": False,
             "require_user_input": False,
-            "content": "Processing...",
+            "content": "Processing payroll request...",
         }
         try:
-            response = await self._run_agent(query)
+            # Route to specialized milestone helper based on query intent
+            q_lower = query.lower()
+            if any(kw in q_lower for kw in ["discrepanc", "mismatch", "error", "correct"]):
+                response = await self._run_discrepancy_check(query)
+            elif any(kw in q_lower for kw in ["compliance", "statutory", "tax check"]):
+                response = await self._run_compliance_check(query)
+            elif any(kw in q_lower for kw in ["trigger run", "initiate run", "start payroll run"]):
+                response = await self._run_payroll_initiation(query)
+            else:
+                response = await self._run_agent(query, context_id)
+
             yield {
                 "is_task_complete": True,
                 "require_user_input": False,
@@ -191,77 +279,8 @@ class PayrollOperationsAgent:
 
     async def invoke(self, query: str, context_id: str) -> AgentResponse:
         try:
-            response = await self._run_agent(query)
+            response = await self._run_agent(query, context_id)
             return AgentResponse(status="completed", message=response)
         except Exception:
             logger.error("invoke() failed", exc_info=True)
             raise
-
-
-def _emit_milestones_from_result(result: dict, query: str, response: str) -> None:
-    """Inspect agent result messages and emit appropriate milestone logs."""
-    messages = result.get("messages", [])
-    tool_names_called = set()
-    for msg in messages:
-        if hasattr(msg, "tool_calls"):
-            for tc in msg.tool_calls:
-                tool_names_called.add(tc.get("name", "").lower())
-        elif hasattr(msg, "name") and msg.name:
-            tool_names_called.add(msg.name.lower())
-
-    query_lower = query.lower()
-    response_lower = response.lower()
-
-    # M1: Payroll data retrieved — substring match against lowercased tool names
-    payroll_read_patterns = [
-        "payrollrunresult", "payrollearmarkedfunds", "employeetimesheet",
-        "empcompensation", "employeecompensation", "timesheet", "timecollector",
-        "listemployeepayroll",
-    ]
-    if any(
-        any(pattern in t for pattern in payroll_read_patterns)
-        for t in tool_names_called
-    ):
-        log_milestone(M1, achieved=True, period="requested period", systems="SuccessFactors/S4HANA")
-    elif any(kw in query_lower for kw in ["payroll data", "payroll records", "show me payroll"]):
-        log_milestone(M1, achieved=False, period="requested period", system="unknown", error="no data returned")
-
-    # M2: Payroll run initiated
-    if any("payrollrunresults" in t and "post" in t for t in tool_names_called) or \
-       any(t in tool_names_called for t in {"trigger_payroll_run", "create_payrollrunresult"}):
-        log_milestone(M2, achieved=True, run_id="from API response", system="SuccessFactors")
-    elif "trigger payroll run" in query_lower and "confirm" not in query_lower:
-        log_milestone(M2, achieved=False, system="SuccessFactors", reason="awaiting confirmation")
-
-    # M3: Discrepancy detection
-    if any(kw in response_lower for kw in ["discrepancy", "mismatch", "correction applied"]):
-        log_milestone(M3, achieved=True, employee_id="detected", discrepancy_type="pay/time mismatch")
-    elif "discrepanc" in query_lower and "no discrepanc" in response_lower:
-        log_milestone(M3, achieved=False)
-
-    # M4: Compliance check — triggered by tool calls OR by compliance keywords in response
-    _compliance_tools = {
-        "activity", "phase", "itdeclarationtimebound", "declarationtype",
-        "get_statutory_reporting_tasks", "get_income_tax_declarations",
-    }
-    _compliance_response_kw = ["compliance check completed", "compliance check passed", "no violations", "violations found", "statutory reporting"]
-    if (
-        any(t in tool_names_called for t in _compliance_tools)
-        or any(kw in response_lower for kw in _compliance_response_kw)
-    ):
-        log_milestone(M4, achieved=True, period="requested period", n=0, m=0)
-    elif any(kw in query_lower for kw in ["compliance", "statutory", "tax"]) and "error" in response_lower:
-        log_milestone(M4, achieved=False, period="requested period", error="API call failed")
-
-    # M5: Report generated — triggered by tool calls, query+response combo, or "report generated" in response
-    _report_response_kw = ["payroll report generated", "report generated", "payroll report complete", "report has been generated"]
-    if (
-        any(kw in response_lower for kw in _report_response_kw)
-        or (
-            any(kw in query_lower for kw in ["report", "summary"])
-            and any(kw in response_lower for kw in ["payroll run", "employee count", "compensation", "earmarked funds", "employees processed", "total net pay"])
-        )
-    ):
-        log_milestone(M5, achieved=True, period="requested period", n=0, systems="SuccessFactors/S4HANA")
-    elif any(kw in query_lower for kw in ["report", "generate report"]) and "error" in response_lower:
-        log_milestone(M5, achieved=False, period="requested period", system="unknown")

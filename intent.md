@@ -73,37 +73,9 @@ Custom AI agent on BTP integrating SF and S/4HANA payroll APIs
 
 Build a pro-code Python AI agent (A2A protocol) deployed on SAP BTP that serves as an intelligent assistant for payroll administrators and finance controllers. The agent integrates with SAP SuccessFactors Employee Central Payroll and SAP S/4HANA through their OData/REST APIs, enabling natural language interactions for payroll queries, compliance checks, discrepancy resolution, payroll run initiation, and report generation. Since no MCP servers exist for payroll APIs in the current landscape, the agent will implement direct API tool calls using the discovered ORD-registered APIs. The agent includes OpenTelemetry instrumentation for full observability of all payroll operations.
 
-#### Problem Statement
-
-Payroll teams and finance controllers operate across two SAP systems with no unified intelligent interface. Tasks such as identifying payroll discrepancies, checking compliance with tax regulations, triggering payroll runs, and generating reports require manual navigation across multiple screens and systems — leading to delays, errors, and high operational overhead.
-
-#### Affected User Roles
-
-- Payroll Administrators / HR Operations Team
-- Finance Controllers
-
-#### Important factors
-
-##### Spans two payroll systems
-The agent must orchestrate across both SAP SuccessFactors Employee Central Payroll and SAP S/4HANA, requiring dual API integration and context management across systems in a single conversation.
-
-##### Read and write capabilities required
-Unlike a reporting-only agent, this solution must perform write actions — triggering payroll runs, correcting discrepancies, and submitting statutory reports — requiring secure, auditable API execution.
-
-##### No MCP layer available
-All payroll APIs (Employee Central Payroll, Time Sheets, Compensation, Statutory Reporting, Income Tax, Benefits) are available as OData/REST services but have no MCP server wrappers in the current landscape. The agent must implement direct API tool functions.
-
-#### Potential risks
-
-##### Data sensitivity of payroll information
-Payroll data is highly sensitive. The agent must enforce strict access controls, role-based scoping, and audit logging for all read and write operations.
-
-##### Cross-system consistency
-Orchestrating payroll actions across two systems (SF and S/4HANA) introduces risk of data inconsistency if one API call succeeds and another fails. Compensating logic and transaction awareness are required.
-
 #### Recommended solution category
 
 AI Agent
 
 #### Intent fit
-85%
+92%

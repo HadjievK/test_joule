@@ -1,7 +1,7 @@
 {
     "mcpTranslationVersion": "0.1",
     "target": {
-        "ordId": "sap.sf:apiResource:ECEmployeeCentralPayroll:v1",
+        "ordId": "sap.sf:apiResource:EmployeeCentralPayroll:v1",
         "type": "openapi-v3"
     },
     "serverInfo": {
@@ -12,99 +12,354 @@
     },
     "tools": [
         {
-            "name": "listPayrollRunResults",
-            "title": "listPayrollRunResults",
-            "description": "Retrieve a list of employee payroll run results with filtering by employee, period, and status",
+            "name": "GET_EmployeePayrollRunResultsItems",
+            "title": "GET_EmployeePayrollRunResultsItems",
+            "description": "Get entities from EmployeePayrollRunResultsItems",
             "openApiType": {
-                "path": "/EmployeePayrollRunResults",
+                "path": "/EmployeePayrollRunResultsItems",
                 "method": "get",
-                "operationId": "listPayrollRunResults",
                 "parameters": [
                     {
                         "name": "$top",
-                        "description": "Maximum number of records to return (max 100)",
+                        "description": "Show only the first n items, see [OData Paging - Top](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "top"
                     },
                     {
                         "name": "$skip",
-                        "description": "Number of records to skip",
+                        "description": "Skip the first n items, see [OData Paging - Skip](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "skip"
                     },
                     {
+                        "name": "$search",
+                        "description": "Search items by search phrases, see [OData Searching](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "search"
+                    },
+                    {
                         "name": "$filter",
-                        "description": "OData filter expression",
+                        "description": "Filter items by property values, see [OData Filtering](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "filter"
                     },
                     {
-                        "name": "$select",
-                        "description": "Comma-separated list of fields to return",
+                        "name": "$count",
+                        "description": "Include count of items, see [OData Count](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
-                        "newParameterName": "select"
+                        "newParameterName": "count"
                     },
                     {
                         "name": "$orderby",
-                        "description": "Order by expression",
+                        "description": "Order items by property values, see [OData Sorting](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "select"
                     }
                 ],
                 "requestBody": {}
             }
         },
         {
-            "name": "getPayrollRunResult",
-            "title": "getPayrollRunResult",
-            "description": "Retrieve a specific employee payroll run result by external code",
+            "name": "POST_EmployeePayrollRunResultsItems",
+            "title": "POST_EmployeePayrollRunResultsItems",
+            "description": "Add new entity to EmployeePayrollRunResultsItems",
             "openApiType": {
-                "path": "/EmployeePayrollRunResults('{externalCode}')",
-                "method": "get",
-                "operationId": "getPayrollRunResult",
+                "path": "/EmployeePayrollRunResultsItems",
+                "method": "post",
                 "parameters": [
                     {
+                        "name": "body",
+                        "description": "New entity"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+            "title": "GET_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+            "description": "Get entity from EmployeePayrollRunResultsItems by key",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResultsItems(EmployeePayrollRunResults_externalCode='{EmployeePayrollRunResults_externalCode}',EmployeePayrollRunResults_mdfSystemEffectiveStartDate={EmployeePayrollRunResults_mdfSystemEffectiveStartDate},externalCode='{externalCode}')",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "EmployeePayrollRunResults_externalCode",
+                        "description": "key: EmployeePayrollRunResults_externalCode",
+                        "in": "path",
+                        "newParameterName": "employeepayrollrunresults_externalcode"
+                    },
+                    {
+                        "name": "EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+                        "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+                        "in": "path",
+                        "newParameterName": "employeepayrollrunresults_mdfsystemeffectivestartdate"
+                    },
+                    {
                         "name": "externalCode",
-                        "description": "External code of the payroll run result",
+                        "description": "key: externalCode",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "PUT_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+            "title": "PUT_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+            "description": "Update entity in EmployeePayrollRunResultsItems",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResultsItems(EmployeePayrollRunResults_externalCode='{EmployeePayrollRunResults_externalCode}',EmployeePayrollRunResults_mdfSystemEffectiveStartDate={EmployeePayrollRunResults_mdfSystemEffectiveStartDate},externalCode='{externalCode}')",
+                "method": "put",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New property values"
+                    },
+                    {
+                        "name": "EmployeePayrollRunResults_externalCode",
+                        "description": "key: EmployeePayrollRunResults_externalCode",
+                        "in": "path",
+                        "newParameterName": "employeepayrollrunresults_externalcode"
+                    },
+                    {
+                        "name": "EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+                        "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+                        "in": "path",
+                        "newParameterName": "employeepayrollrunresults_mdfsystemeffectivestartdate"
+                    },
+                    {
+                        "name": "externalCode",
+                        "description": "key: externalCode",
                         "in": "path",
                         "newParameterName": "externalcode"
                     }
                 ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "DELETE_EmployeePayrollRunResultsItems_EmployeePayrollRunResultse",
+            "title": "DELETE_EmployeePayrollRunResultsItems_EmployeePayrollRunResultse",
+            "description": "Delete entity from EmployeePayrollRunResultsItems",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResultsItems(EmployeePayrollRunResults_externalCode='{EmployeePayrollRunResults_externalCode}',EmployeePayrollRunResults_mdfSystemEffectiveStartDate={EmployeePayrollRunResults_mdfSystemEffectiveStartDate},externalCode='{externalCode}')",
+                "method": "delete",
+                "parameters": [
+                    {
+                        "name": "EmployeePayrollRunResults_externalCode",
+                        "description": "key: EmployeePayrollRunResults_externalCode",
+                        "in": "path",
+                        "newParameterName": "employeepayrollrunresults_externalcode"
+                    },
+                    {
+                        "name": "EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+                        "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+                        "in": "path",
+                        "newParameterName": "employeepayrollrunresults_mdfsystemeffectivestartdate"
+                    },
+                    {
+                        "name": "externalCode",
+                        "description": "key: externalCode",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    },
+                    {
+                        "name": "If-Match",
+                        "description": "ETag",
+                        "in": "header",
+                        "newParameterName": "if_match"
+                    }
+                ],
                 "requestBody": {}
             }
         },
         {
-            "name": "listPayrollRunResultItems",
-            "title": "listPayrollRunResultItems",
-            "description": "Retrieve payroll run result line items (wage types, deductions, etc.)",
+            "name": "GET_EmployeePayrollRunResults",
+            "title": "GET_EmployeePayrollRunResults",
+            "description": "Get entities from EmployeePayrollRunResults",
             "openApiType": {
-                "path": "/EmployeePayrollRunResultsItems",
+                "path": "/EmployeePayrollRunResults",
                 "method": "get",
-                "operationId": "listPayrollRunResultItems",
                 "parameters": [
                     {
                         "name": "$top",
-                        "description": "",
+                        "description": "Show only the first n items, see [OData Paging - Top](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "top"
                     },
                     {
                         "name": "$skip",
-                        "description": "",
+                        "description": "Skip the first n items, see [OData Paging - Skip](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "skip"
                     },
                     {
+                        "name": "$search",
+                        "description": "Search items by search phrases, see [OData Searching](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "search"
+                    },
+                    {
                         "name": "$filter",
-                        "description": "",
+                        "description": "Filter items by property values, see [OData Filtering](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "filter"
                     },
                     {
+                        "name": "$count",
+                        "description": "Include count of items, see [OData Count](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [OData Sorting](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
                         "name": "$select",
-                        "description": "",
+                        "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
                         "in": "query",
                         "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [OData Expand](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_EmployeePayrollRunResults",
+            "title": "POST_EmployeePayrollRunResults",
+            "description": "Add new entity to EmployeePayrollRunResults",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResults",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New entity"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_EmployeePayrollRunResults_externalCode",
+            "title": "GET_EmployeePayrollRunResults_externalCode",
+            "description": "Get entity from EmployeePayrollRunResults by key",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResults(externalCode='{externalCode}',mdfSystemEffectiveStartDate={mdfSystemEffectiveStartDate})",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "externalCode",
+                        "description": "key: externalCode",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    },
+                    {
+                        "name": "mdfSystemEffectiveStartDate",
+                        "description": "key: mdfSystemEffectiveStartDate",
+                        "in": "path",
+                        "newParameterName": "mdfsystemeffectivestartdate"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [OData Expand](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+                        "in": "query",
+                        "newParameterName": "expand"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "PUT_EmployeePayrollRunResults_externalCode",
+            "title": "PUT_EmployeePayrollRunResults_externalCode",
+            "description": "Update entity in EmployeePayrollRunResults",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResults(externalCode='{externalCode}',mdfSystemEffectiveStartDate={mdfSystemEffectiveStartDate})",
+                "method": "put",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "New property values"
+                    },
+                    {
+                        "name": "externalCode",
+                        "description": "key: externalCode",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    },
+                    {
+                        "name": "mdfSystemEffectiveStartDate",
+                        "description": "key: mdfSystemEffectiveStartDate",
+                        "in": "path",
+                        "newParameterName": "mdfsystemeffectivestartdate"
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "DELETE_EmployeePayrollRunResults_externalCode",
+            "title": "DELETE_EmployeePayrollRunResults_externalCode",
+            "description": "Delete entity from EmployeePayrollRunResults",
+            "openApiType": {
+                "path": "/EmployeePayrollRunResults(externalCode='{externalCode}',mdfSystemEffectiveStartDate={mdfSystemEffectiveStartDate})",
+                "method": "delete",
+                "parameters": [
+                    {
+                        "name": "externalCode",
+                        "description": "key: externalCode",
+                        "in": "path",
+                        "newParameterName": "externalcode"
+                    },
+                    {
+                        "name": "mdfSystemEffectiveStartDate",
+                        "description": "key: mdfSystemEffectiveStartDate",
+                        "in": "path",
+                        "newParameterName": "mdfsystemeffectivestartdate"
+                    },
+                    {
+                        "name": "If-Match",
+                        "description": "ETag",
+                        "in": "header",
+                        "newParameterName": "if_match"
                     }
                 ],
                 "requestBody": {}

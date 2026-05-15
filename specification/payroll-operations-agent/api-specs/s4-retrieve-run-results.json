@@ -1,0 +1,259 @@
+{
+  "x-odata-version": "2.0",
+  "swagger": "2.0",
+  "info": {
+    "title": "Retrieve the Run Results",
+    "description": "Returns the statistics information of a given run (duration, status, link to the task logs, count of rejected and generated rows...). The user retrieving statistics must be the same who has started the run.",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "x-sap-api-type": "ODATA",
+  "tags": [
+    {
+      "name": "Retrieve run Results"
+    }
+  ],
+  "securityDefinitions": {
+    "Oauth2_ClientCredentials": {
+      "type": "oauth2",
+      "description": "To use this API, you need to obtain the OAuth client credentials (client ID and secret) using the SAP Business Technology Platform cockpit. After that, pass these client credentials to the SAP Business Technology",
+      "tokenUrl": "https://{subaccount}.{landscapehost}/oauth/token",
+      "flow": "application",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "Oauth2_ClientCredentials": []
+    }
+  ],
+  "x-servers": [
+    {
+      "url": "https://{url}.{landscapehost}/odata/v2/API_CnsldtnGrpJrnlEntr_Imprt",
+      "description": "SAP Group Reporting Data Collection",
+      "templates": {
+        "appname": {
+          "description": "SAP Group Reporting Data Collection"
+        },
+        "url": {
+          "description": "SAP Group Reporting Data Collection Url"
+        },
+        "landscapehost": {
+          "description": "SAP Group Reporting Data Collection landscape host"
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "Group Journal Entries â Import API",
+    "url": "https://help.sap.com/docs/SAP_Group_Reporting_Data_Collection/e29950571a2b4065b1dacaf881c67413/571c7d271c2d4bbd8121bacac116e8e8.html?q=Push&version=1.0"
+  },
+  "x-sap-shortText": "Return statistics of the selected run related to status, link to the task log, and logs.",
+  "paths": {
+    "/CnsldtnGrpJrnlEntrRun": {
+      "get": {
+        "operationId": "CnsldtnGrpJrnlEntrRun",
+        "summary": "Retrieves the run Results",
+        "description": "Returns the run results of the given run ID, from the SAP Group Reporting Data Collection Mapping application",
+        "parameters": [
+          {
+            "name": "$runId",
+            "type": "string",
+            "required": true,
+            "in": "query",
+            "description": "Identifier of the run. You must add the parameter value to a query string, at the end of the base URL."
+          }
+        ],
+        "tags": [
+          "Mapping job Service"
+        ],
+        "responses": {
+          "200": {
+            "description": "The request is successful.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CnsldtnGrpJrnlEntrRun.Result"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You are not authorized",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed Error Description"
+        }
+      }
+    },
+    "CnsldtnGrpJrnlEntrRun.Result": {
+      "type": "object",
+      "properties": {
+        "executionStatus": {
+          "type": "string",
+          "description": "Execution status"
+        },
+        "executionStatusLabel": {
+          "type": "string",
+          "description": "Execution status label"
+        },
+        "executionStatusListLabel": {
+          "type": "string",
+          "description": "Execution status list label"
+        },
+        "totalProcessTime": {
+          "type": "string",
+          "description": "Total process time"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Duration"
+        },
+        "totalItemsProcessed": {
+          "type": "string",
+          "description": "Total items processed"
+        },
+        "rejectedItems": {
+          "type": "string",
+          "description": "Rejected items"
+        },
+        "mappingErrors": {
+          "type": "string",
+          "description": "Mapping errors"
+        },
+        "noMappingErrors": {
+          "type": "string",
+          "description": "No mapping errors"
+        },
+        "generatedItemsAfterAggregation": {
+          "type": "string",
+          "description": "Generated items after aggregation"
+        },
+        "generatedItems": {
+          "type": "string",
+          "description": "Generated items"
+        },
+        "linkToTaskLog": {
+          "type": "string",
+          "description": "Link to task log"
+        },
+        "actionAfterMapping": {
+          "type": "string",
+          "description": "Action after mapping"
+        },
+        "parentExecutionId": {
+          "type": "string",
+          "description": "Parent execution id"
+        },
+        "last_push_data_timestamp": {
+          "type": "string",
+          "description": "Last push data timestamp"
+        },
+        "importLogStatus": {
+          "type": "string",
+          "description": "Import log status"
+        },
+        "importStatusLabel": {
+          "type": "string",
+          "description": "Import status label"
+        },
+        "importStatusCriticality": {
+          "type": "string",
+          "description": "Import status criticality"
+        },
+        "consolidationLedger": {
+          "type": "string",
+          "description": "Consolidation ledger"
+        },
+        "noConsolidationLedger": {
+          "type": "string",
+          "description": "No consolidation ledger"
+        },
+        "consolidationVersion": {
+          "type": "string",
+          "description": "Consolidation version"
+        },
+        "consolidationChartOfAccounts": {
+          "type": "string",
+          "description": "Consolidation chart of accounts"
+        },
+        "fiscalYear": {
+          "type": "string",
+          "description": "Fiscal year"
+        },
+        "fiscalPeriod": {
+          "type": "string",
+          "description": "Fiscal period"
+        },
+        "dataRetentionPeriod": {
+          "type": "string",
+          "description": "Data retention period"
+        },
+        "updateMode": {
+          "type": "string",
+          "description": "Update mode"
+        },
+        "isPeriodicMode": {
+          "type": "string",
+          "description": "Is periodic mode"
+        },
+        "updateModeLabel": {
+          "type": "string",
+          "description": "Update mode label"
+        },
+        "isPeriodicLabel": {
+          "type": "string",
+          "description": "Is periodic label"
+        },
+        "erLogs": {
+          "type": "string",
+          "description": "Traceability logs"
+        },
+        "erLogsVersion": {
+          "type": "string",
+          "description": "Traceability logs version"
+        },
+        "erLogsAvailable": {
+          "type": "string",
+          "description": "Traceability logs available"
+        },
+        "erLogTypeUsed": {
+          "type": "string",
+          "description": "Traceability logs used"
+        }
+      }
+    }
+  }
+}

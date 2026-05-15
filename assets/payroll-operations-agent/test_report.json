@@ -1,0 +1,387 @@
+{
+  "summary": {
+    "total": 69,
+    "passed": 69,
+    "failed": 0,
+    "score": 100.0
+  },
+  "sections": [
+    {
+      "name": "Structure Tests",
+      "marker": "structure",
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "score": 0.0,
+      "tests": []
+    },
+    {
+      "name": "Server Tests",
+      "marker": "server",
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "score": 0.0,
+      "tests": []
+    },
+    {
+      "name": "Agent Tests",
+      "marker": "agent_tests",
+      "total": 69,
+      "passed": 69,
+      "failed": 0,
+      "skipped": 0,
+      "score": 100.0,
+      "tests": [
+        {
+          "name": "test_get_model_name_returns_string",
+          "outcome": "passed",
+          "duration": 0.218
+        },
+        {
+          "name": "test_get_temperature_returns_float",
+          "outcome": "passed",
+          "duration": 0.0002
+        },
+        {
+          "name": "test_get_system_prompt_contains_key_instructions",
+          "outcome": "passed",
+          "duration": 0.0002
+        },
+        {
+          "name": "test_system_prompt_mentions_guardrails",
+          "outcome": "passed",
+          "duration": 0.0002
+        },
+        {
+          "name": "test_agent_initializes",
+          "outcome": "passed",
+          "duration": 2.694
+        },
+        {
+          "name": "test_agent_has_supported_content_types",
+          "outcome": "passed",
+          "duration": 0.0007
+        },
+        {
+          "name": "test_get_graph_builds_once",
+          "outcome": "passed",
+          "duration": 0.008
+        },
+        {
+          "name": "test_build_graph_with_empty_tools",
+          "outcome": "passed",
+          "duration": 0.0051
+        },
+        {
+          "name": "test_run_agent_returns_response",
+          "outcome": "passed",
+          "duration": 0.0155
+        },
+        {
+          "name": "test_run_agent_logs_m1_achieved",
+          "outcome": "passed",
+          "duration": 0.0077
+        },
+        {
+          "name": "test_run_agent_logs_m5_for_report_query",
+          "outcome": "passed",
+          "duration": 0.0074
+        },
+        {
+          "name": "test_logs_m3_achieved_with_discrepancy",
+          "outcome": "passed",
+          "duration": 0.0075
+        },
+        {
+          "name": "test_logs_m3_achieved_no_discrepancy",
+          "outcome": "passed",
+          "duration": 0.0071
+        },
+        {
+          "name": "test_logs_m4_achieved",
+          "outcome": "passed",
+          "duration": 0.0072
+        },
+        {
+          "name": "test_logs_m2_achieved_when_initiated",
+          "outcome": "passed",
+          "duration": 0.0101
+        },
+        {
+          "name": "test_logs_m2_missed_when_pending",
+          "outcome": "passed",
+          "duration": 0.0072
+        },
+        {
+          "name": "test_stream_yields_processing_then_complete",
+          "outcome": "passed",
+          "duration": 0.0071
+        },
+        {
+          "name": "test_stream_routes_discrepancy_query",
+          "outcome": "passed",
+          "duration": 0.0071
+        },
+        {
+          "name": "test_stream_routes_compliance_query",
+          "outcome": "passed",
+          "duration": 0.0068
+        },
+        {
+          "name": "test_stream_routes_payroll_run_query",
+          "outcome": "passed",
+          "duration": 0.0072
+        },
+        {
+          "name": "test_read_query_not_write",
+          "outcome": "passed",
+          "duration": 0.0016
+        },
+        {
+          "name": "test_trigger_is_write",
+          "outcome": "passed",
+          "duration": 0.0016
+        },
+        {
+          "name": "test_cancel_is_write",
+          "outcome": "passed",
+          "duration": 0.0014
+        },
+        {
+          "name": "test_create_is_write",
+          "outcome": "passed",
+          "duration": 0.0013
+        },
+        {
+          "name": "test_update_is_write",
+          "outcome": "passed",
+          "duration": 0.0015
+        },
+        {
+          "name": "test_upsert_is_write",
+          "outcome": "passed",
+          "duration": 0.0016
+        },
+        {
+          "name": "test_report_ttl",
+          "outcome": "passed",
+          "duration": 0.0013
+        },
+        {
+          "name": "test_compliance_ttl",
+          "outcome": "passed",
+          "duration": 0.0013
+        },
+        {
+          "name": "test_default_ttl",
+          "outcome": "passed",
+          "duration": 0.0013
+        },
+        {
+          "name": "test_cache_miss_returns_none",
+          "outcome": "passed",
+          "duration": 0.0027
+        },
+        {
+          "name": "test_cache_hit_returns_value",
+          "outcome": "passed",
+          "duration": 0.0024
+        },
+        {
+          "name": "test_write_query_skips_cache",
+          "outcome": "passed",
+          "duration": 0.0017
+        },
+        {
+          "name": "test_db_error_returns_none",
+          "outcome": "passed",
+          "duration": 0.0016
+        },
+        {
+          "name": "test_stores_read_query",
+          "outcome": "passed",
+          "duration": 0.0024
+        },
+        {
+          "name": "test_skips_write_query",
+          "outcome": "passed",
+          "duration": 0.0018
+        },
+        {
+          "name": "test_db_error_is_non_fatal",
+          "outcome": "passed",
+          "duration": 0.0018
+        },
+        {
+          "name": "test_deletes_entries_for_context",
+          "outcome": "passed",
+          "duration": 0.0022
+        },
+        {
+          "name": "test_db_error_is_non_fatal",
+          "outcome": "passed",
+          "duration": 0.002
+        },
+        {
+          "name": "test_returns_stats_dict",
+          "outcome": "passed",
+          "duration": 0.0023
+        },
+        {
+          "name": "test_db_error_returns_error_dict",
+          "outcome": "passed",
+          "duration": 0.0021
+        },
+        {
+          "name": "test_same_inputs_same_key",
+          "outcome": "passed",
+          "duration": 0.0013
+        },
+        {
+          "name": "test_different_context_different_key",
+          "outcome": "passed",
+          "duration": 0.0014
+        },
+        {
+          "name": "test_key_length_within_bounds",
+          "outcome": "passed",
+          "duration": 0.0013
+        },
+        {
+          "name": "test_end_to_end_payroll_status_query",
+          "outcome": "passed",
+          "duration": 0.0076
+        },
+        {
+          "name": "test_compliance_check_flow",
+          "outcome": "passed",
+          "duration": 0.0073
+        },
+        {
+          "name": "test_payroll_run_initiation_requires_confirmation",
+          "outcome": "passed",
+          "duration": 0.0071
+        },
+        {
+          "name": "test_returns_payroll_run_data",
+          "outcome": "passed",
+          "duration": 0.0114
+        },
+        {
+          "name": "test_run_has_financial_data",
+          "outcome": "passed",
+          "duration": 0.0111
+        },
+        {
+          "name": "test_returns_line_items",
+          "outcome": "passed",
+          "duration": 0.0107
+        },
+        {
+          "name": "test_returns_payroll_run_data",
+          "outcome": "passed",
+          "duration": 0.0123
+        },
+        {
+          "name": "test_hana_query_result_contains_employee_count",
+          "outcome": "passed",
+          "duration": 0.0106
+        },
+        {
+          "name": "test_returns_table_list",
+          "outcome": "passed",
+          "duration": 0.0112
+        },
+        {
+          "name": "test_table_list_has_schema_column",
+          "outcome": "passed",
+          "duration": 0.0111
+        },
+        {
+          "name": "test_requires_confirmation_flag",
+          "outcome": "passed",
+          "duration": 0.0107
+        },
+        {
+          "name": "test_returns_run_id_on_initiation",
+          "outcome": "passed",
+          "duration": 0.0112
+        },
+        {
+          "name": "test_returns_time_sheets",
+          "outcome": "passed",
+          "duration": 0.0107
+        },
+        {
+          "name": "test_detects_zero_hour_entries",
+          "outcome": "passed",
+          "duration": 0.011
+        },
+        {
+          "name": "test_returns_entries",
+          "outcome": "passed",
+          "duration": 0.011
+        },
+        {
+          "name": "test_returns_updated_entry",
+          "outcome": "passed",
+          "duration": 0.0108
+        },
+        {
+          "name": "test_returns_created_entry",
+          "outcome": "passed",
+          "duration": 0.0111
+        },
+        {
+          "name": "test_returns_tax_declarations",
+          "outcome": "passed",
+          "duration": 0.0108
+        },
+        {
+          "name": "test_returns_column_schema",
+          "outcome": "passed",
+          "duration": 0.0111
+        },
+        {
+          "name": "test_schema_includes_run_id_column",
+          "outcome": "passed",
+          "duration": 0.011
+        },
+        {
+          "name": "test_returns_cost_assignments",
+          "outcome": "passed",
+          "duration": 0.0106
+        },
+        {
+          "name": "test_returns_upserted_assignment",
+          "outcome": "passed",
+          "duration": 0.0111
+        },
+        {
+          "name": "test_returns_benefits",
+          "outcome": "passed",
+          "duration": 0.011
+        },
+        {
+          "name": "test_all_three_hana_tools_present",
+          "outcome": "passed",
+          "duration": 0.0108
+        },
+        {
+          "name": "test_no_s4hana_tools_present",
+          "outcome": "passed",
+          "duration": 0.0111
+        },
+        {
+          "name": "test_report_aggregates_data",
+          "outcome": "passed",
+          "duration": 0.0003
+        }
+      ],
+      "coverage": 71.49
+    }
+  ]
+}

@@ -13,14 +13,14 @@ from a2a.types import (
 from a2a.utils import new_agent_text_message, new_task
 from a2a.utils.errors import ServerError
 
-from agent import PayrollOperationsAgent
+from agent import SampleAgent
 
 logger = logging.getLogger(__name__)
 
 
 class AgentExecutor(A2AAgentExecutor):
     def __init__(self):
-        self.agent = PayrollOperationsAgent()
+        self.agent = SampleAgent()
 
     async def execute(self, context: RequestContext, event_queue: EventQueue) -> None:
         query = context.get_user_input()

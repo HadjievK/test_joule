@@ -1,0 +1,973 @@
+{
+  "_meta": {
+    "sap.ord/ordId": {
+      "ordId": "customer.mcpbuilder.sf:apiResource:EmployeeCostAssignment_MCP:v1"
+    },
+    "sap.mcpbuilder/translation": {
+      "ordId": "customer.mcpbuilder.sf:apiResource:EmployeeCostAssignment_MCP:v1"
+    },
+    "sap.ord/originalApiResourceOrdId": "sap.sf:apiResource:EmployeeCostAssignment:v1"
+  },
+  "$schema": "https://pages.github.tools.sap/CPA/mcp-protocol/spec-v1/mcp-server-card-spec.schema.json",
+  "remotes": [],
+  "capabilities": {
+    "tools": {},
+    "prompts": {}
+  },
+  "supportedProtocolVersions": [
+    "2025-11-25"
+  ],
+  "name": "sap.mcp/employee_cost_assignment",
+  "title": "employee_cost_assignment",
+  "version": "1.0.0",
+  "description": "MCP server for the employee_cost_assignment service.",
+  "tools": [
+    {
+      "name": "GET_EmpCostAssignment",
+      "title": "GET_EmpCostAssignment",
+      "description": "You can use the following request to get all employee cost assignments. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "top": {
+            "type": "integer",
+            "description": "Show only the first n items, see [OData Paging - Top](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374630)"
+          },
+          "skip": {
+            "type": "integer",
+            "description": "Skip the first n items, see [OData Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374631)"
+          },
+          "filter": {
+            "type": "string",
+            "description": "Filter items by property values, see [OData Filtering](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374625)"
+          },
+          "count": {
+            "type": "boolean",
+            "description": "Include count of items, see [OData Count](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374632)"
+          },
+          "orderby": {
+            "type": "array",
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)"
+          },
+          "select": {
+            "type": "array",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "Wrapper",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "Collection of EmpCostAssignment",
+                    "properties": {
+                      "results": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "title": "EmpCostAssignment",
+                          "properties": {
+                            "companyCode": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "createdBy": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "createdDateTime": {
+                              "type": "string",
+                              "example": "/Date(1677263400000)/"
+                            },
+                            "doNotSyncFromPositionCostAssignment": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "effectiveEndDate": {
+                              "type": "string",
+                              "example": "/Date(1677263400000)/"
+                            },
+                            "effectiveStartDate": {
+                              "type": "string",
+                              "example": "/Date(1677263400000)/"
+                            },
+                            "lastModifiedBy": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "lastModifiedDateTime": {
+                              "type": "string",
+                              "example": "/Date(1677263400000)/"
+                            },
+                            "mdfSystemRecordStatus": {
+                              "type": "string",
+                              "description": "Status codes:\n C - Correction\n D - Soft deleted record \n F - Full Purge Import in Progress \n N - Normal record \n P - Pending record \n PH - Pending history record",
+                              "enum": [
+                                "C",
+                                "D",
+                                "F",
+                                "N",
+                                "P",
+                                "PH"
+                              ],
+                              "example": "N"
+                            },
+                            "mdfSystemStatus": {
+                              "type": "string",
+                              "description": "Status codes: \n A - Active \n I - InActive",
+                              "enum": [
+                                "A",
+                                "I"
+                              ],
+                              "example": "A"
+                            },
+                            "skipValidationDerivation": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "worker": {
+                              "type": "string",
+                              "example": "string"
+                            }
+                          },
+                          "required": [
+                            "effectiveStartDate",
+                            "worker"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "description": "Retrieved EmpCostAssignments. (HTTP 200)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "POST_EmpCostAssignment",
+      "title": "POST_EmpCostAssignment",
+      "description": "You can use the following request to create a new employee cost assignment. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "type": "object",
+            "title": "EmpCostAssignment (for create)",
+            "properties": {
+              "doNotSyncFromPositionCostAssignment": {
+                "type": "boolean",
+                "example": true
+              },
+              "effectiveStartDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "worker": {
+                "type": "string",
+                "example": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "EmpCostAssignmentItem in EmpCostAssignment",
+                  "properties": {
+                    "defaultAssignment": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "costCenter": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "percentage": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "budgetPeriod": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "functionalArea": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "fund": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "fundCenter": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "grant": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "workBreakdownStructure": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  },
+                  "required": [
+                    "costCenter",
+                    "defaultAssignment",
+                    "percentage"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "effectiveStartDate",
+              "worker"
+            ],
+            "description": "Attributes of new EmpCostAssignment."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "Created EmpCostAssignment",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "EmpCostAssignment",
+                    "properties": {
+                      "companyCode": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "createdBy": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "createdDateTime": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "doNotSyncFromPositionCostAssignment": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "effectiveEndDate": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "effectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "lastModifiedBy": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "lastModifiedDateTime": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "mdfSystemRecordStatus": {
+                        "type": "string",
+                        "description": "Status codes:\n C - Correction\n D - Soft deleted record \n F - Full Purge Import in Progress \n N - Normal record \n P - Pending record \n PH - Pending history record",
+                        "enum": [
+                          "C",
+                          "D",
+                          "F",
+                          "N",
+                          "P",
+                          "PH"
+                        ],
+                        "example": "N"
+                      },
+                      "mdfSystemStatus": {
+                        "type": "string",
+                        "description": "Status codes: \n A - Active \n I - InActive",
+                        "enum": [
+                          "A",
+                          "I"
+                        ],
+                        "example": "A"
+                      },
+                      "skipValidationDerivation": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "worker": {
+                        "type": "string",
+                        "example": "string"
+                      }
+                    },
+                    "required": [
+                      "effectiveStartDate",
+                      "worker"
+                    ]
+                  }
+                },
+                "description": "EmpCostAssignment successfully created. (HTTP 201)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Bad request - wrong name or body is not provided in the expected JSON format. (HTTP 400)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Access forbidden - you did not have the required permissions to access the resource. (HTTP 403)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Internal server error - the requested operation led to an error during execution. (HTTP 500)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "GET_EmpCostAssignment_effectiveStartDate",
+      "title": "GET_EmpCostAssignment_effectiveStartDate",
+      "description": "You can use the following request to get employee cost assignment by effective start date and worker. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "effectivestartdate",
+          "worker"
+        ],
+        "properties": {
+          "effectivestartdate": {
+            "type": "string",
+            "description": "key: effectiveStartDate, format: <YYYY-MM-DD>T<HH:MM:SS>  <br>\nExample: ```2021-01-01T00:00:00```",
+            "format": "date-time"
+          },
+          "worker": {
+            "type": "string",
+            "description": "key: worker, format: worker <br>\nExample: ```string```"
+          },
+          "select": {
+            "type": "array",
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "EmpCostAssignment",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "EmpCostAssignment",
+                    "properties": {
+                      "companyCode": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "createdBy": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "createdDateTime": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "doNotSyncFromPositionCostAssignment": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "effectiveEndDate": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "effectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "lastModifiedBy": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "lastModifiedDateTime": {
+                        "type": "string",
+                        "example": "/Date(1677263400000)/"
+                      },
+                      "mdfSystemRecordStatus": {
+                        "type": "string",
+                        "description": "Status codes:\n C - Correction\n D - Soft deleted record \n F - Full Purge Import in Progress \n N - Normal record \n P - Pending record \n PH - Pending history record",
+                        "enum": [
+                          "C",
+                          "D",
+                          "F",
+                          "N",
+                          "P",
+                          "PH"
+                        ],
+                        "example": "N"
+                      },
+                      "mdfSystemStatus": {
+                        "type": "string",
+                        "description": "Status codes: \n A - Active \n I - InActive",
+                        "enum": [
+                          "A",
+                          "I"
+                        ],
+                        "example": "A"
+                      },
+                      "skipValidationDerivation": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "worker": {
+                        "type": "string",
+                        "example": "string"
+                      }
+                    },
+                    "required": [
+                      "effectiveStartDate",
+                      "worker"
+                    ]
+                  }
+                },
+                "description": "Retrieved EmpCostAssignment. (HTTP 200)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Not found - EmpCostAssignment is not found with the given key. (HTTP 404)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "POST_upsert_purgeType_record",
+      "title": "POST_upsert_purgeType_record",
+      "description": "You can use the following request to update an existing employee cost assignment.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "type": "object",
+            "title": "EmpCostAssignment (for update)",
+            "properties": {
+              "__metadata": {
+                "type": "object",
+                "title": "Metadata for EmpCostAssignment (for update)",
+                "properties": {
+                  "uri": {
+                    "type": "string",
+                    "example": "/EmpCostAssignment(effectiveStartDate=datetime'2023-02-28T00:00:00',worker='213'), /EmpCostAssignmentItem"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "SFOData.EmpCostAssignment"
+                  }
+                },
+                "required": [
+                  "type",
+                  "uri"
+                ]
+              },
+              "doNotSyncFromPositionCostAssignment": {
+                "type": "boolean",
+                "example": false
+              },
+              "mdfSystemStatus": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "I"
+                ],
+                "example": "I"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "EmpCostAssignmentItem in EmpCostAssignment",
+                  "properties": {
+                    "defaultAssignment": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "costCenter": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "percentage": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "budgetPeriod": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "functionalArea": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "fund": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "fundCenter": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "grant": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "workBreakdownStructure": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  },
+                  "required": [
+                    "costCenter",
+                    "defaultAssignment",
+                    "percentage"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "effectiveStartDate",
+              "worker"
+            ],
+            "description": "Attributes of updated EmpCostAssignment."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Bad request - wrong name or body is not provided in the expected JSON format. (HTTP 400)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Access forbidden - you did not have the required permissions to access the resource. (HTTP 403)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Not found - EmpCostAssignment is not found with the given key. (HTTP 404)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Internal server error - the requested operation led to an error during execution. (HTTP 500)"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

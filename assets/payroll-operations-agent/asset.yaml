@@ -4,36 +4,18 @@ kind: Asset
 metadata:
   name: payroll-operations-agent
   version: 1.0.0
-  description: "AI agent for payroll operations across SAP SuccessFactors and SAP S/4HANA"
+  description: AI agent that controls all payroll operations across SAP SuccessFactors and SAP HANA Cloud
 
 type: agent
 
 container:
   buildPath: .
   port: 5000
-
-requires:
-  - name: employee-central-payroll-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.sf:apiResource:ECEmployeeCentralPayroll_MCP:v1
-  - name: payroll-time-sheet-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.sf:apiResource:ECPayrollTimeSheets_MCP:v1
-  - name: compensation-information-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.sf:apiResource:ECCompensationInformation_MCP:v1
-  - name: compensation-management-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.sf:apiResource:employeeCompensation_MCP:v1
-  - name: income-tax-declaration-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.sf:apiResource:ECIncomeTaxDeclaration_MCP:v1
-  - name: payroll-earmarked-funds-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.s4:apiResource:CE_PAYROLLEARMARKEDFUNDSDOC_MCP:v1
-  - name: statutory-reporting-task-mcp-server
-    kind: mcp-server
-    ordId: customer.mcpbuilder.s4:apiResource:CE_STATUTORYREPORTINGTASK_MCP:v1
+  env:
+    HANA_HOST: "a3dacfda-9c88-4a95-9466-a995043a281d.hana.prod-eu12.hanacloud.ondemand.com"
+    HANA_PORT: "443"
+    HANA_USER: "DBADMIN"
+    HANA_PASSWORD: "DBpass123+"
 
 probes:
   startup:

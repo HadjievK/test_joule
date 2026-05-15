@@ -2,75 +2,1122 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Employee Central Payroll",
-    "version": "1.0.0",
-    "description": "API for accessing SAP SuccessFactors Employee Central Payroll results and run data"
+    "version": "1.0",
+    "description": "You can use these APIs to access the replicated payroll information of an employee including pay date, currency, and payroll provider.\n\n You can find your company's API server in [List of API Servers in SAP SuccessFactors.](https://help.sap.com/viewer/d599f15995d348a1b45ba5603e2aba9b/LATEST/en-US/af2b8d5437494b12be88fe374eba75b6.html)"
   },
-  "servers": [{"url": "/odata/v2"}],
   "paths": {
-    "/EmployeePayrollRunResults": {
-      "get": {
-        "operationId": "listPayrollRunResults",
-        "summary": "List employee payroll run results",
-        "description": "Retrieve a list of employee payroll run results with filtering by employee, period, and status",
-        "parameters": [
-          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}, "description": "Maximum number of records to return (max 100)"},
-          {"name": "$skip", "in": "query", "schema": {"type": "integer"}, "description": "Number of records to skip"},
-          {"name": "$filter", "in": "query", "schema": {"type": "string"}, "description": "OData filter expression"},
-          {"name": "$select", "in": "query", "schema": {"type": "string"}, "description": "Comma-separated list of fields to return"},
-          {"name": "$orderby", "in": "query", "schema": {"type": "string"}, "description": "Order by expression"}
-        ],
-        "responses": {
-          "200": {"description": "List of payroll run results", "content": {"application/json": {"schema": {"type": "object", "properties": {"d": {"type": "object", "properties": {"results": {"type": "array", "items": {"$ref": "#/components/schemas/PayrollRunResult"}}}}}}}}}
-        }
-      }
-    },
-    "/EmployeePayrollRunResults('{externalCode}')": {
-      "get": {
-        "operationId": "getPayrollRunResult",
-        "summary": "Get a specific payroll run result",
-        "description": "Retrieve a specific employee payroll run result by external code",
-        "parameters": [
-          {"name": "externalCode", "in": "path", "required": true, "schema": {"type": "string"}, "description": "External code of the payroll run result"}
-        ],
-        "responses": {
-          "200": {"description": "Payroll run result", "content": {"application/json": {"schema": {"type": "object", "properties": {"d": {"$ref": "#/components/schemas/PayrollRunResult"}}}}}}
-        }
-      }
-    },
     "/EmployeePayrollRunResultsItems": {
       "get": {
-        "operationId": "listPayrollRunResultItems",
-        "summary": "List payroll run result line items",
-        "description": "Retrieve payroll run result line items (wage types, deductions, etc.)",
+        "summary": "Get entities from EmployeePayrollRunResultsItems",
+        "tags": [
+          "EmployeePayrollRunResultsItems"
+        ],
         "parameters": [
-          {"name": "$top", "in": "query", "schema": {"type": "integer", "maximum": 100}},
-          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
-          {"name": "$filter", "in": "query", "schema": {"type": "string"}},
-          {"name": "$select", "in": "query", "schema": {"type": "string"}}
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "Show only the first n items, see [OData Paging - Top](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "Skip the first n items, see [OData Paging - Skip](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "$search",
+            "in": "query",
+            "required": false,
+            "description": "Search items by search phrases, see [OData Searching](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "description": "Filter items by property values, see [OData Filtering](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "required": false,
+            "description": "Include count of items, see [OData Count](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "required": false,
+            "description": "Order items by property values, see [OData Sorting](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          }
         ],
         "responses": {
-          "200": {"description": "List of payroll run result items", "content": {"application/json": {"schema": {"type": "object"}}}}
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Wrapper",
+                  "properties": {
+                    "d": {
+                      "type": "object",
+                      "title": "Collection of EmployeePayrollRunResultsItems",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResultsItems"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to EmployeePayrollRunResultsItems",
+        "tags": [
+          "EmployeePayrollRunResultsItems"
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResultsItems"
+              }
+            }
+          },
+          "description": "New entity"
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Created EmployeePayrollRunResultsItems",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResultsItems"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EmployeePayrollRunResultsItems(EmployeePayrollRunResults_externalCode='{EmployeePayrollRunResults_externalCode}',EmployeePayrollRunResults_mdfSystemEffectiveStartDate={EmployeePayrollRunResults_mdfSystemEffectiveStartDate},externalCode='{externalCode}')": {
+      "get": {
+        "summary": "Get entity from EmployeePayrollRunResultsItems by key",
+        "tags": [
+          "EmployeePayrollRunResultsItems"
+        ],
+        "parameters": [
+          {
+            "name": "EmployeePayrollRunResults_externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: EmployeePayrollRunResults_externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "EmployeePayrollRunResultsItems",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResultsItems"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update entity in EmployeePayrollRunResultsItems",
+        "tags": [
+          "EmployeePayrollRunResultsItems"
+        ],
+        "parameters": [
+          {
+            "name": "EmployeePayrollRunResults_externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: EmployeePayrollRunResults_externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: externalCode",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Modified EmployeePayrollRunResultsItems",
+                "type": "object",
+                "properties": {
+                  "d": {
+                    "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResultsItems"
+                  }
+                }
+              }
+            }
+          },
+          "description": "New property values"
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete entity from EmployeePayrollRunResultsItems",
+        "tags": [
+          "EmployeePayrollRunResultsItems"
+        ],
+        "parameters": [
+          {
+            "name": "EmployeePayrollRunResults_externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: EmployeePayrollRunResults_externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "ETag",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EmployeePayrollRunResults": {
+      "get": {
+        "summary": "Get entities from EmployeePayrollRunResults",
+        "tags": [
+          "EmployeePayrollRunResults"
+        ],
+        "parameters": [
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "description": "Show only the first n items, see [OData Paging - Top](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "description": "Skip the first n items, see [OData Paging - Skip](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "$search",
+            "in": "query",
+            "required": false,
+            "description": "Search items by search phrases, see [OData Searching](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "description": "Filter items by property values, see [OData Filtering](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "required": false,
+            "description": "Include count of items, see [OData Count](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "required": false,
+            "description": "Order items by property values, see [OData Sorting](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "required": false,
+            "description": "Expand related entities, see [OData Expand](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Wrapper",
+                  "properties": {
+                    "d": {
+                      "type": "object",
+                      "title": "Collection of EmployeePayrollRunResults",
+                      "properties": {
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResults"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new entity to EmployeePayrollRunResults",
+        "tags": [
+          "EmployeePayrollRunResults"
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResults"
+              }
+            }
+          },
+          "description": "New entity"
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Created EmployeePayrollRunResults",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResults"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EmployeePayrollRunResults(externalCode='{externalCode}',mdfSystemEffectiveStartDate={mdfSystemEffectiveStartDate})": {
+      "get": {
+        "summary": "Get entity from EmployeePayrollRunResults by key",
+        "tags": [
+          "EmployeePayrollRunResults"
+        ],
+        "parameters": [
+          {
+            "name": "externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mdfSystemEffectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: mdfSystemEffectiveStartDate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "required": false,
+            "description": "Expand related entities, see [OData Expand](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "EmployeePayrollRunResults",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResults"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update entity in EmployeePayrollRunResults",
+        "tags": [
+          "EmployeePayrollRunResults"
+        ],
+        "parameters": [
+          {
+            "name": "externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mdfSystemEffectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: mdfSystemEffectiveStartDate",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Modified EmployeePayrollRunResults",
+                "type": "object",
+                "properties": {
+                  "d": {
+                    "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResults"
+                  }
+                }
+              }
+            }
+          },
+          "description": "New property values"
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete entity from EmployeePayrollRunResults",
+        "tags": [
+          "EmployeePayrollRunResults"
+        ],
+        "parameters": [
+          {
+            "name": "externalCode",
+            "in": "path",
+            "required": true,
+            "description": "key: externalCode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mdfSystemEffectiveStartDate",
+            "in": "path",
+            "required": true,
+            "description": "key: mdfSystemEffectiveStartDate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "ETag",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/odata_error"
+                }
+              }
+            }
+          }
         }
       }
     }
   },
+  "servers": [
+    {
+      "url": "https://sandbox.api.sap.com/successfactors/odata/v2"
+    }
+  ],
   "components": {
     "schemas": {
-      "PayrollRunResult": {
+      "odata_error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/odata_error_main"
+          }
+        }
+      },
+      "odata_error_main": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/odata_error_detail"
+            }
+          },
+          "innererror": {
+            "type": "object",
+            "description": "The structure of this object is service-specific"
+          }
+        }
+      },
+      "odata_error_detail": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      },
+      "SFOData_EmployeePayrollRunResultsItems": {
         "type": "object",
         "properties": {
-          "externalCode": {"type": "string", "description": "Unique identifier"},
-          "employeeId": {"type": "string", "description": "Employee ID"},
-          "payrollArea": {"type": "string", "description": "Payroll area/country grouping"},
-          "payPeriod": {"type": "string", "description": "Pay period identifier"},
-          "runType": {"type": "string", "description": "Type of payroll run (regular, off-cycle, etc.)"},
-          "status": {"type": "string", "description": "Status of the payroll run result"},
-          "grossPay": {"type": "number", "description": "Gross pay amount"},
-          "netPay": {"type": "number", "description": "Net pay amount"},
-          "currency": {"type": "string", "description": "Currency code"},
-          "createdDate": {"type": "string", "format": "date-time"},
-          "lastModifiedDate": {"type": "string", "format": "date-time"}
-        }
+          "EmployeePayrollRunResults_externalCode": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+            "type": "string",
+            "example": "/Date(1492098664000)/"
+          },
+          "amount": {
+            "type": "string",
+            "nullable": true,
+            "format": "decimal",
+            "multipleOf": 1
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "createdDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "createdDateTime": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "endDateWhenEarned": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "externalCode": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "externalName": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "groupingReason": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "lastModifiedDateTime": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "lastModifiedDateWithTZ": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "mdfSystemEffectiveEndDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "mdfSystemEffectiveStartDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "mdfSystemEntityId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemObjectType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemRecordId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemRecordStatus": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemStatus": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemTransactionSequence": {
+            "type": "string",
+            "nullable": true,
+            "format": "int64"
+          },
+          "mdfSystemVersionId": {
+            "type": "string",
+            "nullable": true,
+            "format": "int64"
+          },
+          "payrollProviderGroupingReason": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "payrollProviderGroupingValue": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "payrollProviderUnitOfMeasurement": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "payrollProviderWageType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "quantity": {
+            "type": "string",
+            "nullable": true,
+            "format": "decimal",
+            "multipleOf": 1
+          },
+          "startDateWhenEarned": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "unitOfMeasurement": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "wageType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          }
+        },
+        "title": "EmployeePayrollRunResultsItems"
+      },
+      "SFOData_EmployeePayrollRunResults": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "companyId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "createdDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "createdDateTime": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "employmentId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "endDateWhenPaid": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "externalCode": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "externalName": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "isVoid": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "lastModifiedDateTime": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "lastModifiedDateWithTZ": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "mdfSystemEffectiveEndDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "mdfSystemEffectiveStartDate": {
+            "type": "string",
+            "example": "/Date(1492098664000)/"
+          },
+          "mdfSystemEntityId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemObjectType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemRecordId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemRecordStatus": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemStatus": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "mdfSystemTransactionSequence": {
+            "type": "string",
+            "nullable": true,
+            "format": "int64"
+          },
+          "mdfSystemVersionId": {
+            "type": "string",
+            "nullable": true,
+            "format": "int64"
+          },
+          "payDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "payrollId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "payrollProviderId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "payrollProviderPayrollRunType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "payrollRunType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "personId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "sequenceNumber": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "startDateWhenPaid": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492098664000)/"
+          },
+          "systemId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 100
+          },
+          "employeePayrollRunResultsItems": {
+            "title": "Related Collection(SFOData.EmployeePayrollRunResultsItems)",
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SFOData_EmployeePayrollRunResultsItems"
+                }
+              }
+            }
+          }
+        },
+        "title": "EmployeePayrollRunResults"
       }
     }
   }

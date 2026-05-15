@@ -1,0 +1,11 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: employee-cost-assignment-mcp-server
+  version: "1.0.0"
+  description: "MCP server for SAP SuccessFactors Employee Cost Assignment API"
+  ordId: "customer.payroll:apiResource:EmployeeCostAssignment_MCP:v1"
+  translation: mcp-translation/translation.json
+
+type: mcp-translation

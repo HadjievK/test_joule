@@ -1,12 +1,12 @@
 {
   "_meta": {
     "sap.ord/ordId": {
-      "ordId": "customer.mcpbuilder.sf:apiResource:ECEmployeeCentralPayroll_MCP:v1"
+      "ordId": "customer.mcpbuilder.sf:apiResource:EmployeeCentralPayroll_MCP:v1"
     },
     "sap.mcpbuilder/translation": {
-      "ordId": "customer.mcpbuilder.sf:apiResource:ECEmployeeCentralPayroll_MCP:v1"
+      "ordId": "customer.mcpbuilder.sf:apiResource:EmployeeCentralPayroll_MCP:v1"
     },
-    "sap.ord/originalApiResourceOrdId": "sap.sf:apiResource:ECEmployeeCentralPayroll:v1"
+    "sap.ord/originalApiResourceOrdId": "sap.sf:apiResource:EmployeeCentralPayroll:v1"
   },
   "$schema": "https://pages.github.tools.sap/CPA/mcp-protocol/spec-v1/mcp-server-card-spec.schema.json",
   "remotes": [],
@@ -23,32 +23,40 @@
   "description": "MCP server for the employee_central_payroll service.",
   "tools": [
     {
-      "name": "listPayrollRunResults",
-      "title": "listPayrollRunResults",
-      "description": "Retrieve a list of employee payroll run results with filtering by employee, period, and status",
+      "name": "GET_EmployeePayrollRunResultsItems",
+      "title": "GET_EmployeePayrollRunResultsItems",
+      "description": "Get entities from EmployeePayrollRunResultsItems",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "top": {
             "type": "integer",
-            "description": "Maximum number of records to return (max 100)"
+            "description": "Show only the first n items, see [OData Paging - Top](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
           },
           "skip": {
             "type": "integer",
-            "description": "Number of records to skip"
+            "description": "Skip the first n items, see [OData Paging - Skip](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "search": {
+            "type": "string",
+            "description": "Search items by search phrases, see [OData Searching](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
           },
           "filter": {
             "type": "string",
-            "description": "OData filter expression"
+            "description": "Filter items by property values, see [OData Filtering](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
           },
-          "select": {
-            "type": "string",
-            "description": "Comma-separated list of fields to return"
+          "count": {
+            "type": "boolean",
+            "description": "Include count of items, see [OData Count](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
           },
           "orderby": {
-            "type": "string",
-            "description": "Order by expression"
+            "type": "array",
+            "description": "Order items by property values, see [OData Sorting](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "select": {
+            "type": "array",
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
           }
         }
       },
@@ -59,58 +67,124 @@
             "anyOf": [
               {
                 "type": "object",
+                "title": "Wrapper",
                 "properties": {
                   "d": {
                     "type": "object",
+                    "title": "Collection of EmployeePayrollRunResultsItems",
                     "properties": {
                       "results": {
                         "type": "array",
                         "items": {
                           "type": "object",
+                          "title": "EmployeePayrollRunResultsItems",
                           "properties": {
-                            "externalCode": {
+                            "EmployeePayrollRunResults_externalCode": {
+                              "type": "string"
+                            },
+                            "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
                               "type": "string",
-                              "description": "Unique identifier"
+                              "example": "/Date(1492098664000)/"
                             },
-                            "employeeId": {
+                            "amount": {
                               "type": "string",
-                              "description": "Employee ID"
+                              "format": "decimal"
                             },
-                            "payrollArea": {
-                              "type": "string",
-                              "description": "Payroll area/country grouping"
-                            },
-                            "payPeriod": {
-                              "type": "string",
-                              "description": "Pay period identifier"
-                            },
-                            "runType": {
-                              "type": "string",
-                              "description": "Type of payroll run (regular, off-cycle, etc.)"
-                            },
-                            "status": {
-                              "type": "string",
-                              "description": "Status of the payroll run result"
-                            },
-                            "grossPay": {
-                              "type": "number",
-                              "description": "Gross pay amount"
-                            },
-                            "netPay": {
-                              "type": "number",
-                              "description": "Net pay amount"
-                            },
-                            "currency": {
-                              "type": "string",
-                              "description": "Currency code"
+                            "createdBy": {
+                              "type": "string"
                             },
                             "createdDate": {
                               "type": "string",
-                              "format": "date-time"
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "createdDateTime": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "endDateWhenEarned": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "externalCode": {
+                              "type": "string"
+                            },
+                            "externalName": {
+                              "type": "string"
+                            },
+                            "groupingReason": {
+                              "type": "string"
+                            },
+                            "lastModifiedBy": {
+                              "type": "string"
                             },
                             "lastModifiedDate": {
                               "type": "string",
-                              "format": "date-time"
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "lastModifiedDateTime": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "lastModifiedDateWithTZ": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEffectiveEndDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEffectiveStartDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEntityId": {
+                              "type": "string"
+                            },
+                            "mdfSystemObjectType": {
+                              "type": "string"
+                            },
+                            "mdfSystemRecordId": {
+                              "type": "string"
+                            },
+                            "mdfSystemRecordStatus": {
+                              "type": "string"
+                            },
+                            "mdfSystemStatus": {
+                              "type": "string"
+                            },
+                            "mdfSystemTransactionSequence": {
+                              "type": "string",
+                              "format": "int64"
+                            },
+                            "mdfSystemVersionId": {
+                              "type": "string",
+                              "format": "int64"
+                            },
+                            "payrollProviderGroupingReason": {
+                              "type": "string"
+                            },
+                            "payrollProviderGroupingValue": {
+                              "type": "string"
+                            },
+                            "payrollProviderUnitOfMeasurement": {
+                              "type": "string"
+                            },
+                            "payrollProviderWageType": {
+                              "type": "string"
+                            },
+                            "quantity": {
+                              "type": "string",
+                              "format": "decimal"
+                            },
+                            "startDateWhenEarned": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "unitOfMeasurement": {
+                              "type": "string"
+                            },
+                            "wageType": {
+                              "type": "string"
                             }
                           }
                         }
@@ -118,7 +192,59 @@
                     }
                   }
                 },
-                "description": "List of payroll run results (HTTP 200)"
+                "description": "Retrieved entities (HTTP 200)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
               }
             ]
           }
@@ -126,19 +252,668 @@
       }
     },
     {
-      "name": "getPayrollRunResult",
-      "title": "getPayrollRunResult",
-      "description": "Retrieve a specific employee payroll run result by external code",
+      "name": "POST_EmployeePayrollRunResultsItems",
+      "title": "POST_EmployeePayrollRunResultsItems",
+      "description": "Add new entity to EmployeePayrollRunResultsItems",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "type": "object",
+            "title": "EmployeePayrollRunResultsItems",
+            "properties": {
+              "EmployeePayrollRunResults_externalCode": {
+                "type": "string"
+              },
+              "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "amount": {
+                "type": "string",
+                "format": "decimal"
+              },
+              "createdBy": {
+                "type": "string"
+              },
+              "createdDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "createdDateTime": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "endDateWhenEarned": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "externalCode": {
+                "type": "string"
+              },
+              "externalName": {
+                "type": "string"
+              },
+              "groupingReason": {
+                "type": "string"
+              },
+              "lastModifiedBy": {
+                "type": "string"
+              },
+              "lastModifiedDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "lastModifiedDateTime": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "lastModifiedDateWithTZ": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "mdfSystemEffectiveEndDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "mdfSystemEffectiveStartDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "mdfSystemEntityId": {
+                "type": "string"
+              },
+              "mdfSystemObjectType": {
+                "type": "string"
+              },
+              "mdfSystemRecordId": {
+                "type": "string"
+              },
+              "mdfSystemRecordStatus": {
+                "type": "string"
+              },
+              "mdfSystemStatus": {
+                "type": "string"
+              },
+              "mdfSystemTransactionSequence": {
+                "type": "string",
+                "format": "int64"
+              },
+              "mdfSystemVersionId": {
+                "type": "string",
+                "format": "int64"
+              },
+              "payrollProviderGroupingReason": {
+                "type": "string"
+              },
+              "payrollProviderGroupingValue": {
+                "type": "string"
+              },
+              "payrollProviderUnitOfMeasurement": {
+                "type": "string"
+              },
+              "payrollProviderWageType": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "string",
+                "format": "decimal"
+              },
+              "startDateWhenEarned": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "unitOfMeasurement": {
+                "type": "string"
+              },
+              "wageType": {
+                "type": "string"
+              }
+            },
+            "description": "New entity"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "Created EmployeePayrollRunResultsItems",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "EmployeePayrollRunResultsItems",
+                    "properties": {
+                      "EmployeePayrollRunResults_externalCode": {
+                        "type": "string"
+                      },
+                      "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "format": "decimal"
+                      },
+                      "createdBy": {
+                        "type": "string"
+                      },
+                      "createdDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "createdDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "endDateWhenEarned": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "externalCode": {
+                        "type": "string"
+                      },
+                      "externalName": {
+                        "type": "string"
+                      },
+                      "groupingReason": {
+                        "type": "string"
+                      },
+                      "lastModifiedBy": {
+                        "type": "string"
+                      },
+                      "lastModifiedDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateWithTZ": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveEndDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEntityId": {
+                        "type": "string"
+                      },
+                      "mdfSystemObjectType": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordId": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemTransactionSequence": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "mdfSystemVersionId": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "payrollProviderGroupingReason": {
+                        "type": "string"
+                      },
+                      "payrollProviderGroupingValue": {
+                        "type": "string"
+                      },
+                      "payrollProviderUnitOfMeasurement": {
+                        "type": "string"
+                      },
+                      "payrollProviderWageType": {
+                        "type": "string"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "format": "decimal"
+                      },
+                      "startDateWhenEarned": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "unitOfMeasurement": {
+                        "type": "string"
+                      },
+                      "wageType": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "description": "Created entity (HTTP 201)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "GET_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+      "title": "GET_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+      "description": "Get entity from EmployeePayrollRunResultsItems by key",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
         "required": [
+          "employeepayrollrunresults_externalcode",
+          "employeepayrollrunresults_mdfsystemeffectivestartdate",
           "externalcode"
         ],
         "properties": {
+          "employeepayrollrunresults_externalcode": {
+            "type": "string",
+            "description": "key: EmployeePayrollRunResults_externalCode"
+          },
+          "employeepayrollrunresults_mdfsystemeffectivestartdate": {
+            "type": "string",
+            "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate"
+          },
           "externalcode": {
             "type": "string",
-            "description": "External code of the payroll run result"
+            "description": "key: externalCode"
+          },
+          "select": {
+            "type": "array",
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "EmployeePayrollRunResultsItems",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "EmployeePayrollRunResultsItems",
+                    "properties": {
+                      "EmployeePayrollRunResults_externalCode": {
+                        "type": "string"
+                      },
+                      "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "format": "decimal"
+                      },
+                      "createdBy": {
+                        "type": "string"
+                      },
+                      "createdDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "createdDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "endDateWhenEarned": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "externalCode": {
+                        "type": "string"
+                      },
+                      "externalName": {
+                        "type": "string"
+                      },
+                      "groupingReason": {
+                        "type": "string"
+                      },
+                      "lastModifiedBy": {
+                        "type": "string"
+                      },
+                      "lastModifiedDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateWithTZ": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveEndDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEntityId": {
+                        "type": "string"
+                      },
+                      "mdfSystemObjectType": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordId": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemTransactionSequence": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "mdfSystemVersionId": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "payrollProviderGroupingReason": {
+                        "type": "string"
+                      },
+                      "payrollProviderGroupingValue": {
+                        "type": "string"
+                      },
+                      "payrollProviderUnitOfMeasurement": {
+                        "type": "string"
+                      },
+                      "payrollProviderWageType": {
+                        "type": "string"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "format": "decimal"
+                      },
+                      "startDateWhenEarned": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "unitOfMeasurement": {
+                        "type": "string"
+                      },
+                      "wageType": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "description": "Retrieved entity (HTTP 200)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "PUT_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+      "title": "PUT_EmployeePayrollRunResultsItems_EmployeePayrollRunResultsexte",
+      "description": "Update entity in EmployeePayrollRunResultsItems",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "employeepayrollrunresults_externalcode",
+          "employeepayrollrunresults_mdfsystemeffectivestartdate",
+          "externalcode"
+        ],
+        "properties": {
+          "body": {
+            "type": "object",
+            "title": "Modified EmployeePayrollRunResultsItems",
+            "properties": {
+              "d": {
+                "type": "object",
+                "title": "EmployeePayrollRunResultsItems",
+                "properties": {
+                  "EmployeePayrollRunResults_externalCode": {
+                    "type": "string"
+                  },
+                  "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "format": "decimal"
+                  },
+                  "createdBy": {
+                    "type": "string"
+                  },
+                  "createdDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "createdDateTime": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "endDateWhenEarned": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "externalCode": {
+                    "type": "string"
+                  },
+                  "externalName": {
+                    "type": "string"
+                  },
+                  "groupingReason": {
+                    "type": "string"
+                  },
+                  "lastModifiedBy": {
+                    "type": "string"
+                  },
+                  "lastModifiedDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "lastModifiedDateTime": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "lastModifiedDateWithTZ": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "mdfSystemEffectiveEndDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "mdfSystemEffectiveStartDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "mdfSystemEntityId": {
+                    "type": "string"
+                  },
+                  "mdfSystemObjectType": {
+                    "type": "string"
+                  },
+                  "mdfSystemRecordId": {
+                    "type": "string"
+                  },
+                  "mdfSystemRecordStatus": {
+                    "type": "string"
+                  },
+                  "mdfSystemStatus": {
+                    "type": "string"
+                  },
+                  "mdfSystemTransactionSequence": {
+                    "type": "string",
+                    "format": "int64"
+                  },
+                  "mdfSystemVersionId": {
+                    "type": "string",
+                    "format": "int64"
+                  },
+                  "payrollProviderGroupingReason": {
+                    "type": "string"
+                  },
+                  "payrollProviderGroupingValue": {
+                    "type": "string"
+                  },
+                  "payrollProviderUnitOfMeasurement": {
+                    "type": "string"
+                  },
+                  "payrollProviderWageType": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "string",
+                    "format": "decimal"
+                  },
+                  "startDateWhenEarned": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "unitOfMeasurement": {
+                    "type": "string"
+                  },
+                  "wageType": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "description": "New property values"
+          },
+          "employeepayrollrunresults_externalcode": {
+            "type": "string",
+            "description": "key: EmployeePayrollRunResults_externalCode"
+          },
+          "employeepayrollrunresults_mdfsystemeffectivestartdate": {
+            "type": "string",
+            "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate"
+          },
+          "externalcode": {
+            "type": "string",
+            "description": "key: externalCode"
           }
         }
       },
@@ -150,57 +925,54 @@
               {
                 "type": "object",
                 "properties": {
-                  "d": {
+                  "error": {
                     "type": "object",
                     "properties": {
-                      "externalCode": {
-                        "type": "string",
-                        "description": "Unique identifier"
+                      "code": {
+                        "type": "string"
                       },
-                      "employeeId": {
-                        "type": "string",
-                        "description": "Employee ID"
+                      "message": {
+                        "type": "string"
                       },
-                      "payrollArea": {
-                        "type": "string",
-                        "description": "Payroll area/country grouping"
+                      "target": {
+                        "type": "string"
                       },
-                      "payPeriod": {
-                        "type": "string",
-                        "description": "Pay period identifier"
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
                       },
-                      "runType": {
-                        "type": "string",
-                        "description": "Type of payroll run (regular, off-cycle, etc.)"
-                      },
-                      "status": {
-                        "type": "string",
-                        "description": "Status of the payroll run result"
-                      },
-                      "grossPay": {
-                        "type": "number",
-                        "description": "Gross pay amount"
-                      },
-                      "netPay": {
-                        "type": "number",
-                        "description": "Net pay amount"
-                      },
-                      "currency": {
-                        "type": "string",
-                        "description": "Currency code"
-                      },
-                      "createdDate": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "lastModifiedDate": {
-                        "type": "string",
-                        "format": "date-time"
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
                       }
-                    }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
                   }
                 },
-                "description": "Payroll run result (HTTP 200)"
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
               }
             ]
           }
@@ -208,24 +980,33 @@
       }
     },
     {
-      "name": "listPayrollRunResultItems",
-      "title": "listPayrollRunResultItems",
-      "description": "Retrieve payroll run result line items (wage types, deductions, etc.)",
+      "name": "DELETE_EmployeePayrollRunResultsItems_EmployeePayrollRunResultse",
+      "title": "DELETE_EmployeePayrollRunResultsItems_EmployeePayrollRunResultse",
+      "description": "Delete entity from EmployeePayrollRunResultsItems",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "employeepayrollrunresults_externalcode",
+          "employeepayrollrunresults_mdfsystemeffectivestartdate",
+          "externalcode"
+        ],
         "properties": {
-          "top": {
-            "type": "integer"
+          "employeepayrollrunresults_externalcode": {
+            "type": "string",
+            "description": "key: EmployeePayrollRunResults_externalCode"
           },
-          "skip": {
-            "type": "integer"
+          "employeepayrollrunresults_mdfsystemeffectivestartdate": {
+            "type": "string",
+            "description": "key: EmployeePayrollRunResults_mdfSystemEffectiveStartDate"
           },
-          "filter": {
-            "type": "string"
+          "externalcode": {
+            "type": "string",
+            "description": "key: externalCode"
           },
-          "select": {
-            "type": "string"
+          "if_match": {
+            "type": "string",
+            "description": "ETag"
           }
         }
       },
@@ -236,7 +1017,1743 @@
             "anyOf": [
               {
                 "type": "object",
-                "description": "List of payroll run result items (HTTP 200)"
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "GET_EmployeePayrollRunResults",
+      "title": "GET_EmployeePayrollRunResults",
+      "description": "Get entities from EmployeePayrollRunResults",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "top": {
+            "type": "integer",
+            "description": "Show only the first n items, see [OData Paging - Top](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "skip": {
+            "type": "integer",
+            "description": "Skip the first n items, see [OData Paging - Skip](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "search": {
+            "type": "string",
+            "description": "Search items by search phrases, see [OData Searching](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "filter": {
+            "type": "string",
+            "description": "Filter items by property values, see [OData Filtering](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "count": {
+            "type": "boolean",
+            "description": "Include count of items, see [OData Count](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "orderby": {
+            "type": "array",
+            "description": "Order items by property values, see [OData Sorting](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "select": {
+            "type": "array",
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "expand": {
+            "type": "array",
+            "description": "Expand related entities, see [OData Expand](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "Wrapper",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "Collection of EmployeePayrollRunResults",
+                    "properties": {
+                      "results": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "title": "EmployeePayrollRunResults",
+                          "properties": {
+                            "clientId": {
+                              "type": "string"
+                            },
+                            "companyId": {
+                              "type": "string"
+                            },
+                            "createdBy": {
+                              "type": "string"
+                            },
+                            "createdDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "createdDateTime": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "currency": {
+                              "type": "string"
+                            },
+                            "employmentId": {
+                              "type": "string"
+                            },
+                            "endDateWhenPaid": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "externalCode": {
+                              "type": "string"
+                            },
+                            "externalName": {
+                              "type": "string"
+                            },
+                            "isVoid": {
+                              "type": "boolean"
+                            },
+                            "lastModifiedBy": {
+                              "type": "string"
+                            },
+                            "lastModifiedDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "lastModifiedDateTime": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "lastModifiedDateWithTZ": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEffectiveEndDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEffectiveStartDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEntityId": {
+                              "type": "string"
+                            },
+                            "mdfSystemObjectType": {
+                              "type": "string"
+                            },
+                            "mdfSystemRecordId": {
+                              "type": "string"
+                            },
+                            "mdfSystemRecordStatus": {
+                              "type": "string"
+                            },
+                            "mdfSystemStatus": {
+                              "type": "string"
+                            },
+                            "mdfSystemTransactionSequence": {
+                              "type": "string",
+                              "format": "int64"
+                            },
+                            "mdfSystemVersionId": {
+                              "type": "string",
+                              "format": "int64"
+                            },
+                            "payDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "payrollId": {
+                              "type": "string"
+                            },
+                            "payrollProviderId": {
+                              "type": "string"
+                            },
+                            "payrollProviderPayrollRunType": {
+                              "type": "string"
+                            },
+                            "payrollRunType": {
+                              "type": "string"
+                            },
+                            "personId": {
+                              "type": "string"
+                            },
+                            "sequenceNumber": {
+                              "type": "string"
+                            },
+                            "startDateWhenPaid": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "systemId": {
+                              "type": "string"
+                            },
+                            "userId": {
+                              "type": "string"
+                            },
+                            "employeePayrollRunResultsItems": {
+                              "type": "object",
+                              "title": "Related Collection(SFOData.EmployeePayrollRunResultsItems)",
+                              "properties": {
+                                "results": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "title": "EmployeePayrollRunResultsItems",
+                                    "properties": {
+                                      "EmployeePayrollRunResults_externalCode": {
+                                        "type": "string"
+                                      },
+                                      "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "amount": {
+                                        "type": "string",
+                                        "format": "decimal"
+                                      },
+                                      "createdBy": {
+                                        "type": "string"
+                                      },
+                                      "createdDate": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "createdDateTime": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "endDateWhenEarned": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "externalCode": {
+                                        "type": "string"
+                                      },
+                                      "externalName": {
+                                        "type": "string"
+                                      },
+                                      "groupingReason": {
+                                        "type": "string"
+                                      },
+                                      "lastModifiedBy": {
+                                        "type": "string"
+                                      },
+                                      "lastModifiedDate": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "lastModifiedDateTime": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "lastModifiedDateWithTZ": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "mdfSystemEffectiveEndDate": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "mdfSystemEffectiveStartDate": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "mdfSystemEntityId": {
+                                        "type": "string"
+                                      },
+                                      "mdfSystemObjectType": {
+                                        "type": "string"
+                                      },
+                                      "mdfSystemRecordId": {
+                                        "type": "string"
+                                      },
+                                      "mdfSystemRecordStatus": {
+                                        "type": "string"
+                                      },
+                                      "mdfSystemStatus": {
+                                        "type": "string"
+                                      },
+                                      "mdfSystemTransactionSequence": {
+                                        "type": "string",
+                                        "format": "int64"
+                                      },
+                                      "mdfSystemVersionId": {
+                                        "type": "string",
+                                        "format": "int64"
+                                      },
+                                      "payrollProviderGroupingReason": {
+                                        "type": "string"
+                                      },
+                                      "payrollProviderGroupingValue": {
+                                        "type": "string"
+                                      },
+                                      "payrollProviderUnitOfMeasurement": {
+                                        "type": "string"
+                                      },
+                                      "payrollProviderWageType": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "string",
+                                        "format": "decimal"
+                                      },
+                                      "startDateWhenEarned": {
+                                        "type": "string",
+                                        "example": "/Date(1492098664000)/"
+                                      },
+                                      "unitOfMeasurement": {
+                                        "type": "string"
+                                      },
+                                      "wageType": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "description": "Retrieved entities (HTTP 200)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "POST_EmployeePayrollRunResults",
+      "title": "POST_EmployeePayrollRunResults",
+      "description": "Add new entity to EmployeePayrollRunResults",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "type": "object",
+            "title": "EmployeePayrollRunResults",
+            "properties": {
+              "clientId": {
+                "type": "string"
+              },
+              "companyId": {
+                "type": "string"
+              },
+              "createdBy": {
+                "type": "string"
+              },
+              "createdDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "createdDateTime": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "employmentId": {
+                "type": "string"
+              },
+              "endDateWhenPaid": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "externalCode": {
+                "type": "string"
+              },
+              "externalName": {
+                "type": "string"
+              },
+              "isVoid": {
+                "type": "boolean"
+              },
+              "lastModifiedBy": {
+                "type": "string"
+              },
+              "lastModifiedDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "lastModifiedDateTime": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "lastModifiedDateWithTZ": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "mdfSystemEffectiveEndDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "mdfSystemEffectiveStartDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "mdfSystemEntityId": {
+                "type": "string"
+              },
+              "mdfSystemObjectType": {
+                "type": "string"
+              },
+              "mdfSystemRecordId": {
+                "type": "string"
+              },
+              "mdfSystemRecordStatus": {
+                "type": "string"
+              },
+              "mdfSystemStatus": {
+                "type": "string"
+              },
+              "mdfSystemTransactionSequence": {
+                "type": "string",
+                "format": "int64"
+              },
+              "mdfSystemVersionId": {
+                "type": "string",
+                "format": "int64"
+              },
+              "payDate": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "payrollId": {
+                "type": "string"
+              },
+              "payrollProviderId": {
+                "type": "string"
+              },
+              "payrollProviderPayrollRunType": {
+                "type": "string"
+              },
+              "payrollRunType": {
+                "type": "string"
+              },
+              "personId": {
+                "type": "string"
+              },
+              "sequenceNumber": {
+                "type": "string"
+              },
+              "startDateWhenPaid": {
+                "type": "string",
+                "example": "/Date(1492098664000)/"
+              },
+              "systemId": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "employeePayrollRunResultsItems": {
+                "type": "object",
+                "title": "Related Collection(SFOData.EmployeePayrollRunResultsItems)",
+                "properties": {
+                  "results": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "title": "EmployeePayrollRunResultsItems",
+                      "properties": {
+                        "EmployeePayrollRunResults_externalCode": {
+                          "type": "string"
+                        },
+                        "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "amount": {
+                          "type": "string",
+                          "format": "decimal"
+                        },
+                        "createdBy": {
+                          "type": "string"
+                        },
+                        "createdDate": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "createdDateTime": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "endDateWhenEarned": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "externalCode": {
+                          "type": "string"
+                        },
+                        "externalName": {
+                          "type": "string"
+                        },
+                        "groupingReason": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedDate": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "lastModifiedDateTime": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "lastModifiedDateWithTZ": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "mdfSystemEffectiveEndDate": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "mdfSystemEffectiveStartDate": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "mdfSystemEntityId": {
+                          "type": "string"
+                        },
+                        "mdfSystemObjectType": {
+                          "type": "string"
+                        },
+                        "mdfSystemRecordId": {
+                          "type": "string"
+                        },
+                        "mdfSystemRecordStatus": {
+                          "type": "string"
+                        },
+                        "mdfSystemStatus": {
+                          "type": "string"
+                        },
+                        "mdfSystemTransactionSequence": {
+                          "type": "string",
+                          "format": "int64"
+                        },
+                        "mdfSystemVersionId": {
+                          "type": "string",
+                          "format": "int64"
+                        },
+                        "payrollProviderGroupingReason": {
+                          "type": "string"
+                        },
+                        "payrollProviderGroupingValue": {
+                          "type": "string"
+                        },
+                        "payrollProviderUnitOfMeasurement": {
+                          "type": "string"
+                        },
+                        "payrollProviderWageType": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "string",
+                          "format": "decimal"
+                        },
+                        "startDateWhenEarned": {
+                          "type": "string",
+                          "example": "/Date(1492098664000)/"
+                        },
+                        "unitOfMeasurement": {
+                          "type": "string"
+                        },
+                        "wageType": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": "New entity"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "Created EmployeePayrollRunResults",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "EmployeePayrollRunResults",
+                    "properties": {
+                      "clientId": {
+                        "type": "string"
+                      },
+                      "companyId": {
+                        "type": "string"
+                      },
+                      "createdBy": {
+                        "type": "string"
+                      },
+                      "createdDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "createdDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "currency": {
+                        "type": "string"
+                      },
+                      "employmentId": {
+                        "type": "string"
+                      },
+                      "endDateWhenPaid": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "externalCode": {
+                        "type": "string"
+                      },
+                      "externalName": {
+                        "type": "string"
+                      },
+                      "isVoid": {
+                        "type": "boolean"
+                      },
+                      "lastModifiedBy": {
+                        "type": "string"
+                      },
+                      "lastModifiedDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateWithTZ": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveEndDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEntityId": {
+                        "type": "string"
+                      },
+                      "mdfSystemObjectType": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordId": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemTransactionSequence": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "mdfSystemVersionId": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "payDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "payrollId": {
+                        "type": "string"
+                      },
+                      "payrollProviderId": {
+                        "type": "string"
+                      },
+                      "payrollProviderPayrollRunType": {
+                        "type": "string"
+                      },
+                      "payrollRunType": {
+                        "type": "string"
+                      },
+                      "personId": {
+                        "type": "string"
+                      },
+                      "sequenceNumber": {
+                        "type": "string"
+                      },
+                      "startDateWhenPaid": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "systemId": {
+                        "type": "string"
+                      },
+                      "userId": {
+                        "type": "string"
+                      },
+                      "employeePayrollRunResultsItems": {
+                        "type": "object",
+                        "title": "Related Collection(SFOData.EmployeePayrollRunResultsItems)",
+                        "properties": {
+                          "results": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "title": "EmployeePayrollRunResultsItems",
+                              "properties": {
+                                "EmployeePayrollRunResults_externalCode": {
+                                  "type": "string"
+                                },
+                                "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "amount": {
+                                  "type": "string",
+                                  "format": "decimal"
+                                },
+                                "createdBy": {
+                                  "type": "string"
+                                },
+                                "createdDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "createdDateTime": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "endDateWhenEarned": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "externalCode": {
+                                  "type": "string"
+                                },
+                                "externalName": {
+                                  "type": "string"
+                                },
+                                "groupingReason": {
+                                  "type": "string"
+                                },
+                                "lastModifiedBy": {
+                                  "type": "string"
+                                },
+                                "lastModifiedDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "lastModifiedDateTime": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "lastModifiedDateWithTZ": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "mdfSystemEffectiveEndDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "mdfSystemEffectiveStartDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "mdfSystemEntityId": {
+                                  "type": "string"
+                                },
+                                "mdfSystemObjectType": {
+                                  "type": "string"
+                                },
+                                "mdfSystemRecordId": {
+                                  "type": "string"
+                                },
+                                "mdfSystemRecordStatus": {
+                                  "type": "string"
+                                },
+                                "mdfSystemStatus": {
+                                  "type": "string"
+                                },
+                                "mdfSystemTransactionSequence": {
+                                  "type": "string",
+                                  "format": "int64"
+                                },
+                                "mdfSystemVersionId": {
+                                  "type": "string",
+                                  "format": "int64"
+                                },
+                                "payrollProviderGroupingReason": {
+                                  "type": "string"
+                                },
+                                "payrollProviderGroupingValue": {
+                                  "type": "string"
+                                },
+                                "payrollProviderUnitOfMeasurement": {
+                                  "type": "string"
+                                },
+                                "payrollProviderWageType": {
+                                  "type": "string"
+                                },
+                                "quantity": {
+                                  "type": "string",
+                                  "format": "decimal"
+                                },
+                                "startDateWhenEarned": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "unitOfMeasurement": {
+                                  "type": "string"
+                                },
+                                "wageType": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "description": "Created entity (HTTP 201)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "GET_EmployeePayrollRunResults_externalCode",
+      "title": "GET_EmployeePayrollRunResults_externalCode",
+      "description": "Get entity from EmployeePayrollRunResults by key",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "externalcode",
+          "mdfsystemeffectivestartdate"
+        ],
+        "properties": {
+          "externalcode": {
+            "type": "string",
+            "description": "key: externalCode"
+          },
+          "mdfsystemeffectivestartdate": {
+            "type": "string",
+            "description": "key: mdfSystemEffectiveStartDate"
+          },
+          "select": {
+            "type": "array",
+            "description": "Select properties to be returned, see [OData Select](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          },
+          "expand": {
+            "type": "array",
+            "description": "Expand related entities, see [OData Expand](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/)"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "EmployeePayrollRunResults",
+                "properties": {
+                  "d": {
+                    "type": "object",
+                    "title": "EmployeePayrollRunResults",
+                    "properties": {
+                      "clientId": {
+                        "type": "string"
+                      },
+                      "companyId": {
+                        "type": "string"
+                      },
+                      "createdBy": {
+                        "type": "string"
+                      },
+                      "createdDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "createdDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "currency": {
+                        "type": "string"
+                      },
+                      "employmentId": {
+                        "type": "string"
+                      },
+                      "endDateWhenPaid": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "externalCode": {
+                        "type": "string"
+                      },
+                      "externalName": {
+                        "type": "string"
+                      },
+                      "isVoid": {
+                        "type": "boolean"
+                      },
+                      "lastModifiedBy": {
+                        "type": "string"
+                      },
+                      "lastModifiedDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateTime": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "lastModifiedDateWithTZ": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveEndDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEffectiveStartDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "mdfSystemEntityId": {
+                        "type": "string"
+                      },
+                      "mdfSystemObjectType": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordId": {
+                        "type": "string"
+                      },
+                      "mdfSystemRecordStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemStatus": {
+                        "type": "string"
+                      },
+                      "mdfSystemTransactionSequence": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "mdfSystemVersionId": {
+                        "type": "string",
+                        "format": "int64"
+                      },
+                      "payDate": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "payrollId": {
+                        "type": "string"
+                      },
+                      "payrollProviderId": {
+                        "type": "string"
+                      },
+                      "payrollProviderPayrollRunType": {
+                        "type": "string"
+                      },
+                      "payrollRunType": {
+                        "type": "string"
+                      },
+                      "personId": {
+                        "type": "string"
+                      },
+                      "sequenceNumber": {
+                        "type": "string"
+                      },
+                      "startDateWhenPaid": {
+                        "type": "string",
+                        "example": "/Date(1492098664000)/"
+                      },
+                      "systemId": {
+                        "type": "string"
+                      },
+                      "userId": {
+                        "type": "string"
+                      },
+                      "employeePayrollRunResultsItems": {
+                        "type": "object",
+                        "title": "Related Collection(SFOData.EmployeePayrollRunResultsItems)",
+                        "properties": {
+                          "results": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "title": "EmployeePayrollRunResultsItems",
+                              "properties": {
+                                "EmployeePayrollRunResults_externalCode": {
+                                  "type": "string"
+                                },
+                                "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "amount": {
+                                  "type": "string",
+                                  "format": "decimal"
+                                },
+                                "createdBy": {
+                                  "type": "string"
+                                },
+                                "createdDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "createdDateTime": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "endDateWhenEarned": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "externalCode": {
+                                  "type": "string"
+                                },
+                                "externalName": {
+                                  "type": "string"
+                                },
+                                "groupingReason": {
+                                  "type": "string"
+                                },
+                                "lastModifiedBy": {
+                                  "type": "string"
+                                },
+                                "lastModifiedDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "lastModifiedDateTime": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "lastModifiedDateWithTZ": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "mdfSystemEffectiveEndDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "mdfSystemEffectiveStartDate": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "mdfSystemEntityId": {
+                                  "type": "string"
+                                },
+                                "mdfSystemObjectType": {
+                                  "type": "string"
+                                },
+                                "mdfSystemRecordId": {
+                                  "type": "string"
+                                },
+                                "mdfSystemRecordStatus": {
+                                  "type": "string"
+                                },
+                                "mdfSystemStatus": {
+                                  "type": "string"
+                                },
+                                "mdfSystemTransactionSequence": {
+                                  "type": "string",
+                                  "format": "int64"
+                                },
+                                "mdfSystemVersionId": {
+                                  "type": "string",
+                                  "format": "int64"
+                                },
+                                "payrollProviderGroupingReason": {
+                                  "type": "string"
+                                },
+                                "payrollProviderGroupingValue": {
+                                  "type": "string"
+                                },
+                                "payrollProviderUnitOfMeasurement": {
+                                  "type": "string"
+                                },
+                                "payrollProviderWageType": {
+                                  "type": "string"
+                                },
+                                "quantity": {
+                                  "type": "string",
+                                  "format": "decimal"
+                                },
+                                "startDateWhenEarned": {
+                                  "type": "string",
+                                  "example": "/Date(1492098664000)/"
+                                },
+                                "unitOfMeasurement": {
+                                  "type": "string"
+                                },
+                                "wageType": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "description": "Retrieved entity (HTTP 200)"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "PUT_EmployeePayrollRunResults_externalCode",
+      "title": "PUT_EmployeePayrollRunResults_externalCode",
+      "description": "Update entity in EmployeePayrollRunResults",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "externalcode",
+          "mdfsystemeffectivestartdate"
+        ],
+        "properties": {
+          "body": {
+            "type": "object",
+            "title": "Modified EmployeePayrollRunResults",
+            "properties": {
+              "d": {
+                "type": "object",
+                "title": "EmployeePayrollRunResults",
+                "properties": {
+                  "clientId": {
+                    "type": "string"
+                  },
+                  "companyId": {
+                    "type": "string"
+                  },
+                  "createdBy": {
+                    "type": "string"
+                  },
+                  "createdDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "createdDateTime": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "employmentId": {
+                    "type": "string"
+                  },
+                  "endDateWhenPaid": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "externalCode": {
+                    "type": "string"
+                  },
+                  "externalName": {
+                    "type": "string"
+                  },
+                  "isVoid": {
+                    "type": "boolean"
+                  },
+                  "lastModifiedBy": {
+                    "type": "string"
+                  },
+                  "lastModifiedDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "lastModifiedDateTime": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "lastModifiedDateWithTZ": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "mdfSystemEffectiveEndDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "mdfSystemEffectiveStartDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "mdfSystemEntityId": {
+                    "type": "string"
+                  },
+                  "mdfSystemObjectType": {
+                    "type": "string"
+                  },
+                  "mdfSystemRecordId": {
+                    "type": "string"
+                  },
+                  "mdfSystemRecordStatus": {
+                    "type": "string"
+                  },
+                  "mdfSystemStatus": {
+                    "type": "string"
+                  },
+                  "mdfSystemTransactionSequence": {
+                    "type": "string",
+                    "format": "int64"
+                  },
+                  "mdfSystemVersionId": {
+                    "type": "string",
+                    "format": "int64"
+                  },
+                  "payDate": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "payrollId": {
+                    "type": "string"
+                  },
+                  "payrollProviderId": {
+                    "type": "string"
+                  },
+                  "payrollProviderPayrollRunType": {
+                    "type": "string"
+                  },
+                  "payrollRunType": {
+                    "type": "string"
+                  },
+                  "personId": {
+                    "type": "string"
+                  },
+                  "sequenceNumber": {
+                    "type": "string"
+                  },
+                  "startDateWhenPaid": {
+                    "type": "string",
+                    "example": "/Date(1492098664000)/"
+                  },
+                  "systemId": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "string"
+                  },
+                  "employeePayrollRunResultsItems": {
+                    "type": "object",
+                    "title": "Related Collection(SFOData.EmployeePayrollRunResultsItems)",
+                    "properties": {
+                      "results": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "title": "EmployeePayrollRunResultsItems",
+                          "properties": {
+                            "EmployeePayrollRunResults_externalCode": {
+                              "type": "string"
+                            },
+                            "EmployeePayrollRunResults_mdfSystemEffectiveStartDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "amount": {
+                              "type": "string",
+                              "format": "decimal"
+                            },
+                            "createdBy": {
+                              "type": "string"
+                            },
+                            "createdDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "createdDateTime": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "endDateWhenEarned": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "externalCode": {
+                              "type": "string"
+                            },
+                            "externalName": {
+                              "type": "string"
+                            },
+                            "groupingReason": {
+                              "type": "string"
+                            },
+                            "lastModifiedBy": {
+                              "type": "string"
+                            },
+                            "lastModifiedDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "lastModifiedDateTime": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "lastModifiedDateWithTZ": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEffectiveEndDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEffectiveStartDate": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "mdfSystemEntityId": {
+                              "type": "string"
+                            },
+                            "mdfSystemObjectType": {
+                              "type": "string"
+                            },
+                            "mdfSystemRecordId": {
+                              "type": "string"
+                            },
+                            "mdfSystemRecordStatus": {
+                              "type": "string"
+                            },
+                            "mdfSystemStatus": {
+                              "type": "string"
+                            },
+                            "mdfSystemTransactionSequence": {
+                              "type": "string",
+                              "format": "int64"
+                            },
+                            "mdfSystemVersionId": {
+                              "type": "string",
+                              "format": "int64"
+                            },
+                            "payrollProviderGroupingReason": {
+                              "type": "string"
+                            },
+                            "payrollProviderGroupingValue": {
+                              "type": "string"
+                            },
+                            "payrollProviderUnitOfMeasurement": {
+                              "type": "string"
+                            },
+                            "payrollProviderWageType": {
+                              "type": "string"
+                            },
+                            "quantity": {
+                              "type": "string",
+                              "format": "decimal"
+                            },
+                            "startDateWhenEarned": {
+                              "type": "string",
+                              "example": "/Date(1492098664000)/"
+                            },
+                            "unitOfMeasurement": {
+                              "type": "string"
+                            },
+                            "wageType": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": "New property values"
+          },
+          "externalcode": {
+            "type": "string",
+            "description": "key: externalCode"
+          },
+          "mdfsystemeffectivestartdate": {
+            "type": "string",
+            "description": "key: mdfSystemEffectiveStartDate"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "DELETE_EmployeePayrollRunResults_externalCode",
+      "title": "DELETE_EmployeePayrollRunResults_externalCode",
+      "description": "Delete entity from EmployeePayrollRunResults",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "externalcode",
+          "mdfsystemeffectivestartdate"
+        ],
+        "properties": {
+          "externalcode": {
+            "type": "string",
+            "description": "key: externalCode"
+          },
+          "mdfsystemeffectivestartdate": {
+            "type": "string",
+            "description": "key: mdfSystemEffectiveStartDate"
+          },
+          "if_match": {
+            "type": "string",
+            "description": "ETag"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "target": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "message"
+                          ]
+                        }
+                      },
+                      "innererror": {
+                        "type": "object",
+                        "description": "The structure of this object is service-specific"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "required": [
+                  "error"
+                ],
+                "description": "Error (HTTP default)"
               }
             ]
           }

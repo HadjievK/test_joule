@@ -1,0 +1,129 @@
+{
+    "mcpTranslationVersion": "0.1",
+    "target": {
+        "ordId": "sap.sf:apiResource:EmployeeCostAssignment:v1",
+        "type": "openapi-v3"
+    },
+    "serverInfo": {
+        "name": "sap.mcp/employee_cost_assignment",
+        "title": "employee_cost_assignment",
+        "version": "1.0.0",
+        "description": "MCP server for the employee_cost_assignment service."
+    },
+    "tools": [
+        {
+            "name": "GET_EmpCostAssignment",
+            "title": "GET_EmpCostAssignment",
+            "description": "You can use the following request to get all employee cost assignments. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+            "openApiType": {
+                "path": "/EmpCostAssignment",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "$top",
+                        "description": "Show only the first n items, see [OData Paging - Top](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374630)",
+                        "in": "query",
+                        "newParameterName": "top"
+                    },
+                    {
+                        "name": "$skip",
+                        "description": "Skip the first n items, see [OData Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374631)",
+                        "in": "query",
+                        "newParameterName": "skip"
+                    },
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [OData Filtering](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374625)",
+                        "in": "query",
+                        "newParameterName": "filter"
+                    },
+                    {
+                        "name": "$count",
+                        "description": "Include count of items, see [OData Count](http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html#_Toc445374632)",
+                        "in": "query",
+                        "newParameterName": "count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "newParameterName": "orderby"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_EmpCostAssignment",
+            "title": "POST_EmpCostAssignment",
+            "description": "You can use the following request to create a new employee cost assignment. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+            "openApiType": {
+                "path": "/EmpCostAssignment",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "Attributes of new EmpCostAssignment."
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        },
+        {
+            "name": "GET_EmpCostAssignment_effectiveStartDate",
+            "title": "GET_EmpCostAssignment_effectiveStartDate",
+            "description": "You can use the following request to get employee cost assignment by effective start date and worker. <br>For further details, refer to the SAP Help Portal documentation [OData API: EmpCostAssignment](https://help.sap.com/docs/SAP_SUCCESSFACTORS_PLATFORM/b2b06831c2cb4d5facd1dfde49a7aab5/a60fb8ac528044f191bc9735ac174c72.html)",
+            "openApiType": {
+                "path": "/EmpCostAssignment(effectiveStartDate=datetime'{effectiveStartDate}',worker='{worker}')",
+                "method": "get",
+                "parameters": [
+                    {
+                        "name": "effectiveStartDate",
+                        "description": "key: effectiveStartDate, format: <YYYY-MM-DD>T<HH:MM:SS>  <br>\nExample: ```2021-01-01T00:00:00```",
+                        "in": "path",
+                        "newParameterName": "effectivestartdate"
+                    },
+                    {
+                        "name": "worker",
+                        "description": "key: worker, format: worker <br>\nExample: ```string```",
+                        "in": "path",
+                        "newParameterName": "worker"
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "newParameterName": "select"
+                    }
+                ],
+                "requestBody": {}
+            }
+        },
+        {
+            "name": "POST_upsert_purgeType_record",
+            "title": "POST_upsert_purgeType_record",
+            "description": "You can use the following request to update an existing employee cost assignment.",
+            "openApiType": {
+                "path": "/upsert?purgeType=record",
+                "method": "post",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "description": "Attributes of updated EmpCostAssignment."
+                    }
+                ],
+                "requestBody": {
+                    "contentType": "application/json"
+                }
+            }
+        }
+    ]
+}

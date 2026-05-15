@@ -4,180 +4,153 @@
 
 ## Basic Setup
 
-- [ ] Read the project input (`product-requirements-document.md` and `intent.md`)
-- [ ] Bootstrap agent code in `assets/payroll-operations-agent/` using skill `sap-agent-bootstrap` (invoke from inside `assets/payroll-operations-agent/`, use copy commands — do NOT create files manually)
-- [ ] Install dependencies, validate the agent starts and responds at `/.well-known/agent.json`
+- [x] Read `product-requirements-document.md` and `intent.md`
+- [x] Bootstrap agent code in `assets/payroll-operations-agent/` using skill `sap-agent-bootstrap` (invoke from inside `assets/payroll-operations-agent/`, use copy commands â do NOT create files manually)
+- [x] Install dependencies, validate the agent starts and responds at `/.well-known/agent.json`
 
-## API Integration — MCP Translation
+## Agent Identity & System Prompt
 
-> All SAP API interactions MUST go through MCP tools. No direct HTTP clients allowed.
+- [x] Set agent name to `Payroll Operations Agent` and description to `AI agent that controls all payroll operations across SAP SuccessFactors Employee Central Payroll and SAP S/4HANA â including payroll data retrieval, run initiation, discrepancy detection and resolution, compliance validation, and report generation.`
+- [x] Write system prompt under `@prompt_section` in `app/agent.py`:
+  - The agent serves payroll administrators and finance controllers; it must be precise, structured, and audit-conscious in all responses
+  - The agent MUST NEVER trigger a live payroll run or cancel an S/4HANA run without first presenting a pre-action summary and receiving explicit human confirmation
+  - Write actions affecting multiple employees simultaneously are high-risk and always require human confirmation
+  - Always set `top` (or equivalent page-size) to a maximum of 100 on every tool call that accepts it; inform the user when this limit is applied
+  - Never hallucinate payroll data â if a tool call fails or returns empty, report that explicitly and suggest remediation
+  - When anomaly count in any validation exceeds 5, escalate to the user immediately rather than attempting autonomous resolution
+  - All write operations must be confirmed back to the user with: employee ID, field changed, old value, new value, and timestamp
 
-- [ ] Verify `specification/payroll-operations-agent/api-specs/` contains the following 7 downloaded spec files:
-  - `employee-central-payroll.json` — ORD ID: `sap.sf:apiResource:ECEmployeeCentralPayroll:v1`
-  - `payroll-time-sheet.json` — ORD ID: `sap.sf:apiResource:ECPayrollTimeSheets:v1`
-  - `compensation-information.json` — ORD ID: `sap.sf:apiResource:ECCompensationInformation:v1`
-  - `compensation-management.json` — ORD ID: `sap.sf:apiResource:employeeCompensation:v1`
-  - `income-tax-declaration.json` — ORD ID: `sap.sf:apiResource:ECIncomeTaxDeclaration:v1`
-  - `payroll-earmarked-funds.json` — ORD ID: `sap.s4:apiResource:CE_PAYROLLEARMARKEDFUNDSDOC_0001:v1`
-  - `statutory-reporting-task.json` — ORD ID: `sap.s4:apiResource:CE_STATUTORYREPORTINGTASK_0001:v1`
-- [ ] Invoke `mcp-translation-file` skill for each API spec file above to generate MCP translation files and server cards
-- [ ] Invoke `setup-solution` skill to register generated MCP server assets in `solution.yaml`
-- [ ] Record MCP server names and ORD IDs for wiring into agent `asset.yaml`
+## MCP Tool Integration
 
-## Agent Tools
+- [x] Verify `specification/payroll-operations-agent/api-specs/` contains all 9 spec files:
+  - `employee-central-payroll.json` (`sap.sf:apiResource:ECEmployeeCentralPayroll:v1`)
+  - `payroll-time-sheets.json` (`sap.sf:apiResource:ECPayrollTimeSheets:v1`)
+  - `employee-cost-assignment.json` (`sap.sf:apiResource:EmpCostAssignment:v1`)
+  - `income-tax-declaration.json` (`sap.sf:apiResource:ECIncomeTaxDeclaration:v1`)
+  - `global-benefits.json` (`sap.sf:apiResource:ECGlobalBenefits:v1`)
+  - `s4-payroll-earmarked-funds.json` (`sap.s4:apiResource:CE_PAYROLLEARMARKEDFUNDSDOC_0001:v1`)
+  - `s4-statutory-reporting-task.json` (`sap.s4:apiResource:CE_STATUTORYREPORTINGTASK_0001:v1`)
+  - `s4-retrieve-run-results.json` (`RetrieveRunResultAPI`)
+  - `s4-cancel-run.json` (`CancelRunAPI`)
+- [x] Invoke `mcp-translation-file` skill to generate MCP translation files and server cards from all 9 API spec files
+- [x] Invoke `setup-solution` skill to create and register MCP server assets for each generated translation file
+- [x] Wire MCP tool loading in `app/agent.py` using `get_mcp_tools()` from `mcp_tools.py` â follow the canonical lazy-load pattern from `guidelines-agent.md`; NEVER create direct HTTP clients (`requests`, `httpx`, OData clients)
+- [x] After `mcp-translation-file` and `setup-solution` complete, invoke `mcp-mock-config` skill to generate `mcp-mock.json`
 
-Wire all SAP API interactions through MCP tools loaded via `get_mcp_tools()`. Never hard-code tool names. Implement the following tool-backed capabilities:
+## REQ-01: Payroll Data Retrieval â Both Systems
 
-### REQ-01 — Payroll Data Query (M1)
-- [ ] Implement `get_payroll_records` tool logic:
-  - MCP call to `EmployeePayrollRunResults` (GET `/EmployeePayrollRunResults`) in `employee-central-payroll` — filter by pay period date range and optional employee ID; set `$top=100` on all list calls
-  - MCP call to `EmployeePayrollRunResultsItems` (GET `/EmployeePayrollRunResultsItems`) to retrieve line-item detail
-  - MCP call to `PayrollEarmarkedFundsDoc` (GET `/PayrollEarmarkedFundsDoc`) in `payroll-earmarked-funds` — retrieve S/4HANA payroll earmarked funds for the same period
-  - Merge and present consolidated cross-system payroll summary to the user
-  - Emit `M1.achieved` log when at least one non-empty result set is returned; emit `M1.missed` if all calls return empty or error
+- [x] Implement tool `get_sf_payroll_run_status`: queries `GET /EmployeePayrollRunResults` from `employee-central-payroll.json`; accepts optional `externalCode` and `mdfSystemEffectiveStartDate` filters
+- [x] Implement tool `get_sf_payroll_run_items`: queries `GET /EmployeePayrollRunResultsItems` for line items of a given SF payroll run
+- [x] Implement tool `get_s4_payroll_run_results`: queries S/4HANA payroll run results via `s4-retrieve-run-results.json`
+- [x] Implement tool `get_s4_earmarked_funds`: queries `s4-payroll-earmarked-funds.json` for payroll earmarked funds documents; accepts fiscal year and company code filters
+- [x] Agent logic: on cross-system status query, retrieve from both systems for the same period and return a unified summary (total employees, gross amounts, status per system)
 
-- [ ] Implement `get_time_sheets` tool logic:
-  - MCP call to `EmployeeTimeSheet` (GET `/EmployeeTimeSheet`) in `payroll-time-sheet` — filter by employee and date; set `$top=100`
-  - MCP call to `TimeCollector` (GET `/TimeCollector`) for aggregated time data
-  - Return structured list of time sheet entries per employee
+## REQ-02: Payroll Run Initiation â Human Approval Required
 
-- [ ] Implement `get_compensation_info` tool logic:
-  - MCP call to `EmpCompensation` (GET `/EmpCompensation?$expand=empCompensationCalculatedNav`) in `compensation-information`
-  - MCP call to `EmpPayCompRecurring` (GET `/EmpPayCompRecurring`) for recurring pay components
-  - Accept filter by userId, department, or cost centre; set `$top=100`
+- [x] Implement tool `trigger_sf_payroll_run`: posts a payroll run initiation to SuccessFactors Employee Central Payroll (write â MUST require human confirmation before execution)
+- [x] Agent logic: before triggering, validate completeness of time sheets and absence of open anomalies; present a pre-run summary to the user listing employee count, period, system, and any warnings; wait for explicit confirmation before calling the tool
 
-- [ ] Implement `get_employee_compensation` tool logic:
-  - MCP call to `employeeCompensations` (GET `/employeeCompensations`) in `compensation-management`
-  - Support filtering by employee ID or department
+## REQ-03: Discrepancy Detection and Resolution
 
-### REQ-02 — Payroll Run Initiation (M2)
-- [ ] Implement `trigger_payroll_run` tool logic:
-  - Before calling the API, the agent MUST present a confirmation summary to the user and await explicit approval
-  - On approval: MCP call to POST `/EmployeePayrollRunResults` in `employee-central-payroll` with validated run parameters
-  - Return run ID, status, and next steps from the API response
-  - Emit `M2.achieved` log on successful API response with run ID; emit `M2.missed` if cancelled by user or API call fails
+- [x] Implement tool `get_sf_payroll_run_items` (if not already done in REQ-01) for detailed item-level comparison
+- [x] Implement tool `update_time_sheet_entry`: patches an existing time sheet entry via `payroll-time-sheets.json` (write â single employee scope)
+- [x] Implement tool `create_time_sheet_entry`: posts a new time sheet entry via `payroll-time-sheets.json` (write â single employee scope)
+- [x] Agent logic: cross-reference SF and S/4HANA payroll totals; flag discrepancies with: employee ID, field, SF value, S/4HANA value, delta; for single-employee corrections, apply autonomously and log; for multi-employee corrections, present list and require confirmation
 
-### REQ-03 — Payroll Discrepancy Detection and Resolution (M3)
-- [ ] Implement discrepancy detection logic in the agent's reasoning layer:
-  - After `get_payroll_records` and `get_time_sheets` are called, compare time sheet hours/amounts against payroll run results for each employee
-  - Identify mismatches: hours discrepancy, pay amount mismatch, missing time records
-  - Return discrepancy list with: employee ID, discrepancy type, expected value, actual value, magnitude
-  - Emit `M3.achieved` log when at least one discrepancy is found and surfaced or resolved; emit `M3.missed` when no discrepancies found or resolution declined
+## REQ-04: Compliance Validation â Both Systems
 
-- [ ] Implement `apply_payroll_correction` tool logic:
-  - Present proposed correction to user and await explicit confirmation before executing
-  - On approval: MCP call to PUT `/EmployeePayrollRunResults(...)` in `employee-central-payroll` with corrected values
-  - On approval for time record correction: MCP call to PUT `/ExternalTimeRecord('{externalCode}')` in `payroll-time-sheet`
-  - Return updated record confirmation
+- [x] Implement tool `get_income_tax_declarations`: queries `GET` endpoints from `income-tax-declaration.json`; accepts employee ID and tax year filters
+- [x] Implement tool `get_statutory_reporting_tasks`: queries `s4-statutory-reporting-task.json` for open statutory reporting tasks; accepts company code and due date filters
+- [x] Agent logic: cross-check income tax declaration status against payroll deduction records; flag entries where declared tax differs from withheld tax; surface overdue statutory tasks with due date and responsible party
 
-### REQ-04 — Statutory Compliance Check (M4)
-- [ ] Implement `get_statutory_reporting_tasks` tool logic:
-  - MCP call to `Activity` (GET `/Activity`) in `statutory-reporting-task` — list all statutory reporting activities; set `$top=100`
-  - MCP call to `Phase` (GET `/Phase`) to retrieve reporting phase status
-  - Identify overdue or non-compliant activities (past due date, status not complete)
-  - Return compliance status per obligation with regulation reference
+## REQ-05: Payroll Reporting â Cross-System Aggregation
 
-- [ ] Implement `get_income_tax_declarations` tool logic:
-  - MCP call to `ItDeclarationTimeBound` (GET `/ItDeclarationTimeBound`) in `income-tax-declaration` — retrieve time-bound declarations
-  - MCP call to `DeclarationType` (GET `/DeclarationType`) to enrich with declaration type metadata
-  - Flag missing or overdue declarations
-  - Emit `M4.achieved` log when compliance check completes and status is returned; emit `M4.missed` on API failure
+- [x] Implement `generate_payroll_report` (local computation, no direct API call):
+  - Accepts payroll period identifier
+  - Aggregates: total headcount, gross payroll, total deductions, net payroll, anomaly count â from both systems
+  - Includes compliance status summary (compliant count, flagged count) from REQ-04 results
+  - Returns structured report labelled with period, generation timestamp, and completeness status
 
-### REQ-05 — Payroll Report Generation (M5)
-- [ ] Implement report generation logic in the agent's reasoning layer:
-  - Orchestrate sequential calls: `get_payroll_records` → `get_time_sheets` → `get_compensation_info` → `get_statutory_reporting_tasks`
-  - Aggregate into a structured payroll summary report:
-    - Total payroll run count and status for the period
-    - Employee count processed
-    - Total compensation amount (from compensation data)
-    - Earmarked funds total (from S/4HANA)
-    - Statutory compliance summary (obligations checked / flagged)
-  - Present report as a formatted response with section headers
-  - Emit `M5.achieved` log when report is successfully compiled and returned; emit `M5.missed` when data from one or more systems is unavailable
+## REQ-06: Time Sheet Management
 
-### REQ-06 — Compensation Query (Finance Controller)
-- [ ] Implement `get_benefits` tool logic:
-  - MCP call to `OneTimeDeduction` (GET `/OneTimeDeduction`) in `compensation-information` for one-time deductions
-  - MCP call to `RecurringDeductionItem` (GET `/RecurringDeductionItem`) for recurring deductions
-  - Filter by employee ID or organisational unit
+- [x] Implement tool `get_time_sheets`: queries `GET /EmployeeTimeSheet` from `payroll-time-sheets.json`; accepts employee ID and period filters
+- [x] Implement tool `get_time_sheet_entries`: queries `GET /EmployeeTimeSheetEntry` for individual entries of a given time sheet
+- [x] Implement tool `get_time_valuation_results`: queries `GET /EmployeeTimeValuationResult` for calculated time values and allowances
+- [x] Agent logic: detect missing time sheets (employees in payroll scope with no submitted sheet) and zero-hour entries; surface as prioritised anomaly list
 
-## Agent System Prompt
+## REQ-07: Compensation & Cost Assignment Management
 
-- [ ] Configure system prompt in `app/agent.py` `@prompt_section` with the following instructions:
-  - Role: "You are a Payroll Operations AI Agent assisting payroll administrators and finance controllers. You have access to SAP SuccessFactors and SAP S/4HANA payroll APIs."
-  - Dual-system fluency: "When the user asks for payroll data, always query both SAP SuccessFactors and SAP S/4HANA unless a specific system is requested."
-  - Confirmation guardrail: "For ALL write operations (trigger payroll run, apply correction, submit report), you MUST present a confirmation summary and wait for explicit user approval before calling any write API."
-  - Page limit: "On every tool call that accepts a `$top` or `top` parameter, always set it to a maximum of 100 to prevent context overflow. Inform the user when this limit is applied."
-  - Accuracy: "Never fabricate or hallucinate payroll data. Only present data returned by tool calls. If a tool call fails, clearly state the failure and suggest a manual fallback."
-  - Graceful degradation: "If one backend system is unavailable, continue serving the other and clearly inform the user which system is unavailable."
-  - Scope: "You are designed for payroll administrators and finance controllers only. Do not assist with employee self-service payroll queries."
+- [x] Implement tool `get_compensation_info`: queries compensation information via `employee-central-payroll.json` endpoints; accepts employee ID filter
+- [x] Implement tool `get_cost_assignments`: queries `GET /EmpCostAssignment` from `employee-cost-assignment.json`; accepts employee ID and effective date filters
+- [x] Implement tool `upsert_cost_assignment`: posts to `/upsert?purgeType=record` in `employee-cost-assignment.json` to create or update a cost assignment (write â single employee scope)
+- [x] Implement tool `update_compensation_info`: patches compensation information for a single employee via `employee-central-payroll.json` write endpoints (write â single employee scope)
+- [x] Agent logic: on update requests, retrieve current value first, present oldânew diff to user, apply, then log the change
 
-## Business Step Instrumentation
+## REQ-08: Expense Reimbursement Management
 
-- [ ] Implement OpenTelemetry instrumentation for all 5 milestones. Extract business logic from `stream()` into a `_run_agent()` async helper; instrument that helper using decorator or context-manager form — NEVER use `with tracer.start_as_current_span(...)` inside an async generator:
+- [x] Implement tool `get_reimbursement_records`: queries reimbursement-related entities from `employee-central-payroll.json`; accepts employee ID and status filters
+- [x] Implement tool `create_reimbursement_record`: posts a new reimbursement record (write â single employee scope); accepts employee ID, amount, currency, and expense type
+- [x] Agent logic: confirm created record back to user with generated record ID and submitted field values
 
-  | ID | Span name | Log on achieved | Log on missed |
-  |----|-----------|-----------------|---------------|
-  | M1 | `payroll-data-retrieved` | `M1.achieved: payroll data retrieved successfully for pay period {period} from {systems}` | `M1.missed: payroll data retrieval failed or returned no results for pay period {period} — system {system}, error {error}` |
-  | M2 | `payroll-run-initiated` | `M2.achieved: payroll run initiated successfully, run ID {run_id}, system {system}` | `M2.missed: payroll run initiation failed or was cancelled by user — system {system}, reason {reason}` |
-  | M3 | `discrepancy-identified-resolved` | `M3.achieved: discrepancy detected and resolved for employee {employee_id}, type {discrepancy_type}` | `M3.missed: discrepancy detection completed with no issues found, or correction was declined by user` |
-  | M4 | `compliance-check-completed` | `M4.achieved: compliance check completed for pay period {period} — {n} obligations checked, {m} flagged` | `M4.missed: compliance check could not be completed for pay period {period} — error {error}` |
-  | M5 | `payroll-report-generated` | `M5.achieved: payroll report generated for period {period}, {n} records included, source systems {systems}` | `M5.missed: payroll report generation incomplete for period {period} — missing data from {system}` |
+## REQ-09: Global Benefits Visibility
 
-- [ ] Verify `auto_instrument()` is called at top of `main.py` before any AI framework imports
+- [x] Implement tool `get_global_benefits`: queries benefit plan and enrollment entities from `global-benefits.json`; accepts employee ID and benefit type filters
+- [x] Agent logic: surface active benefits per employee with benefit type, provider, coverage amount, and associated payroll deduction amount when available
 
-## agent.yaml Requirements
+## S/4HANA Run Cancellation â Human Approval Required
 
-- [ ] Add `requires` entries in `assets/payroll-operations-agent/asset.yaml` for every MCP server generated by `mcp-translation-file`:
-  ```yaml
-  requires:
-    - name: <mcp-server-name-ecpayroll>
-      kind: mcp-server
-      ordId: <ord-id>
-    - name: <mcp-server-name-timesheet>
-      kind: mcp-server
-      ordId: <ord-id>
-    # ... one entry per MCP server asset
-  ```
+- [x] Implement tool `cancel_s4_payroll_run`: calls cancellation endpoint from `s4-cancel-run.json` (write â MUST require human confirmation)
+- [x] Agent logic: before cancelling, retrieve current run status; present run ID, affected employee count, current status, and irreversibility warning; wait for explicit confirmation before calling the tool; log approver, timestamp, and run ID on completion
 
-## Generate Mock Config
+## Business Step Instrumentation (Milestones)
 
-- [ ] After `mcp-translation-file` and `setup-solution` are complete, invoke `mcp-mock-config` skill to generate `mcp-mock.json` with realistic payroll mock data:
-  - `EmployeePayrollRunResults`: 2–3 mock run records with externalCode, status, pay period, amount
-  - `EmployeeTimeSheet`: 2 mock time sheet entries with hours worked
-  - `EmpCompensation`: 1–2 mock compensation records with base salary and currency
-  - `PayrollEarmarkedFundsDoc`: 1 mock fund document with amount and status
-  - `Activity` (statutory): 2 mock activities — one compliant, one overdue
-  - `ItDeclarationTimeBound`: 1 mock declaration record
+- [x] Extract all business logic from `stream()` into plain async helper `_run_agent()`; instrument that helper â NEVER wrap `yield` inside `with tracer.start_as_current_span(...)`
+- [x] M1 â Payroll Data Retrieved:
+  - Achieved: `M1.achieved: payroll data retrieved from [systems] for period [period_id] â [record_count] records`
+  - Missed: `M1.missed: payroll data retrieval incomplete â failed sources: [source_list]`
+- [x] M2 â Payroll Run Initiated:
+  - Achieved: `M2.achieved: payroll run initiated in [system] for period [period_id] â run_id: [run_id]`
+  - Missed: `M2.missed: payroll run initiation failed â reason: [error_detail]`
+- [x] M3 â Discrepancy Identified and Resolved:
+  - Achieved: `M3.achieved: [discrepancy_count] discrepancies resolved for period [period_id]`
+  - Missed: `M3.missed: discrepancy resolution incomplete â [unresolved_count] items outstanding`
+- [x] M4 â Compliance Check Completed:
+  - Achieved: `M4.achieved: compliance check completed â [compliant_count] compliant, [flagged_count] flagged`
+  - Missed: `M4.missed: compliance check incomplete â missing data: [field_list]`
+- [x] M5 â Payroll Report Generated:
+  - Achieved: `M5.achieved: payroll report generated for period [period_id] â completeness: [status]`
+  - Missed: `M5.missed: report generation failed â missing data: [field_list]`
+- [x] Add OpenTelemetry custom spans using `@tracer.start_as_current_span` decorator on each milestone helper method
+- [x] Verify `auto_instrument()` is called at top of `main.py` before any AI framework imports
 
 ## Testing
 
-- [ ] `conftest.py` only sets `IBD_TESTING=true`
-- [ ] Write unit tests in `assets/payroll-operations-agent/tests/` — one per tool:
-  - `test_get_payroll_records.py` — mock MCP tools returning payroll run results; assert consolidated cross-system summary returned
-  - `test_get_time_sheets.py` — mock time sheet MCP response; assert employee time entries returned
-  - `test_get_compensation_info.py` — mock compensation MCP response; assert compensation data parsed correctly
-  - `test_get_employee_compensation.py` — mock compensation management response; assert filter by employee applied
-  - `test_trigger_payroll_run.py` — mock write MCP tool; assert confirmation is requested before API call; assert run ID returned on approval
-  - `test_apply_payroll_correction.py` — mock write MCP tool; assert correction summary shown; assert PUT call made only after confirmation
-  - `test_get_statutory_reporting_tasks.py` — mock statutory activity response; assert overdue items flagged
-  - `test_get_income_tax_declarations.py` — mock income tax MCP response; assert declaration status returned
-  - `test_get_benefits.py` — mock deductions MCP response; assert deduction items returned
-  - `test_discrepancy_detection.py` — provide mock payroll and time sheet data with deliberate mismatch; assert discrepancy list returned with correct fields
-  - `test_payroll_report.py` — mock all tool responses; assert report contains all 5 sections (run count, employee count, compensation, earmarked funds, compliance)
-  - Run each test immediately after writing it
-- [ ] Write one integration test `tests/test_integration.py`:
-  - Mock LLM (patch `ChatLiteLLM`) and mock MCP tools
-  - Invoke agent `invoke` function with "Show me payroll data for March 2026"
-  - Assert agent calls `get_payroll_records` and returns a non-empty consolidated response
-- [ ] Run `pytest` from `assets/payroll-operations-agent/` (no args) — fix failures before proceeding
-- [ ] Verify `grep -c "^@agent_model\|^@agent_config\|^@prompt_section" assets/payroll-operations-agent/app/agent.py` returns 3
-- [ ] Ensure coverage ≥ 70%; add targeted tests if below threshold
-- [ ] Run final `pytest` from `assets/payroll-operations-agent/` (no args) to generate `test_report.json`
-- [ ] Verify `assets/payroll-operations-agent/test_report.json` exists
+- [x] `conftest.py` only sets `IBD_TESTING=true`
+- [x] Write unit test for `get_sf_payroll_run_status`; run immediately
+- [x] Write unit test for `get_sf_payroll_run_items`; run immediately
+- [x] Write unit test for `get_s4_payroll_run_results`; run immediately
+- [x] Write unit test for `get_s4_earmarked_funds`; run immediately
+- [x] Write unit test for `trigger_sf_payroll_run` (verify confirmation gate blocks execution without approval); run immediately
+- [x] Write unit test for `get_time_sheets`; run immediately
+- [x] Write unit test for `get_time_sheet_entries`; run immediately
+- [x] Write unit test for `update_time_sheet_entry`; run immediately
+- [x] Write unit test for `create_time_sheet_entry`; run immediately
+- [x] Write unit test for `get_income_tax_declarations`; run immediately
+- [x] Write unit test for `get_statutory_reporting_tasks`; run immediately
+- [x] Write unit test for `get_cost_assignments`; run immediately
+- [x] Write unit test for `upsert_cost_assignment`; run immediately
+- [x] Write unit test for `get_global_benefits`; run immediately
+- [x] Write unit test for `cancel_s4_payroll_run` (verify confirmation gate blocks execution without approval); run immediately
+- [x] Write unit test for `generate_payroll_report`; run immediately
+- [x] Write one integration test: query payroll run status (both systems) â validate time sheets â run compliance check â generate report; mock LLM and all MCP tools
+- [x] Run `pytest` from `assets/payroll-operations-agent/` (no args) â if coverage < 70%, add tests
+- [x] Verify `app/agent.py` has exactly 3 decorated functions â run `grep -c "^@agent_model\|^@agent_config\|^@prompt_section" assets/payroll-operations-agent/app/agent.py` and confirm output is 3
+- [x] Run `pytest` again from `assets/payroll-operations-agent/` (no args) to produce final `test_report.json`
+- [x] Verify `test_report.json` exists in `assets/payroll-operations-agent/`
 
-## Agent Evaluation (Post-Testing)
+## Validation
 
-- [ ] Invoke `sap-aeval-generate-tool-schema` skill from `assets/payroll-operations-agent/` to generate `tools.json`
-- [ ] Invoke `sap-aeval-generate-testcase` skill with `specification/payroll-operations-agent/specification.md` and `tools.json` to generate `aeval/eval.yaml` and test cases in `aeval/testcases/`
-- [ ] Review generated test cases; replace all placeholder values with realistic payroll data (pay periods, employee IDs, amounts)
+- [x] `grep -r "M[0-9]\.achieved" assets/payroll-operations-agent/app/` â must return results
+- [x] `grep -r "sap_cloud_sdk.agent_decorators" assets/payroll-operations-agent/app/` â must return results
+- [x] `grep -c "^@agent_model\|^@agent_config\|^@prompt_section" assets/payroll-operations-agent/app/agent.py` â must return 3
+- [x] `ls assets/payroll-operations-agent/test_report.json` â must exist
